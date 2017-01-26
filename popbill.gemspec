@@ -14,5 +14,5 @@ Gem::Specification.new do |s|
   s.license     = 'APACHE LICENSE VERSION 2.0'
   s.homepage    = 'https://github.com/linkhub-sdk/popbill.ruby'
   s.required_ruby_version = '>= 2.0.0'
-  s.add_runtime_dependency 'linkhub', '>=1.0.1'
+  s.add_runtime_dependency 'linkhub', '[>=1.0.1]'
 end
