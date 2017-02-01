@@ -307,6 +307,17 @@ class CashbillService < BaseService
     httpget("/Cashbill/#{mgtKey}?TG=PRINT", corpNum, userID)['url']
   end
 
+  def getMailURL(corpNum, mgtKey, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    if mgtKey.to_s == ''
+      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+    end
+
+    httpget("/Cashbill/#{mgtKey}?TG=MAIL", corpNum, userID)['url']
+  end
+
 
   def getEPrintURL(corpNum, mgtKey, userID = '')
     if corpNum.length != 10
