@@ -207,7 +207,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
     end
 
-    httpget("/Statement/#{itemCode}/#{mgtKey}", corpNum, userID)
+    httpget("/Statement/#{itemCode}/#{mgtKey}?Detail", corpNum, userID)
   end
 
   def sendEmail(corpNum, itemCode, mgtKey, receiverMail, userID = '')
