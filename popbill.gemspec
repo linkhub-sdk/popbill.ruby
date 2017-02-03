@@ -1,13 +1,13 @@
 Gem::Specification.new do |s|
   s.name        = 'popbill'
-  s.version     = '1.0.2'
-  s.date        = '2017-02-01'
+  s.version     = '1.0.3'
+  s.date        = '2017-02-03'
   s.summary     = 'Popbill API SDK'
   s.description = 'Popbill API SDK'
   s.authors     = ["Linkhub Dev"]
   s.email       = 'code@linkhub.co.kr'
   s.files       = [
-    "lib/popbill.rb", "lib/taxinvoice.rb", "lib/cashbill.rb", "lib/message.rb",
+    "lib/popbill.rb", "lib/popbill/taxinvoice.rb", "lib/cashbill.rb", "lib/message.rb",
     "lib/fax.rb", "lib/closedown.rb", "lib/htTaxinvoice.rb", "lib/htCashbill.rb",
     "lib/statement.rb"
   ]
