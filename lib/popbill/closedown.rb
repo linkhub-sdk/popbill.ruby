@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require_relative './popbill.rb'
+require_relative '../popbill.rb'
 
 # 팝빌 휴폐업조회 API Service Implementation
 class ClosedownService < BaseService
