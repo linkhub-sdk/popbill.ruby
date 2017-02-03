@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require_relative './popbill.rb'
+require_relative '../popbill.rb'
 
 # 팝빌 세금계산서 API Service Implementation
 class TaxinvoiceService < BaseService
