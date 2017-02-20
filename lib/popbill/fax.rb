@@ -89,6 +89,43 @@ class FaxService < BaseService
     httppostfile("/FAX", corpNum, postData, filePaths, userID)['receiptNum']
   end
 
+  def resendFax(corpNum, receiptNum, senderNum, senderName, receiveNum, receiveName,
+    reserveDT = '', userID = '')
+    if receiptNum.to_s == ''
+      raise PopbillException.new('-99999999', '팩스접수번호(receiptNum)가 입력되지 않았습니다.')
+    end
+
+    receiver = nil
+
+    if receiveNum.to_s != '' || receiveName.to_s != ''
+      receiver = [
+        {
+          "rcv" => receiveNum,
+          "rcvnm" => receiveName,
+        }
+      ]
+    end
+
+    resendFax_multi(corpNum, receiptNum, senderNum, senderName, receiver, reserveDT, userID)
+  end
+
+  def resendFax_multi(corpNum, receiptNum, senderNum ='', senderName='', receivers = nil,
+    reserveDT = '', userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+
+    postData = {}
+    postData["snd"] = senderNum
+    postData["sndnm"] = senderName
+    postData["sndDT"] = reserveDT
+    postData["rcvs"] = receivers
+
+    postData = postData.to_json
+
+    httppost("/FAX/#{receiptNum}", corpNum, postData, "", userID)['receiptNum']
+  end
+
   def getFaxDetail(corpNum, receiptNum, userID = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")

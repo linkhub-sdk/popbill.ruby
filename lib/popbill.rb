@@ -202,7 +202,7 @@ class BaseService
 
     post_body << "\r\n\r\n--#{BaseService::BOUNDARY}--\r\n"
     # Add the file Data
-    
+
     uri = URI(getServiceURL() + url)
     https = Net::HTTP.new(uri.host, 443)
     https.use_ssl = true

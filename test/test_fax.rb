@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'test/unit'
-require_relative '../lib/fax.rb'
+require_relative '../lib/popbill/fax.rb'
 
 class FaxServiceTest < Test::Unit::TestCase
   LinkID = "TESTER"
@@ -68,41 +68,75 @@ class FaxServiceTest < Test::Unit::TestCase
   end
 
 
-  # def test_14sendFax
-  #   response = FaxInstance.sendFax(
-  #     FaxServiceTest::AccessID,
-  #     "07043042991",
-  #     "발신자명",
-  #     "070111222",
-  #     "수신자명",
-  #     ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"]
-  #   )
-  #   puts response
-  #   assert_not_nil(response)
-  # end
-  #
-  # def test_15sendFax_multi
-  #   receivers =
-  #   [
-  #     {
-  #       "rcv" => "010111222",
-  #       "rcvnm" => "John",
-  #     },
-  #     {
-  #       "rcv" => "010111222",
-  #       "rcvnm" => "John2",
-  #     },
-  #   ]
-  #   response = FaxInstance.sendFax_multi(
-  #     FaxServiceTest::AccessID,
-  #     "07043042991",
-  #     "발신자명",
-  #     receivers,
-  #     ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"]
-  #   )
-  #   puts response
-  #   assert_not_nil(response)
-  # end
+  def test_14sendFax
+    response = FaxInstance.sendFax(
+      FaxServiceTest::AccessID,
+      "07043042991",
+      "발신자명",
+      "070111222",
+      "수신자명",
+      ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"]
+    )
+    puts response
+    assert_not_nil(response)
+  end
+
+  def test_15resendFax
+
+    receivers =
+      [
+        {
+          "rcv" => "01055565",
+          "rcvnm" => "John",
+        },
+        {
+          "rcv" => "010111222",
+          "rcvnm" => "John2",
+        },
+      ]
+
+    receivers = nil
+
+    receiptNum = "017021011564500001"
+    response = FaxInstance.resendFax_multi(
+      FaxServiceTest::AccessID,
+      receiptNum,
+      "07043042991",
+      "발신자명",
+      receivers,
+      "20170210200000",
+    )
+    begin
+      puts response
+      assert_not_nil(response)
+    rescue PopbillException => pe
+
+    end
+  end
+
+
+  def test_15sendFax_multi
+    receivers =
+    [
+      {
+        "rcv" => "010111222",
+        "rcvnm" => "John",
+      },
+      {
+        "rcv" => "010111222",
+        "rcvnm" => "John2",
+      },
+    ]
+    response = FaxInstance.sendFax_multi(
+      FaxServiceTest::AccessID,
+      "07043042991",
+      "발신자명",
+      receivers,
+      ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"]
+    )
+    puts response
+    assert_not_nil(response)
+  end
 
   def test_16getFaxDetail
     response = FaxInstance.getFaxDetail(
@@ -122,7 +156,23 @@ class FaxServiceTest < Test::Unit::TestCase
 
     puts response
     assert_not_nil(response)
+  end
 
+  def test_18resendFax
+
+    receiptNum = "017021011564500001"
+    response = FaxInstance.resendFax(
+      FaxServiceTest::AccessID,
+      receiptNum,
+      "07043042991",
+      "발신자명",
+      "",
+      "",
+      "",
+    )
+
+    puts response
+    assert_not_nil(response)
 
   end
 
