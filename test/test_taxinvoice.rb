@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'test/unit'
 require 'date'
-require_relative '../lib/taxinvoice.rb'
+require_relative '../lib/popbill/taxinvoice.rb'
 
 class TIServiceTest < Test::Unit::TestCase
   LinkID = "TESTER"
@@ -587,15 +587,17 @@ class TIServiceTest < Test::Unit::TestCase
     taxRegIDType = 'S'
     taxRegID = ''
     page = 1
-    perPage = 1
+    perPage = 5
     order = "D"
-    queryString = "공급받는자"
+    queryString = ""
+    interOPYN = ""
+    testUserID = ""
 
     response = TIServiceTest::TIInstance.search(
       TIServiceTest::AccessID,
       MgtKeyType::SELL,
       dType, sDate, eDate, state, type, taxType, lateOnly, taxRegIDYN,
-      taxRegIDType, taxRegID, page, perPage, order, queryString
+      taxRegIDType, taxRegID, page, perPage, order, queryString, testUserID, interOPYN,
     )
 
     puts response

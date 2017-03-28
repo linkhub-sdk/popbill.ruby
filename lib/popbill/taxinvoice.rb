@@ -553,7 +553,7 @@ class TaxinvoiceService < BaseService
 
 
   def search(corpNum, mgtKeyType, dType, sDate, eDate, state, type, taxType, lateOnly,
-    taxRegIDYN, taxRegIDType, taxRegID, page, perPage, order, queryString, userID = '')
+    taxRegIDYN, taxRegIDType, taxRegID, page, perPage, order, queryString, userID = '', interOPYN = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -578,6 +578,7 @@ class TaxinvoiceService < BaseService
     uri += "&Page=" + page.to_s
     uri += "&PerPage=" + perPage.to_s
     uri += "&Order=" + order
+    uri += "&InterOPYN=" + interOPYN.to_s
 
     if lateOnly.to_s != ''
       uri += "&LateOnly=" + lateOnly

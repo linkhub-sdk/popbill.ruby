@@ -21,3 +21,5 @@ You must save source file in UTF8
 == Recent Change
 v1.0.0
 * Initialize
+v1.1.1
+* Search API InterOPYN param added
