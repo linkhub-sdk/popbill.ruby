@@ -20,6 +20,13 @@ class FaxService < BaseService
     httpget("/FAX/ChargeInfo", corpNum, userID)
   end
 
+  def getSenderNumberList(corpNum, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+    httpget("/FAX/SenderNumber", corpNum, userID)
+  end
+
   def getURL(corpNum, togo, userID = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")

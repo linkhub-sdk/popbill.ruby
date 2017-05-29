@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'test/unit'
-require_relative '../lib/message.rb'
+require_relative '../lib/popbill/message.rb'
 
 class MSGServiceTest < Test::Unit::TestCase
   LinkID = "TESTER"
@@ -225,6 +225,15 @@ class MSGServiceTest < Test::Unit::TestCase
       sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order,
     )
     puts response["total"]
+    assert_not_nil(response)
+  end
+
+  def test_14getSenderNumberList
+    response = MSGInstance.getSenderNumberList(
+      MSGServiceTest::AccessID,
+    )
+
+    puts response
     assert_not_nil(response)
   end
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'test/unit'
-require_relative '../lib/statement.rb'
+require_relative '../lib/popbill/statement.rb'
 
 class STMTServiceTest < Test::Unit::TestCase
   LinkID = "TESTER"

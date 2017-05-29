@@ -176,6 +176,14 @@ class FaxServiceTest < Test::Unit::TestCase
 
   end
 
+  def test_19getSenderNumberList
+    response = FaxInstance.getSenderNumberList(
+      FaxServiceTest::AccessID,
+    )
+    puts response
+    assert_not_nil(response)
+  end
+
 
 
 end # end of test Class
