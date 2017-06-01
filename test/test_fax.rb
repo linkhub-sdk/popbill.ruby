@@ -67,15 +67,17 @@ class FaxServiceTest < Test::Unit::TestCase
     assert_not_nil(response)
   end
 
-
   def test_14sendFax
     response = FaxInstance.sendFax(
       FaxServiceTest::AccessID,
-      "07043042991",
+      "07043042992",
       "발신자명",
-      "070111222",
+      "07043042991",
       "수신자명",
-      ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"]
+      ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"],
+      "",
+      "",
+      true,
     )
     puts response
     assert_not_nil(response)
@@ -119,11 +121,11 @@ class FaxServiceTest < Test::Unit::TestCase
     receivers =
     [
       {
-        "rcv" => "010111222",
+        "rcv" => "07043042991",
         "rcvnm" => "John",
       },
       {
-        "rcv" => "010111222",
+        "rcv" => "07043042991",
         "rcvnm" => "John2",
       },
     ]
@@ -132,7 +134,10 @@ class FaxServiceTest < Test::Unit::TestCase
       "07043042991",
       "발신자명",
       receivers,
-      ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"]
+      ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"],
+      "",
+      "",
+      true,
     )
     puts response
     assert_not_nil(response)

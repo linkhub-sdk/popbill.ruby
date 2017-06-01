@@ -25,3 +25,5 @@ v1.1.1
 * Search API InterOPYN param added
 v1.2.0
 * GetSenderNumberList API added
+v1.2.1
+* SendFAX API adSYN param added

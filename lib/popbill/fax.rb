@@ -65,7 +65,7 @@ class FaxService < BaseService
   end
 
   def sendFax(corpNum, senderNum, senderName, receiverNum, receiverName, filePath,
-    reserveDT = '', userID = '')
+    reserveDT = '', userID = '', adsYN = false)
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
@@ -77,11 +77,11 @@ class FaxService < BaseService
       }
     ]
 
-    sendFax_multi(corpNum, senderNum, senderName, receiver, filePath, reserveDT, userID)
+    sendFax_multi(corpNum, senderNum, senderName, receiver, filePath, reserveDT, userID, adsYN)
   end
 
   def sendFax_multi(corpNum, senderNum, senderName, receivers, filePaths,
-    reserveDT = '', userID = '')
+    reserveDT = '', userID = '', adsYN = false)
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
@@ -93,6 +93,10 @@ class FaxService < BaseService
     postData["sndDT"] = reserveDT
     postData["rcvs"] = receivers
 
+    if adsYN
+      postData["adsYN"] = adsYN
+    end
+    
     httppostfile("/FAX", corpNum, postData, filePaths, userID)['receiptNum']
   end
 
