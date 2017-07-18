@@ -72,12 +72,13 @@ class FaxServiceTest < Test::Unit::TestCase
       FaxServiceTest::AccessID,
       "07043042992",
       "발신자명",
-      "07043042991",
+      "070111222",
       "수신자명",
       ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"],
       "",
       "",
       true,
+      "팩스전송제목"
     )
     puts response
     assert_not_nil(response)
@@ -99,14 +100,16 @@ class FaxServiceTest < Test::Unit::TestCase
 
     receivers = nil
 
-    receiptNum = "017021011564500001"
+    receiptNum = "017071815425000001"
     response = FaxInstance.resendFax_multi(
       FaxServiceTest::AccessID,
       receiptNum,
       "07043042991",
       "발신자명",
       receivers,
-      "20170210200000",
+      "",
+      "",
+      "팩스 재전송 제목",
     )
     begin
       puts response
@@ -121,11 +124,11 @@ class FaxServiceTest < Test::Unit::TestCase
     receivers =
     [
       {
-        "rcv" => "07043042991",
+        "rcv" => "070111222",
         "rcvnm" => "John",
       },
       {
-        "rcv" => "07043042991",
+        "rcv" => "070111222",
         "rcvnm" => "John2",
       },
     ]

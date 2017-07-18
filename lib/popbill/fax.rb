@@ -65,7 +65,7 @@ class FaxService < BaseService
   end
 
   def sendFax(corpNum, senderNum, senderName, receiverNum, receiverName, filePath,
-    reserveDT = '', userID = '', adsYN = false)
+    reserveDT = '', userID = '', adsYN = false, title = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
@@ -77,11 +77,11 @@ class FaxService < BaseService
       }
     ]
 
-    sendFax_multi(corpNum, senderNum, senderName, receiver, filePath, reserveDT, userID, adsYN)
+    sendFax_multi(corpNum, senderNum, senderName, receiver, filePath, reserveDT, userID, adsYN, title)
   end
 
   def sendFax_multi(corpNum, senderNum, senderName, receivers, filePaths,
-    reserveDT = '', userID = '', adsYN = false)
+    reserveDT = '', userID = '', adsYN = false, title = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
@@ -92,16 +92,17 @@ class FaxService < BaseService
     postData["fCnt"] = filePaths.length
     postData["sndDT"] = reserveDT
     postData["rcvs"] = receivers
+    postData["title"] = title
 
     if adsYN
       postData["adsYN"] = adsYN
     end
-    
+
     httppostfile("/FAX", corpNum, postData, filePaths, userID)['receiptNum']
   end
 
   def resendFax(corpNum, receiptNum, senderNum, senderName, receiveNum, receiveName,
-    reserveDT = '', userID = '')
+    reserveDT = '', userID = '', title = '')
     if receiptNum.to_s == ''
       raise PopbillException.new('-99999999', '팩스접수번호(receiptNum)가 입력되지 않았습니다.')
     end
@@ -117,11 +118,11 @@ class FaxService < BaseService
       ]
     end
 
-    resendFax_multi(corpNum, receiptNum, senderNum, senderName, receiver, reserveDT, userID)
+    resendFax_multi(corpNum, receiptNum, senderNum, senderName, receiver, reserveDT, userID, title)
   end
 
   def resendFax_multi(corpNum, receiptNum, senderNum ='', senderName='', receivers = nil,
-    reserveDT = '', userID = '')
+    reserveDT = '', userID = '', title = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
@@ -131,6 +132,7 @@ class FaxService < BaseService
     postData["sndnm"] = senderName
     postData["sndDT"] = reserveDT
     postData["rcvs"] = receivers
+    postData["title"] = title
 
     postData = postData.to_json
 
