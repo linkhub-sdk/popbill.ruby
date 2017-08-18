@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'test/unit'
-require_relative '../lib/cashbill.rb'
+require_relative '../lib/popbill/cashbill.rb'
 
 class CBServiceTest < Test::Unit::TestCase
   LinkID = "TESTER"
@@ -234,26 +234,26 @@ class CBServiceTest < Test::Unit::TestCase
   end
 
   def test_17sendSMS
-    # response = CBInstance.sendSMS(
-    #   CBServiceTest::AccessID,
-    #   "20161220-01",
-    #   "070-4304-2991",
-    #   "010-000-111",
-    #   "메시지 내용",
-    # )
-    # puts response
-    # assert_not_nil(response)
+    response = CBInstance.sendSMS(
+      CBServiceTest::AccessID,
+      "20161220-01",
+      "070-4304-2991",
+      "010-000-111",
+      "메시지 내용",
+    )
+    puts response
+    assert_not_nil(response)
   end
 
   def test_18sendFAX
-    # response = CBInstance.sendFax(
-    #   CBServiceTest::AccessID,
-    #   "20161220-01",
-    #   "070-4304-2991",
-    #   "070-111-222",
-    # )
-    # puts response
-    # assert_not_nil(response)
+    response = CBInstance.sendFax(
+      CBServiceTest::AccessID,
+      "20161220-01",
+      "070-4304-2991",
+      "070-111-222",
+    )
+    puts response
+    assert_not_nil(response)
   end
 
 
@@ -305,6 +305,37 @@ class CBServiceTest < Test::Unit::TestCase
     assert_not_nil(response)
   end
 
+  def test_24revokeRegistIssue
+    mgtKey = "20170818-32"
+    orgConfirmNum = "820116333"
+    orgTradeDate = "20170711"
+
+    response = CBInstance.revokeRegistIssue(
+      CBServiceTest::AccessID,
+      mgtKey,
+      orgConfirmNum,
+      orgTradeDate,
+    )
+
+    puts response
+    assert_equal(1, response["code"])
+  end
+
+  def test_25revokeRegister
+    mgtKey = "20170818-35"
+    orgConfirmNum = "820116333"
+    orgTradeDate = "20170711"
+
+    response = CBInstance.revokeRegister(
+      CBServiceTest::AccessID,
+      mgtKey,
+      orgConfirmNum,
+      orgTradeDate,
+    )
+
+    puts response
+    assert_equal(1, response["code"])
+  end
 
 
 end # end of test Class

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'test/unit'
-require_relative '../lib/closedown.rb'
+require_relative '../lib/popbill/closedown.rb'
 
 class ClosedownServiceTest < Test::Unit::TestCase
   LinkID = "TESTER"
@@ -41,14 +41,14 @@ class ClosedownServiceTest < Test::Unit::TestCase
   def test_04checkCorpNum
     response = CDInstance.checkCorpNum(
       ClosedownServiceTest::AccessID,
-      "6798700433"
+      "401-03-94930"
     )
     puts response
     assert_not_nil(response)
   end
 
   def test_05checkCorpNums
-    corpNumList = ["4108600477", "1234567890"]
+    corpNumList = ["4108600477", "401-03-94930"]
 
     response = CDInstance.checkCorpNums(
       ClosedownServiceTest::AccessID,
@@ -65,4 +65,5 @@ class ClosedownServiceTest < Test::Unit::TestCase
     puts response
     assert_not_nil(response)
   end
+
 end # end of test Class

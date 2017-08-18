@@ -75,6 +75,34 @@ class CashbillService < BaseService
     httppost("/Cashbill", corpNum, postData, "", userID)
   end
 
+  # 취소현금영수증 즉시발행 추가. 2017/08/18
+  def revokeRegistIssue(corpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN = false, memo = '', userID = '')
+
+    postData = {}
+    postData["mgtKey"] = mgtKey
+    postData["orgConfirmNum"] = orgConfirmNum
+    postData["orgTradeDate"] = orgTradeDate
+    postData["smssendYN"] = smssendYN
+    postData["memo"] = memo
+
+    postData = postData.to_json
+
+    httppost("/Cashbill", corpNum, postData, "REVOKEISSUE", userID)
+  end
+
+  # 취소현금영수증 임시저장 추가. 2017/08/18
+  def revokeRegister(corpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN = false, userID = '')
+
+    postData = {}
+    postData["mgtKey"] = mgtKey
+    postData["orgConfirmNum"] = orgConfirmNum
+    postData["orgTradeDate"] = orgTradeDate
+    postData["smssendYN"] = smssendYN
+
+    postData = postData.to_json
+
+    httppost("/Cashbill", corpNum, postData, "REVOKE", userID)
+  end
 
   def update(corpNum, mgtKey, cashbill, userID = '')
     if corpNum.length != 10

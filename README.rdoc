@@ -29,3 +29,5 @@ v1.2.1
 * SendFAX API adSYN param added
 v1.2.2
 * SendFAX/ResendFAX API title param added
+v1.3.0
+* RevokeRegistIssue/RevokeRegister API added / TypeDate Field added
