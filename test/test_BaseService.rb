@@ -166,5 +166,11 @@ class BaseServiceTest < Test::Unit::TestCase
     assert_not_nil(response)
   end
 
+  def test_15getPartnerURL
+    url = BaseServiceTest::LinkhubInstance.getPartnerURL("1234567890", "CHRG")
+    puts url
+    assert_not_nil(url)
+  end
+
 
 end
