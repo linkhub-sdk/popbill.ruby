@@ -309,7 +309,7 @@ class BaseService
     end
   end
 
-  # Get Linkhub Partner's Remain Point
+  # 파트너 포인트 충전 URL - 2017/08/29 추가
   def getPartnerURL(corpNum, togo)
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
