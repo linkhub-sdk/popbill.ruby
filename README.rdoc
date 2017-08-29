@@ -31,3 +31,5 @@ v1.2.2
 * SendFAX/ResendFAX API title param added
 v1.3.0
 * RevokeRegistIssue/RevokeRegister API added / TypeDate Field added
+v1.4.0
+* GetPartnerURL API added

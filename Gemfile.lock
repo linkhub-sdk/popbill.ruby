@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    linkhub (1.0.1)
+    linkhub (1.1.0)
 
 PLATFORMS
   ruby

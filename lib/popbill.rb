@@ -309,6 +309,19 @@ class BaseService
     end
   end
 
+  # Get Linkhub Partner's Remain Point
+  def getPartnerURL(corpNum, togo)
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    begin
+      @linkhub.getPartnerURL(getSession_Token(corpNum), getServiceID(), togo)
+    rescue LinkhubException => le
+      raise PopbillException.new(le.code, le.message)
+    end
+  end
+
   # Join Popbill Member
   def joinMember(joinInfo)
     httppost("/Join", "", joinInfo.to_json, "", "")
