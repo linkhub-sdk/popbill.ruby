@@ -76,7 +76,8 @@ class CashbillService < BaseService
   end
 
   # 취소현금영수증 즉시발행 추가. 2017/08/18
-  def revokeRegistIssue(corpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN = false, memo = '', userID = '')
+  def revokeRegistIssue(corpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN = false, memo = "", userID = "",
+    isPartCancel = false, cancelType = nil, supplyCost = nil, tax = nil, serviceFee = nil, totalAmount = nil)
 
     postData = {}
     postData["mgtKey"] = mgtKey
@@ -84,6 +85,12 @@ class CashbillService < BaseService
     postData["orgTradeDate"] = orgTradeDate
     postData["smssendYN"] = smssendYN
     postData["memo"] = memo
+    postData["isPartCancel"] = isPartCancel
+    postData["cancelType"] = cancelType
+    postData["supplyCost"] = supplyCost
+    postData["tax"] = tax
+    postData["serviceFee"] = serviceFee
+    postData["totalAmount"] = totalAmount
 
     postData = postData.to_json
 
@@ -91,13 +98,20 @@ class CashbillService < BaseService
   end
 
   # 취소현금영수증 임시저장 추가. 2017/08/18
-  def revokeRegister(corpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN = false, userID = '')
+  def revokeRegister(corpNum, mgtKey, orgConfirmNum, orgTradeDate, smssendYN = false, userID = '',
+    isPartCancel = false, cancelType = nil, supplyCost = nil, tax = nil, serviceFee = nil, totalAmount = nil)
 
     postData = {}
     postData["mgtKey"] = mgtKey
     postData["orgConfirmNum"] = orgConfirmNum
     postData["orgTradeDate"] = orgTradeDate
     postData["smssendYN"] = smssendYN
+    postData["isPartCancel"] = isPartCancel
+    postData["cancelType"] = cancelType
+    postData["supplyCost"] = supplyCost
+    postData["tax"] = tax
+    postData["serviceFee"] = serviceFee
+    postData["totalAmount"] = totalAmount
 
     postData = postData.to_json
 

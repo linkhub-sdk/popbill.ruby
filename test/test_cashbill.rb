@@ -306,36 +306,69 @@ class CBServiceTest < Test::Unit::TestCase
   end
 
   def test_24revokeRegistIssue
-    mgtKey = "20170818-32"
-    orgConfirmNum = "820116333"
-    orgTradeDate = "20170711"
+    mgtKey = "20171114-10"
+    orgConfirmNum = "125186756"
+    orgTradeDate = "20170623"
+    smssendYN = false
+    memo = ""
+    userID = ""
+    isPartCancel = true
+    cancelType = 1
+    supplyCost = "5000"
+    tax = "0"
+    serviceFee = "5000"
+    totalAmount = "10000"
 
     response = CBInstance.revokeRegistIssue(
       CBServiceTest::AccessID,
       mgtKey,
       orgConfirmNum,
       orgTradeDate,
+      smssendYN,
+      memo,
+      "testkorea",
+      isPartCancel,
+      cancelType,
+      supplyCost,
+      tax,
+      serviceFee,
+      totalAmount
     )
 
     puts response
     assert_equal(1, response["code"])
   end
 
+
   def test_25revokeRegister
-    mgtKey = "20170818-35"
+    mgtKey = "20171114-11"
     orgConfirmNum = "820116333"
     orgTradeDate = "20170711"
+    smssendYN = false
+    userID = "testkorea"
+    isPartCancel = true
+    cancelType = 1
+    supplyCost = "5000"
+    tax = "0"
+    serviceFee = "0"
+    totalAmount = "5000"
 
     response = CBInstance.revokeRegister(
       CBServiceTest::AccessID,
       mgtKey,
       orgConfirmNum,
       orgTradeDate,
+      smssendYN,
+      userID,
+      isPartCancel,
+      cancelType,
+      supplyCost,
+      tax,
+      serviceFee,
+      totalAmount,
     )
 
     puts response
     assert_equal(1, response["code"])
   end
-
-
 end # end of test Class
