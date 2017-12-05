@@ -575,34 +575,35 @@ class TIServiceTest < Test::Unit::TestCase
     assert_not_nil(url)
   end
 
-  def test_35search
-    dType = "W"
-    sDate = "20160601"
-    eDate = "20161201"
-    state = ["3**", "6**"]
-    type = ["N", "M"]
-    taxType = ["T", "N", "Z"]
-    lateOnly = ''
-    taxRegIDYN = ''
-    taxRegIDType = 'S'
-    taxRegID = ''
-    page = 1
-    perPage = 5
-    order = "D"
-    queryString = ""
-    interOPYN = ""
-    testUserID = ""
+def test_35search
+  dType = "W"
+  sDate = "20171101"
+  eDate = "20171231"
+  state = ["3**", "6**"]
+  type = ["N", "M"]
+  taxType = ["T", "N", "Z"]
+  issueType = ["N", "R", "T"]
+  lateOnly = ''
+  taxRegIDYN = ''
+  taxRegIDType = 'S'
+  taxRegID = ''
+  page = 1
+  perPage = 5
+  order = "D"
+  queryString = ""
+  interOPYN = ""
+  testUserID = ""
 
-    response = TIServiceTest::TIInstance.search(
-      TIServiceTest::AccessID,
-      MgtKeyType::SELL,
-      dType, sDate, eDate, state, type, taxType, lateOnly, taxRegIDYN,
-      taxRegIDType, taxRegID, page, perPage, order, queryString, testUserID, interOPYN,
-    )
+  response = TIServiceTest::TIInstance.search(
+    TIServiceTest::AccessID,
+    MgtKeyType::SELL,
+    dType, sDate, eDate, state, type, taxType, lateOnly, taxRegIDYN,
+    taxRegIDType, taxRegID, page, perPage, order, queryString, testUserID, interOPYN, issueType
+  )
 
-    puts response
-    assert_not_nil(response)
-  end
+  puts response['total']
+  assert_not_nil(response)
+end
 
   def test_36attachStatement
     response = TIServiceTest::TIInstance.attachStatement(
