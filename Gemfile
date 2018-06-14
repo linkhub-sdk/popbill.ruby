@@ -2,3 +2,5 @@
 source "https://rubygems.org"
 
 gem "linkhub"
+
+gem 'test-unit'
