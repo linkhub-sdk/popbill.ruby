@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'popbill'
-  s.version     = '1.5.1'
-  s.date        = '2017-12-05'
+  s.version     = '1.6.0'
+  s.date        = '2018-06-18'
   s.summary     = 'Popbill API SDK'
   s.description = 'Popbill API SDK'
   s.authors     = ["Linkhub Dev"]
@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
     "lib/popbill.rb", "lib/popbill/taxinvoice.rb", "lib/popbill/cashbill.rb",
     "lib/popbill/message.rb", "lib/popbill/fax.rb", "lib/popbill/closedown.rb",
     "lib/popbill/htTaxinvoice.rb", "lib/popbill/htCashbill.rb",
-    "lib/popbill/statement.rb"
+    "lib/popbill/statement.rb", "lib/popbill.kakaotalk.rb"
   ]
   s.license     = 'APACHE LICENSE VERSION 2.0'
   s.homepage    = 'https://github.com/linkhub-sdk/popbill.ruby'
