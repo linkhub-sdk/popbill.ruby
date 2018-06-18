@@ -300,6 +300,19 @@ class MessageService < BaseService
     httpget(URI.escape(uri), corpNum, userID)
   end
 
+  def getStates(corpNum, reciptNumList, userID ='')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+    unless reciptNumList.any?
+      raise PopbillException.new(-99999999, "접수번호 배열이 올바르지 않습니다.")
+    end
+
+    postData = reciptNumList.to_json
+
+    httppost("/Message/States", corpNum, postData, "", userID)
+
+  end
 
 end # end of MessageService
 

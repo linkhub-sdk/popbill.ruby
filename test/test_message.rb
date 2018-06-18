@@ -376,7 +376,7 @@ class MSGServiceTest < Test::Unit::TestCase
 
     response = MSGInstance.sendMMS(
         MSGServiceTest::AccessID, sender, senderName, receiver, receiverName,
-        subject, contents, filePath, '', '', 'testkorea', '20180618141957'
+        subject, contents, filePath, '', '', 'testkorea', ''
         )
 
     puts response
@@ -434,6 +434,18 @@ class MSGServiceTest < Test::Unit::TestCase
 
     puts response
     assert_not_nil(response)
+  end
+
+  def test_25getStates
+
+    reciptNumList = %w(018061814000000039 018061815000000002)
+
+    response = MSGInstance.getStates(
+        MSGServiceTest::AccessID,
+        reciptNumList,
+        "testkorea",
+    )
+    puts response
   end
 
 end # end of test Class
