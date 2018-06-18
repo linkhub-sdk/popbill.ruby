@@ -10,6 +10,7 @@ class FaxService < BaseService
       @instance.addScope("160")
       return @instance
     end
+
     private :new
   end
 
@@ -42,9 +43,9 @@ class FaxService < BaseService
   end
 
   def search(corpNum, sDate, eDate, state, reserveYN, senderOnly, page, perPage,
-    order, userID = '')
+             order, userID = '')
     if corpNum.length != 10
-          raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if sDate.to_s == ''
       raise PopbillException.new('-99999999', '시작일자가 입력되지 않았습니다.')
@@ -65,23 +66,23 @@ class FaxService < BaseService
   end
 
   def sendFax(corpNum, senderNum, senderName, receiverNum, receiverName, filePath,
-    reserveDT = '', userID = '', adsYN = false, title = '')
+              reserveDT = '', userID = '', adsYN = false, title = '', requestNum = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
 
     receiver = [
-      {
-        "rcv" => receiverNum,
-        "rcvnm" => receiverName,
-      }
+        {
+            "rcv" => receiverNum,
+            "rcvnm" => receiverName,
+        }
     ]
 
-    sendFax_multi(corpNum, senderNum, senderName, receiver, filePath, reserveDT, userID, adsYN, title)
+    sendFax_multi(corpNum, senderNum, senderName, receiver, filePath, reserveDT, userID, adsYN, title, requestNum)
   end
 
   def sendFax_multi(corpNum, senderNum, senderName, receivers, filePaths,
-    reserveDT = '', userID = '', adsYN = false, title = '')
+                    reserveDT = '', userID = '', adsYN = false, title = '', requestNum = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
@@ -93,6 +94,7 @@ class FaxService < BaseService
     postData["sndDT"] = reserveDT
     postData["rcvs"] = receivers
     postData["title"] = title
+    postData["requestNum"] = requestNum
 
     if adsYN
       postData["adsYN"] = adsYN
@@ -102,7 +104,7 @@ class FaxService < BaseService
   end
 
   def resendFax(corpNum, receiptNum, senderNum, senderName, receiveNum, receiveName,
-    reserveDT = '', userID = '', title = '')
+                reserveDT = '', userID = '', title = '', requestNum = '')
     if receiptNum.to_s == ''
       raise PopbillException.new('-99999999', '팩스접수번호(receiptNum)가 입력되지 않았습니다.')
     end
@@ -111,18 +113,19 @@ class FaxService < BaseService
 
     if receiveNum.to_s != '' || receiveName.to_s != ''
       receiver = [
-        {
-          "rcv" => receiveNum,
-          "rcvnm" => receiveName,
-        }
+          {
+              "rcv" => receiveNum,
+              "rcvnm" => receiveName,
+          }
       ]
     end
 
-    resendFax_multi(corpNum, receiptNum, senderNum, senderName, receiver, reserveDT, userID, title)
+
+    resendFax_multi(corpNum, receiptNum, senderNum, senderName, receiver, reserveDT, userID, title, requestNum)
   end
 
-  def resendFax_multi(corpNum, receiptNum, senderNum ='', senderName='', receivers = nil,
-    reserveDT = '', userID = '', title = '')
+  def resendFax_multi(corpNum, receiptNum, senderNum = '', senderName = '', receivers = nil,
+                      reserveDT = '', userID = '', title = '', requestNum = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
@@ -133,6 +136,7 @@ class FaxService < BaseService
     postData["sndDT"] = reserveDT
     postData["rcvs"] = receivers
     postData["title"] = title
+    postData["requestNum"] = requestNum
 
     postData = postData.to_json
 
@@ -156,5 +160,21 @@ class FaxService < BaseService
   end
 
 
+  def getFaxDetailRN(corpNum, requestNum, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+
+    httpget("/FAX/Get/#{requestNum}", corpNum, userID)
+  end
+
+
+  def cancelReserveRN(corpNum, requestNum, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+
+    httpget("/FAX/Cancel/#{requestNum}", corpNum, userID)
+  end
 
 end # end of FaxService

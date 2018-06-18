@@ -193,5 +193,65 @@ class FaxServiceTest < Test::Unit::TestCase
   end
 
 
+  def test_20sendFax
+    response = FaxInstance.sendFax(
+        FaxServiceTest::AccessID,
+        "07043042992",
+        "발신자명",
+        "070111222",
+        "수신자명",
+        ["/Users/kimhyunjin/SDK/popbill.sdk.example.ruby/popbill.ruby/test/test.jpg"],
+        "",
+        "",
+        true,
+        "팩스전송제목",
+        "20180618153602"
+    )
+    puts response
+    assert_not_nil(response)
+  end
+
+
+  def test_21resendFax
+
+    receiptNum = "018061815385900001"
+    response = FaxInstance.resendFax(
+        FaxServiceTest::AccessID,
+        receiptNum,
+        "07043042991",
+        "발신자명",
+        "",
+        "",
+        "20180718154556",
+        "testkorea",
+        "팩스전송제목",
+        "20180618_001"
+        )
+
+    puts response
+    assert_not_nil(response)
+
+  end
+
+
+  def test_22getFaxDetailRN
+    response = FaxInstance.getFaxDetailRN(
+        FaxServiceTest::AccessID,
+        "20180618_001",
+        )
+
+    puts response
+    assert_not_nil(response)
+  end
+
+  def test_23cancelReserveRN
+    response = FaxInstance.cancelReserveRN(
+        FaxServiceTest::AccessID,
+        "20180618_001",
+        )
+
+    puts response
+    assert_not_nil(response)
+  end
 
 end # end of test Class
