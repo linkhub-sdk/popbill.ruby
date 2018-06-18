@@ -12,6 +12,7 @@ class MessageService < BaseService
       @instance.addScope("152")
       return @instance
     end
+
     private :new
   end
 
@@ -45,7 +46,7 @@ class MessageService < BaseService
 
 
   def sendMessage(msgType, corpNum, sender, senderName, subject, contents,
-    messages, reserveDT, adsYN = false, userID = '')
+                  messages, reserveDT, adsYN = false, userID = '', requestNum = '')
 
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
@@ -73,6 +74,9 @@ class MessageService < BaseService
     end
     if adsYN
       req["adsYN"] = true
+    end
+    if requestNum.to_s != ''
+      req["requestNum"] = requestNum
     end
 
     postData = req.to_json
@@ -82,107 +86,108 @@ class MessageService < BaseService
 
 
   def sendSMS(corpNum, sender, senderName, receiver, receiverName, contents,
-    reserveDT = '', adsYN = false, userID = '')
+              reserveDT = '', adsYN = false, userID = '', requestNum = '')
 
     messages = [
-      {
-        "snd" => sender,
-        "sndName" => senderName,
-        "rcv" => receiver,
-        "rcvnm" => receiverName,
-        "msg" => contents,
-      }
+        {
+            "snd" => sender,
+            "sndName" => senderName,
+            "rcv" => receiver,
+            "rcvnm" => receiverName,
+            "msg" => contents,
+        }
     ]
     sendMessage("SMS", corpNum, '', '', '', '', messages, reserveDT,
-      adsYN, userID
+                adsYN, userID, requestNum
     )
   end
 
   def sendSMS_multi(corpNum, sender, senderName, contents, messages, reserveDT = '',
-    adsYN = false, userID = '')
+                    adsYN = false, userID = '', requestNum = '')
 
     sendMessage("SMS", corpNum, sender, senderName, '', contents, messages, reserveDT,
-      adsYN, userID
+                adsYN, userID, requestNum
     )
   end
 
 
   def sendLMS(corpNum, sender, senderName, receiver, receiverName, subject, contents,
-    reserveDT = '', adsYN = false, userID = '')
+              reserveDT = '', adsYN = false, userID = '', requestNum)
 
     messages = [
-      {
-        "snd" => sender,
-        "sndName" => senderName,
-        "rcv" => receiver,
-        "rcvnm" => receiverName,
-        "msg" => contents,
-        "sjt" => subject,
-      }
+        {
+            "snd" => sender,
+            "sndName" => senderName,
+            "rcv" => receiver,
+            "rcvnm" => receiverName,
+            "msg" => contents,
+            "sjt" => subject,
+        }
     ]
 
     sendMessage("LMS", corpNum, '', '', '', '', messages, reserveDT,
-      adsYN, userID
-    )
-  end
-
-  def sendXMS_multi(corpNum, sender, senderName, subject, contents, messages,
-    reserveDT = '', adsYN = false, userID = '')
-
-    sendMessage("XMS", corpNum, sender, senderName, subject, contents, messages,
-      reserveDT, adsYN, userID
-    )
-  end
-
-  def sendXMS(corpNum, sender, senderName, receiver, receiverName, subject, contents,
-    reserveDT = '', adsYN = false, userID = '')
-
-    messages = [
-      {
-        "snd" => sender,
-        "sndName" => senderName,
-        "rcv" => receiver,
-        "rcvnm" => receiverName,
-        "msg" => contents,
-        "sjt" => subject,
-      }
-    ]
-
-    sendMessage("XMS", corpNum, '', '', '', '', messages, reserveDT,
-      adsYN, userID
+                adsYN, userID, requestNum
     )
   end
 
   def sendLMS_multi(corpNum, sender, senderName, subject, contents, messages,
-    reserveDT = '', adsYN = false, userID = '')
+                    reserveDT = '', adsYN = false, userID = '', requestNum)
 
     sendMessage("LMS", corpNum, sender, senderName, subject, contents, messages,
-      reserveDT, adsYN, userID
+                reserveDT, adsYN, userID, requestNum
+    )
+  end
+
+
+  def sendXMS(corpNum, sender, senderName, receiver, receiverName, subject, contents,
+              reserveDT = '', adsYN = false, userID = '', requestNum)
+
+    messages = [
+        {
+            "snd" => sender,
+            "sndName" => senderName,
+            "rcv" => receiver,
+            "rcvnm" => receiverName,
+            "msg" => contents,
+            "sjt" => subject,
+        }
+    ]
+
+    sendMessage("XMS", corpNum, '', '', '', '', messages, reserveDT,
+                adsYN, userID, requestNum
+    )
+  end
+
+  def sendXMS_multi(corpNum, sender, senderName, subject, contents, messages,
+                    reserveDT = '', adsYN = false, userID = '', requestNum)
+
+    sendMessage("XMS", corpNum, sender, senderName, subject, contents, messages,
+                reserveDT, adsYN, userID, requestNum
     )
   end
 
 
   def sendMMS(corpNum, sender, senderName, receiver, receiverName, subject, contents,
-    filePath, reserveDT = '', adsYN = false, userID = '')
+              filePath, reserveDT = '', adsYN = false, userID = '', requestNum)
 
     messages = [
-      {
-        "snd" => sender,
-        "sndnm" => senderName,
-        "rcv" => receiver,
-        "rcvnm" => receiverName,
-        "msg" => contents,
-        "sjt" => subject,
-      }
+        {
+            "snd" => sender,
+            "sndnm" => senderName,
+            "rcv" => receiver,
+            "rcvnm" => receiverName,
+            "msg" => contents,
+            "sjt" => subject,
+        }
     ]
 
     sendMMS_multi(corpNum, sender, senderName, subject, contents, messages, filePath,
-      reserveDT, adsYN, userID
+                  reserveDT, adsYN, userID, requestNum
     )
   end
 
   def sendMMS_multi(corpNum, sender, senderName, subject, contents, messages, filePath,
-    reserveDT = '', adsYN = false, userID = '')
+                    reserveDT = '', adsYN = false, userID = '', requestNum)
 
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
@@ -210,6 +215,10 @@ class MessageService < BaseService
     end
     if adsYN
       req["adsYN"] = true
+    end
+
+    if requestNum.to_s != ''
+      req["requestNum"] = requestNum
     end
 
     httppostfile("/MMS", corpNum, req, [filePath], userID)['receiptNum']
@@ -226,6 +235,17 @@ class MessageService < BaseService
     httpget("/Message/#{receiptNum}", corpNum, userID)
   end
 
+  def getMessagesRN(corpNum, requestNum, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+    if requestNum.to_s == ''
+      raise PopbillException.new(-99999999, "요청번호(requestNum)가 입력되지 않았습니다.")
+    end
+
+    httpget("/Message/Get/#{requestNum}", corpNum, userID)
+  end
+
   def cancelReserve(corpNum, receiptNum, userID = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
@@ -237,6 +257,17 @@ class MessageService < BaseService
     httpget("/Message/#{receiptNum}/Cancel", corpNum, userID)
   end
 
+  def cancelReserveRN(corpNum, requestNum, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+    if requestNum.to_s == ''
+      raise PopbillException.new(-99999999, "요청번호(requestNum)가 입력되지 않았습니다.")
+    end
+
+    httpget("/Message/Cancel/#{requestNum}", corpNum, userID)
+  end
+
   def getURL(corpNum, togo, userID = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
@@ -246,7 +277,7 @@ class MessageService < BaseService
   end
 
   def search(corpNum, sDate, eDate, state, item, reserveYN, senderYN, page, perPage,
-    order, userID = '')
+             order, userID = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end

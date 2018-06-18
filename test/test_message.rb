@@ -34,7 +34,7 @@ class MSGServiceTest < Test::Unit::TestCase
 
   def test_03sendSMS_single
     sender = "07043042991"
-    senderName = "John"
+    senderName = "kimhyunjin"
     receiver = "010000111"
     receiverName = "MyPhone"
     contents = "message send Test"
@@ -232,6 +232,205 @@ class MSGServiceTest < Test::Unit::TestCase
     response = MSGInstance.getSenderNumberList(
       MSGServiceTest::AccessID,
     )
+
+    puts response
+    assert_not_nil(response)
+  end
+
+  def test_15sendSMS_single
+    sender = "07043042991"
+    senderName = "John"
+    receiver = "010000111"
+    receiverName = "MyPhone"
+    contents = "message send Test"
+
+    response = MSGInstance.sendSMS(
+        MSGServiceTest::AccessID, sender, senderName, receiver, receiverName, contents, '', '', 'testkorea', '20180618140803')
+
+    puts response
+
+    assert_not_nil(response)
+  end
+
+  def test_16sendSMS_multi
+    sender = "07043042991"
+    senderName = "John"
+    contents = "message send Test"
+
+    receivers =
+        [
+            {
+                "rcv" => "010000111",
+                "rcvnm" => "John",
+            },
+            {
+                "rcv" => "010000111",
+                "rcvnm" => "John2",
+            },
+        ]
+
+    response = MSGInstance.sendSMS_multi(
+        MSGServiceTest::AccessID, sender, senderName, contents, receivers, '', '', '', '20180618140850'
+        )
+
+    puts response
+    assert_not_nil(response)
+  end
+
+  def test_17sendLMS_single
+    sender = "07043042991"
+    senderName = "John"
+    receiver = "010000111"
+    receiverName = "MyPhone"
+    subject = "This is subject"
+    contents = "message send Test"
+
+    response = MSGInstance.sendLMS(
+        MSGServiceTest::AccessID, sender, senderName, receiver, receiverName,
+        subject, contents, '', '', 'testkorea', '20180618141203'
+        )
+
+    puts response
+
+    assert_not_nil(response)
+  end
+
+  def test_18sendLMS_multi
+    sender = "07043042991"
+    senderName = "John"
+    subject = "This is subject"
+    contents = "message send Test LMS Multi"
+
+    receivers =
+        [
+            {
+                "rcv" => "01000111",
+                "rcvnm" => "John",
+            },
+            {
+                "rcv" => "010000111",
+                "rcvnm" => "John2",
+            },
+        ]
+
+    response = MSGInstance.sendLMS_multi(
+        MSGServiceTest::AccessID, sender, senderName, subject, contents, receivers, '', true, 'testkorea', '20180618141241'
+        )
+
+    puts response
+    assert_not_nil(response)
+  end
+
+  def test_19sendXMS_single
+    sender = "07043042991"
+    senderName = "John"
+    receiver = "010111222"
+    receiverName = "MyPhone"
+    subject = "This is subject"
+    contents = "message send"
+
+    response = MSGInstance.sendXMS(
+        MSGServiceTest::AccessID, sender, senderName, receiver, receiverName,
+        subject, contents, '', '', 'cream99', '20180618141557'
+        )
+
+    puts response
+
+    assert_not_nil(response)
+  end
+
+  def test_20sendXMS_multi
+    sender = "07043042991"
+    senderName = "John"
+    subject = "This is subject"
+    contents = "message send Test LMS Multi"
+
+    receivers =
+        [
+            {
+                "rcv" => "010111222",
+                "rcvnm" => "John",
+            },
+            {
+                "rcv" => "010111222",
+                "rcvnm" => "John2",
+            },
+        ]
+
+    response = MSGInstance.sendXMS_multi(
+        MSGServiceTest::AccessID, sender, senderName, subject, contents, receivers, '', '', 'testkorea', '20180618141615'
+        )
+
+    puts response
+    assert_not_nil(response)
+  end
+
+  def test_21sendMMS_single
+    sender = "07043042991"
+    senderName = "John"
+    receiver = "010000111"
+    receiverName = "MyPhone"
+    subject = "This is subject"
+    contents = "message send Test"
+    filePath = "/Users/kimhyunjin/SDK/popbill.sdk.example.ruby/popbill.ruby/test/test.jpg"
+
+    response = MSGInstance.sendMMS(
+        MSGServiceTest::AccessID, sender, senderName, receiver, receiverName,
+        subject, contents, filePath, '', '', 'testkorea', '20180618141957'
+        )
+
+    puts response
+
+    assert_not_nil(response)
+  end
+
+  def test_22sendMMS_single
+    sender = "07043042991"
+    senderName = "John"
+    receiver = "010000111"
+    receiverName = "MyPhone"
+    subject = "This is subject"
+    contents = "message send Test"
+    filePath = "/Users/kimhyunjin/SDK/popbill.sdk.example.ruby/popbill.ruby/test/test.jpg"
+
+    receivers =
+        [
+            {
+                "rcv" => "010111222",
+                "rcvnm" => "John",
+            },
+            {
+                "rcv" => "010111222",
+                "rcvnm" => "John2",
+            },
+        ]
+
+    response = MSGInstance.sendMMS_multi(
+        MSGServiceTest::AccessID, sender, senderName,
+        subject, contents, receivers, filePath, '20180718142739', '', 'testkorea', '20180618-MMS'
+    )
+
+    puts response
+
+    assert_not_nil(response)
+  end
+
+
+  def test_23getMessagesRN
+    response = MSGInstance.getMessagesRN(
+        MSGServiceTest::AccessID,
+        "20180618-MMS",
+        )
+
+    puts response
+    assert_not_nil(response)
+  end
+
+  def test_24cancelReserveRN
+    response = MSGInstance.cancelReserveRN(
+        MSGServiceTest::AccessID,
+        "20180618-MMS",
+        )
 
     puts response
     assert_not_nil(response)
