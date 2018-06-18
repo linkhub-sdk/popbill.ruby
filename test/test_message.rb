@@ -407,7 +407,7 @@ class MSGServiceTest < Test::Unit::TestCase
 
     response = MSGInstance.sendMMS_multi(
         MSGServiceTest::AccessID, sender, senderName,
-        subject, contents, receivers, filePath, '20180718142739', '', 'testkorea', '20180618-MMS'
+        subject, contents, receivers, filePath, '20180718142739', '', 'testkorea', '20180618182506'
     )
 
     puts response

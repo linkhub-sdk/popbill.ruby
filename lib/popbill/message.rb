@@ -112,7 +112,7 @@ class MessageService < BaseService
 
 
   def sendLMS(corpNum, sender, senderName, receiver, receiverName, subject, contents,
-              reserveDT = '', adsYN = false, userID = '', requestNum)
+              reserveDT = '', adsYN = false, userID = '', requestNum = '')
 
     messages = [
         {
@@ -131,7 +131,7 @@ class MessageService < BaseService
   end
 
   def sendLMS_multi(corpNum, sender, senderName, subject, contents, messages,
-                    reserveDT = '', adsYN = false, userID = '', requestNum)
+                    reserveDT = '', adsYN = false, userID = '', requestNum = '')
 
     sendMessage("LMS", corpNum, sender, senderName, subject, contents, messages,
                 reserveDT, adsYN, userID, requestNum
@@ -140,7 +140,7 @@ class MessageService < BaseService
 
 
   def sendXMS(corpNum, sender, senderName, receiver, receiverName, subject, contents,
-              reserveDT = '', adsYN = false, userID = '', requestNum)
+              reserveDT = '', adsYN = false, userID = '', requestNum = '')
 
     messages = [
         {
@@ -159,7 +159,7 @@ class MessageService < BaseService
   end
 
   def sendXMS_multi(corpNum, sender, senderName, subject, contents, messages,
-                    reserveDT = '', adsYN = false, userID = '', requestNum)
+                    reserveDT = '', adsYN = false, userID = '', requestNum = '')
 
     sendMessage("XMS", corpNum, sender, senderName, subject, contents, messages,
                 reserveDT, adsYN, userID, requestNum
@@ -168,7 +168,7 @@ class MessageService < BaseService
 
 
   def sendMMS(corpNum, sender, senderName, receiver, receiverName, subject, contents,
-              filePath, reserveDT = '', adsYN = false, userID = '', requestNum)
+              filePath, reserveDT = '', adsYN = false, userID = '', requestNum = '')
 
     messages = [
         {
@@ -187,7 +187,7 @@ class MessageService < BaseService
   end
 
   def sendMMS_multi(corpNum, sender, senderName, subject, contents, messages, filePath,
-                    reserveDT = '', adsYN = false, userID = '', requestNum)
+                    reserveDT = '', adsYN = false, userID = '', requestNum = '')
 
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
@@ -300,7 +300,7 @@ class MessageService < BaseService
     httpget(URI.escape(uri), corpNum, userID)
   end
 
-  def getStates(corpNum, reciptNumList, userID ='')
+  def getStates(corpNum, reciptNumList, userID = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end

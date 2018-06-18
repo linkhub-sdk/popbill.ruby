@@ -205,7 +205,7 @@ class FaxServiceTest < Test::Unit::TestCase
         "",
         true,
         "팩스전송제목",
-        "20180618153602"
+        "20180618182928"
     )
     puts response
     assert_not_nil(response)
