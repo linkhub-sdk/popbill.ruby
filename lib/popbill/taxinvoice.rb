@@ -644,6 +644,20 @@ class TaxinvoiceService < BaseService
 
     httppost("/Taxinvoice/#{mgtKeyType}/#{mgtKey}/DetachStmt", corpNum, postData, "", userID)
   end
+
+  def assignMgtKey(corpNum, mgtKeyType, itemKey, mgtKey, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    if itemKey.to_s == ''
+      raise PopbillException.new('-99999999', '해당문서의 아이템키가 입력되지 않았습니다.')
+    end
+
+    String postDate = "MgtKey="+mgtKey
+
+    httppost("/Taxinvoice/#{itemKey}/#{mgtKeyType}", corpNum, postDate, "", userID, "application/x-www-form-urlencoded; charset=utf-8")
+  end
+
 end # end of TaxinvoiceService
 
 module MgtKeyType

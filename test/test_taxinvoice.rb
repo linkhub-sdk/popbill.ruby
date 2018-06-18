@@ -70,7 +70,7 @@ class TIServiceTest < Test::Unit::TestCase
 
   def test_08register
     taxinvoice = {
-     "writeDate" => "20170117",
+     "writeDate" => "20180618",
      "issueType" => "정발행",
      "taxType" => "과세",
      "issueTiming" => "직접발행",
@@ -80,7 +80,7 @@ class TIServiceTest < Test::Unit::TestCase
      "taxTotal" => "2000",
      "totalAmount" => "22000",
 
-     "invoicerMgtKey" => "20170117-06",
+     "invoicerMgtKey" => "20180618114947-2",
      "invoicerCorpNum" => TIServiceTest::AccessID,
      "invoicerCorpName" => "상호명",
      "invoicerCEOName" => "대표자명",
@@ -577,8 +577,8 @@ class TIServiceTest < Test::Unit::TestCase
 
 def test_35search
   dType = "W"
-  sDate = "20171101"
-  eDate = "20171231"
+  sDate = "20180618"
+  eDate = "20180618"
   state = ["3**", "6**"]
   type = ["N", "M"]
   taxType = ["T", "N", "Z"]
@@ -601,7 +601,7 @@ def test_35search
     taxRegIDType, taxRegID, page, perPage, order, queryString, testUserID, interOPYN, issueType
   )
 
-  puts response['total']
+  puts response
   assert_not_nil(response)
 end
 
@@ -629,5 +629,18 @@ end
     assert_not_nil(response)
   end
 
+  def test_assignMgtKey
+    response = TIInstance.assignMgtKey(
+        TIServiceTest::AccessID,
+        MgtKeyType::SELL,
+        "018061813235700001",
+        "20180618132338",
+        "testkorea",
+    )
+    puts response
+  end
+
 
 end # end of test Class
+
+

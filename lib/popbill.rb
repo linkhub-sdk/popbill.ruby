@@ -122,12 +122,18 @@ class BaseService
   end #end of httpget
 
   # Request HTTP Post
-  def httppost(url, corpNum, postData, action = '', userID = '')
+  def httppost(url, corpNum, postData, action = '', userID = '', contentsType = '')
+
     headers = {
       "x-pb-version" => BaseService::POPBILL_APIVersion,
       "Accept-Encoding" => "gzip,deflate",
-      "Content-Type" => "application/json; charset=utf8",
     }
+
+    if contentsType == ''
+      headers["Content-Type"] = "application/json; charset=utf8"
+    else
+      headers["Content-Type"] = contentsType
+    end
 
     if corpNum.to_s != ''
       headers["Authorization"] = "Bearer " + getSession_Token(corpNum)
