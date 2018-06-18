@@ -35,3 +35,8 @@ v1.4.0
 * GetPartnerURL API added
 v1.5.1
 * Taxinvoice Search API querystring [IssueType]
+v1.6.0
+* KakaoTalk Service
+* 문자/팩스/카카오톡 ReqeustNum 전송요청번호 할당 기능 추가
+* Taxinvoce AssignMgtKey API added
+* 문자 GetStates API added
