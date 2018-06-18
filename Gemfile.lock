@@ -2,12 +2,16 @@ GEM
   remote: https://rubygems.org/
   specs:
     linkhub (1.1.0)
+    power_assert (1.1.1)
+    test-unit (3.2.7)
+      power_assert
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   linkhub
+  test-unit
 
 BUNDLED WITH
-   1.14.3
+   1.16.2
