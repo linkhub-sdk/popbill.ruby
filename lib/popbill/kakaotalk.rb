@@ -164,12 +164,67 @@ class KakaoService < BaseService
     httppost("/FTS", corpNum, postData, "", userID)
   end
 
-  # sendFMS_one / sendFMS_multi / sendFMS_same
+  def sendFMS_one(corpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, filePath, imageURL, receiver, receiverName, btns, adsYN = false, requestNum = '', userID = '')
+    msg = [
+        {
+            "rcv" => receiver,
+            "rcvnm" => receiverName,
+            "msg" => content,
+            "altmsg" => altContent,
+        }
+    ]
+    sendFMS_same(corpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, filePath, imageURL, msg, btns, adsYN, requestNum, userID)
+  end
 
-  # CancelReserve / CancelReserveRN
+  def sendFMS_multi(corpNum, plusFriendID, snd, altSendType, sndDT, filePath, imageURL, msgs, btns, adsYN = false, requestNum = '', userID = '')
+    sendFMS_same(corpNum, plusFriendID, snd, "", "", altSendType, sndDT, filePath, imageURL, msgs, btns, adsYN, requestNum, userID)
+  end
 
+  def sendFMS_same(corpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, filePath, imageURL, msgs, btns, adsYN = false, requestNum = '', userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
 
-  def getMessages(corpNum, receiptNum, userId = '')
+    req = {}
+
+    if plusFriendID.to_s != ''
+      req["plusFriendID"] = plusFriendID
+    end
+    if snd.to_s != ''
+      req["snd"] = snd
+    end
+    if content.to_s != ''
+      req["content"] = content
+    end
+    if altContent.to_s != ''
+      req["altContent"] = altContent
+    end
+    if altSendType.to_s != ''
+      req["altSendType"] = altSendType
+    end
+    if sndDT.to_s != ''
+      req["sndDT"] = sndDT
+    end
+    if msgs.to_s != ''
+      req["msgs"] = msgs
+    end
+    if btns.to_s != ''
+      req["btns"] = btns
+    end
+    if adsYN.to_s != ''
+      req["adsYN"] = adsYN
+    end
+    if requestNum.to_s != ''
+      req["requestNum"] = requestNum
+    end
+    if userID.to_s != ''
+      req["userID"] = userID
+    end
+
+    httppostfile("/FMS", corpNum, req, [filePath], userID)
+  end
+
+  def cancelReserve(corpNum, receiptNum, userID = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
@@ -177,10 +232,10 @@ class KakaoService < BaseService
       raise PopbillException.new(-99999999, "접수번호(receiptNum)가 입력되지 않았습니다.")
     end
 
-    httpget("/KakaoTalk/#{receiptNum}", corpNum, userId)
+    httpget("/KakaoTalk/#{receiptNum}/Cancel", corpNum, userID)
   end
 
-  def getMessagesRN(corpNum, requestNum, userId = '')
+  def cancelReserveRN(corpNum, requestNum, userID = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
@@ -188,14 +243,74 @@ class KakaoService < BaseService
       raise PopbillException.new(-99999999, "요청번호(requestNum)가 입력되지 않았습니다.")
     end
 
-    httpget("/KakaoTalk/Get/#{requestNum}", corpNum, userId)
+    httpget("/KakaoTalk/Cancel/#{requestNum}", corpNum, userID)
   end
 
-  # Search
 
-  # GetUnitCost
+  def getMessages(corpNum, receiptNum, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+    if receiptNum.to_s == ''
+      raise PopbillException.new(-99999999, "접수번호(receiptNum)가 입력되지 않았습니다.")
+    end
 
-  # GetChareInfo
+    httpget("/KakaoTalk/#{receiptNum}", corpNum, userID)
+  end
+
+  def getMessagesRN(corpNum, requestNum, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+    if requestNum.to_s == ''
+      raise PopbillException.new(-99999999, "요청번호(requestNum)가 입력되지 않았습니다.")
+    end
+
+    httpget("/KakaoTalk/Get/#{requestNum}", corpNum, userID)
+  end
+
+  def search(corpNum, sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    if sDate.to_s == ''
+      raise PopbillException.new('-99999999', '시작일자가 입력되지 않았습니다.')
+    end
+    if eDate.to_s == ''
+      raise PopbillException.new('-99999999', '종료일자가 입력되지 않았습니다.')
+    end
+
+    uri = "/KakaoTalk/Search?SDate=#{sDate}&EDate=#{eDate}"
+    uri += "&State=" + state.join(',')
+    uri += "&Item=" + item.join(',')
+    uri += "&ReserveYN=" + reserveYN
+    uri += "&SenderYN=" + senderYN
+    uri += "&Page=" + page.to_s
+    uri += "&PerPage=" + perPage.to_s
+    uri += "&Order=" + order
+
+    httpget(URI.escape(uri), corpNum, userID)
+  end
+
+  def getUnitCost(corpNum, msgType, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+    httpget("/KakaoTalk/UnitCost?Type=#{msgType}", corpNum, userID)
+  end
+
+  def getChargeInfo(corpNum, msgType, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+    httpget("/KakaoTalk/ChargeInfo?Type=#{msgType}", corpNum, userID)
+  end
 
 end
 
+
+module KakaoMsgType
+  ATS = "ATS"
+  FTS = "FTS"
+  FMS = "FMS"
+end

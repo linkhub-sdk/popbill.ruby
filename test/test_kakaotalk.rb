@@ -222,11 +222,114 @@ class KakaoServiceTest < Test::Unit::TestCase
     puts response
   end
 
+  def test_sendFMS_one
+    response = KakaoInstance.sendFMS_one(
+        AccessID,
+        "@팝빌",
+        "070-4304-2991",
+        "친구톡 이미지 입니다.",
+        "친구톡 이미지 대체 문자 입니다.",
+        "A",
+        "",
+        "/Users/kimhyunjin/SDK/popbill.sdk.example.ruby/popbill.ruby/test/test.jpg",
+        "http://www.popbill.co.kr",
+        "01083490706",
+        "김현진",
+        $btns,
+        "",
+        "",
+        "testkorea",
+    )
+    puts response
+  end
+
+
+  def test_sendFMS_multi
+    msg = [
+        {
+            "rcv" => "010123456",
+            "rcvnm" => "popbill",
+            "msg" => "친구톡 이미지 입니다.1",
+            "altmsg" => "대체문자1",
+        },
+        {
+            "rcv" => "010890456",
+            "rcvnm" => "linkhub",
+            "msg" => "친구톡 이미지 입니다.2",
+            "altmsg" => "대체문자2",
+        },
+    ]
+    response = KakaoInstance.sendFMS_multi(
+        AccessID,
+        "@팝빌",
+        "070-4304-2991",
+        "A",
+        "",
+        "/Users/kimhyunjin/SDK/popbill.sdk.example.ruby/popbill.ruby/test/test.jpg",
+        "http://www.popbill.co.kr",
+        msg,
+        $btns,
+        "",
+        "",
+        "testkorea",
+    )
+    puts response
+  end
+
+
+  def test_sendFMS_same
+    msg = [
+        {
+            "rcv" => "010123456",
+            "rcvnm" => "popbill",
+        },
+        {
+            "rcv" => "010890456",
+            "rcvnm" => "linkhub",
+        },
+    ]
+    response = KakaoInstance.sendFMS_same(
+        AccessID,
+        "@팝빌",
+        "070-4304-2991",
+        "친구톡 이미지 동보 입니다.",
+        "친구톡 이미지 대체 문자 입니다.",
+        "A",
+        "20180616160342",
+        "/Users/kimhyunjin/SDK/popbill.sdk.example.ruby/popbill.ruby/test/test.jpg",
+        "http://www.popbill.co.kr",
+        msg,
+        $btns,
+        "",
+        "20180618094043-002",
+        "testkorea",
+    )
+    puts response
+  end
+
+
+  def test_cancelReserve
+    response = KakaoInstance.cancelReserve(
+        AccessID,
+        "018061516035000001",
+        "testkorea",
+    )
+    puts response
+  end
+
+  def test_cancelReserveRN
+    response = KakaoInstance.cancelReserveRN(
+        AccessID,
+        "20180618094043-001",
+        "testkorea",
+    )
+    puts response
+  end
 
   def test_getMessages
     response = KakaoInstance.getMessages(
         AccessID,
-        "018061418262100001",
+        "018061809422400001",
         "testkorea"
     )
     puts response
@@ -241,5 +344,40 @@ class KakaoServiceTest < Test::Unit::TestCase
     puts response
   end
 
+  def test_search
+    sDate = "20180301"
+    eDate = "20180630"
+    state = [1, 2, 3, 4, 5]
+    item = %w(ATS FTS FMS)
+    reserveYN = ''
+    senderYN = ''
+    page = 1
+    perPage = 100
+    order = "D"
+
+    response = KakaoInstance.search(
+        AccessID, sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order, "testkorea"
+    )
+    puts response
+  end
+
+  def test_getUnitCost
+    response = KakaoInstance.getUnitCost(
+        AccessID,
+        "ATS",
+        "testkorea"
+    )
+    puts response
+  end
+
+  def test_getChargeInfo
+    response = KakaoInstance.getChargeInfo(
+        AccessID,
+        "FMS",
+        "testkorea"
+    )
+    puts response
+  end
 
 end
+
