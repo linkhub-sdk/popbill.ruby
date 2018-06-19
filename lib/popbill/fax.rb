@@ -147,6 +147,9 @@ class FaxService < BaseService
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
+    if receiptNum.to_s == ''
+      raise PopbillException.new(-99999999, "접수번호(receiptNum)가 입력되지 않았습니다.")
+    end
 
     httpget("/FAX/#{receiptNum}", corpNum, userID)
   end
@@ -154,6 +157,9 @@ class FaxService < BaseService
   def cancelReserve(corpNum, receiptNum, userID = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+    if receiptNum.to_s == ''
+      raise PopbillException.new(-99999999, "접수번호(receiptNum)가 입력되지 않았습니다.")
     end
 
     httpget("/FAX/#{receiptNum}/Cancel", corpNum, userID)
