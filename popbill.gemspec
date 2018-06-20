@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
     "lib/popbill.rb", "lib/popbill/taxinvoice.rb", "lib/popbill/cashbill.rb",
     "lib/popbill/message.rb", "lib/popbill/fax.rb", "lib/popbill/closedown.rb",
     "lib/popbill/htTaxinvoice.rb", "lib/popbill/htCashbill.rb",
-    "lib/popbill/statement.rb", "lib/popbill.kakaotalk.rb"
+    "lib/popbill/statement.rb", "lib/popbill/kakaotalk.rb"
   ]
   s.license     = 'APACHE LICENSE VERSION 2.0'
   s.homepage    = 'https://github.com/linkhub-sdk/popbill.ruby'
