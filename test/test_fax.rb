@@ -159,7 +159,7 @@ class FaxServiceTest < Test::Unit::TestCase
   def test_17cancelReserve
     response = FaxInstance.cancelReserve(
         FaxServiceTest::AccessID,
-        "017011914233400001",
+        "018062013531800001",
     )
 
     puts response
@@ -266,7 +266,7 @@ class FaxServiceTest < Test::Unit::TestCase
         "20180620132802",
         "testkorea",
         "팩스전송제목",
-        "20180620-100"
+        # ""
     )
     puts response
   end
@@ -292,7 +292,7 @@ class FaxServiceTest < Test::Unit::TestCase
         "20180630132922",
         "testkorea",
         "팩스전송제목",
-        "20180620132918-1"
+        # "20180620132918-1"
     )
     puts response
   end

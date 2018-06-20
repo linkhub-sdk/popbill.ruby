@@ -60,8 +60,8 @@ class KakaoService < BaseService
 
   def sendATS_same(corpNum, templateCode, snd, content, altContent, altSendType, sndDT, msgs, requestNum = '', userID = '')
     raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.") if corpNum.length != 10
-    raise PopbillException.new(-99999999, "알림톡 템플릿코드(templateCode)가 입력되지 않았습니다.") if templateCode.to_s == ''
-    raise PopbillException.new(-99999999, "발신번호가(snd)가 입력되지 않았습니다.") if snd.to_s == ''
+    raise PopbillException.new(-99999999, "알림톡 템플릿코드가 입력되지 않았습니다.") if templateCode.to_s == ''
+    raise PopbillException.new(-99999999, "발신번호가 입력되지 않았습니다.") if snd.to_s == ''
 
     req = {}
     req["templateCode"] = templateCode if templateCode.to_s != ''
@@ -95,8 +95,8 @@ class KakaoService < BaseService
 
   def sendFTS_same(corpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, msgs, btns, adsYN = false, requestNum = '', userID = '')
     raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.") if corpNum.length != 10
-    raise PopbillException.new(-99999999, "플러스친구 아이디(plusFriendID)가 입력되지 않았습니다.") if plusFriendID.to_s == ''
-    raise PopbillException.new(-99999999, "발신번호가(snd)가 입력되지 않았습니다.") if snd.to_s == ''
+    raise PopbillException.new(-99999999, "플러스친구 아이디가 입력되지 않았습니다.") if plusFriendID.to_s == ''
+    raise PopbillException.new(-99999999, "발신번호가 입력되지 않았습니다.") if snd.to_s == ''
 
     req = {}
     req["plusFriendID"] = plusFriendID if plusFriendID.to_s != ''
@@ -132,8 +132,8 @@ class KakaoService < BaseService
 
   def sendFMS_same(corpNum, plusFriendID, snd, content, altContent, altSendType, sndDT, filePath, imageURL, msgs, btns, adsYN = false, requestNum = '', userID = '')
     raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.") if corpNum.length != 10
-    raise PopbillException.new(-99999999, "플러스친구 아이디(plusFriendID)가 입력되지 않았습니다.") if plusFriendID.to_s == ''
-    raise PopbillException.new(-99999999, "발신번호가(snd)가 입력되지 않았습니다.") if snd.to_s == ''
+    raise PopbillException.new(-99999999, "플러스친구 아이디가 입력되지 않았습니다.") if plusFriendID.to_s == ''
+    raise PopbillException.new(-99999999, "발신번호가 입력되지 않았습니다.") if snd.to_s == ''
 
     req = {}
     req["plusFriendID"] = plusFriendID if plusFriendID.to_s != ''
@@ -147,7 +147,8 @@ class KakaoService < BaseService
     req["btns"] = btns if btns.to_s != ''
     req["adsYN"] = adsYN if adsYN.to_s != ''
     req["requestNum"] = requestNum if requestNum.to_s != ''
-    req["userID"] = userID if userID.to_s != ''
+
+    puts req.to_json
 
     httppostfile("/FMS", corpNum, req, [filePath], userID)
   end
@@ -182,9 +183,9 @@ class KakaoService < BaseService
   end
 
   def search(corpNum, sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order, userID = '')
-    raise PopbillException.new(-99999999, '사업자등록번호가 올바르지 않습니다.') if corpNum.length != 10
-    raise PopbillException.new(-99999999, '시작일자가 입력되지 않았습니다.') if sDate.to_s == ''
-    raise PopbillException.new(-99999999, '종료일자가 입력되지 않았습니다.') if eDate.to_s == ''
+    raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.") if corpNum.length != 10
+    raise PopbillException.new(-99999999, "시작일자가 입력되지 않았습니다.") if sDate.to_s == ''
+    raise PopbillException.new(-99999999, "종료일자가 입력되지 않았습니다.") if eDate.to_s == ''
 
     uri = "/KakaoTalk/Search?SDate=#{sDate}&EDate=#{eDate}"
     uri += "&State=" + state.join(',') if state.to_s != ''
