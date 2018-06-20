@@ -166,9 +166,6 @@ class FaxService < BaseService
     if orgRequestNum.to_s == ''
       raise PopbillException.new(-99999999, "원본 팩스 접수번호(orgRequestNum)가 입력되지 않았습니다.")
     end
-    if requestNum.to_s == ''
-      raise PopbillException.new(-99999999, "요청번호(requestNum)가 입력되지 않았습니다.")
-    end
 
     postData = {}
     postData["snd"] = senderNum
