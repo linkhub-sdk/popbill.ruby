@@ -45,17 +45,17 @@ class FaxService < BaseService
   def search(corpNum, sDate, eDate, state, reserveYN, senderOnly, page, perPage,
              order, userID = '')
     if corpNum.length != 10
-      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+      raise PopbillException.new(-99999999, '사업자등록번호가 올바르지 않습니다.')
     end
     if sDate.to_s == ''
-      raise PopbillException.new('-99999999', '시작일자가 입력되지 않았습니다.')
+      raise PopbillException.new(-99999999, '시작일자가 입력되지 않았습니다.')
     end
     if eDate.to_s == ''
-      raise PopbillException.new('-99999999', '종료일자가 입력되지 않았습니다.')
+      raise PopbillException.new(-99999999, '종료일자가 입력되지 않았습니다.')
     end
 
     uri = "/FAX/Search?SDate=#{sDate}&EDate=#{eDate}"
-    uri += "&State=" + state.join(',')
+    uri += "&State=" + state.join(',') if state.to_s != ''
     uri += "&ReserveYN=" + reserveYN
     uri += "&SenderOnly=" + senderOnly
     uri += "&Page=" + page.to_s
@@ -110,7 +110,6 @@ class FaxService < BaseService
     end
 
     receiver = nil
-
     if receiveNum.to_s != '' || receiveName.to_s != ''
       receiver = [
           {
@@ -119,7 +118,6 @@ class FaxService < BaseService
           }
       ]
     end
-
 
     resendFax_multi(corpNum, receiptNum, senderNum, senderName, receiver, reserveDT, userID, title, requestNum)
   end
@@ -184,8 +182,6 @@ class FaxService < BaseService
 
     httppost("/FAX/Resend/#{orgRequestNum}", corpNum, postData, "", userID)['receiptNum']
   end
-
-
 
   def getFaxDetail(corpNum, receiptNum, userID = '')
     if corpNum.length != 10
