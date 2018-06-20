@@ -148,8 +148,6 @@ class KakaoService < BaseService
     req["adsYN"] = adsYN if adsYN.to_s != ''
     req["requestNum"] = requestNum if requestNum.to_s != ''
 
-    puts req.to_json
-
     httppostfile("/FMS", corpNum, req, [filePath], userID)
   end
 
