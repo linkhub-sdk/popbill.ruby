@@ -142,6 +142,7 @@ class KakaoService < BaseService
     req["altContent"] = altContent if altContent.to_s != ''
     req["altSendType"] = altSendType if altSendType.to_s != ''
     req["sndDT"] = sndDT if sndDT.to_s != ''
+    req["imageURL"] = imageURL if imageURL.to_s != ''
     req["msgs"] = msgs if msgs.to_s != ''
     req["btns"] = btns if btns.to_s != ''
     req["adsYN"] = adsYN if adsYN.to_s != ''
@@ -181,9 +182,9 @@ class KakaoService < BaseService
   end
 
   def search(corpNum, sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order, userID = '')
-    raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.') if corpNum.length != 10
-    raise PopbillException.new('-99999999', '시작일자가 입력되지 않았습니다.') if sDate.to_s == ''
-    raise PopbillException.new('-99999999', '종료일자가 입력되지 않았습니다.') if eDate.to_s == ''
+    raise PopbillException.new(-99999999, '사업자등록번호가 올바르지 않습니다.') if corpNum.length != 10
+    raise PopbillException.new(-99999999, '시작일자가 입력되지 않았습니다.') if sDate.to_s == ''
+    raise PopbillException.new(-99999999, '종료일자가 입력되지 않았습니다.') if eDate.to_s == ''
 
     uri = "/KakaoTalk/Search?SDate=#{sDate}&EDate=#{eDate}"
     uri += "&State=" + state.join(',') if state.to_s != ''
