@@ -8,15 +8,15 @@ class FaxServiceTest < Test::Unit::TestCase
 
   ServiceID = "POPBILL_TEST"
   AccessID = "1234567890"
-  Scope = ["member","110"]
+  Scope = ["member", "110"]
 
   FaxInstance = FaxService.instance(FaxServiceTest::LinkID, FaxServiceTest::SecretKey)
   FaxInstance.setIsTest(true)
 
   def test_01ServiceInstance
     msgInstance = FaxService.instance(
-      FaxServiceTest::LinkID,
-      FaxServiceTest::SecretKey,
+        FaxServiceTest::LinkID,
+        FaxServiceTest::SecretKey,
     )
     puts msgInstance
     assert_not_nil(msgInstance)
@@ -24,7 +24,7 @@ class FaxServiceTest < Test::Unit::TestCase
 
   def test_02getChargeInfo
     response = FaxInstance.getChargeInfo(
-      FaxServiceTest::AccessID,
+        FaxServiceTest::AccessID,
     )
 
     puts response
@@ -33,8 +33,8 @@ class FaxServiceTest < Test::Unit::TestCase
 
   def test_03getURL
     url = FaxInstance.getURL(
-      FaxServiceTest::AccessID,
-      "BOX"
+        FaxServiceTest::AccessID,
+        "BOX"
     )
     puts url
     assert_not_nil(url)
@@ -42,7 +42,7 @@ class FaxServiceTest < Test::Unit::TestCase
 
   def test_04getUnitCost
     response = FaxInstance.getUnitCost(
-      FaxServiceTest::AccessID,
+        FaxServiceTest::AccessID,
     )
 
     puts response
@@ -60,8 +60,8 @@ class FaxServiceTest < Test::Unit::TestCase
     order = "D"
 
     response = FaxInstance.search(
-      FaxServiceTest::AccessID,
-      sDate, eDate, state, reserveYN, senderYN, page, perPage, order,
+        FaxServiceTest::AccessID,
+        sDate, eDate, state, reserveYN, senderYN, page, perPage, order,
     )
     puts response
     assert_not_nil(response)
@@ -69,16 +69,16 @@ class FaxServiceTest < Test::Unit::TestCase
 
   def test_14sendFax
     response = FaxInstance.sendFax(
-      FaxServiceTest::AccessID,
-      "07043042992",
-      "발신자명",
-      "070111222",
-      "수신자명",
-      ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"],
-      "",
-      "",
-      true,
-      "팩스전송제목"
+        FaxServiceTest::AccessID,
+        "07043042992",
+        "발신자명",
+        "070111222",
+        "수신자명",
+        ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"],
+        "",
+        "",
+        true,
+        "팩스전송제목"
     )
     puts response
     assert_not_nil(response)
@@ -87,29 +87,29 @@ class FaxServiceTest < Test::Unit::TestCase
   def test_15resendFax
 
     receivers =
-      [
-        {
-          "rcv" => "01055565",
-          "rcvnm" => "John",
-        },
-        {
-          "rcv" => "010111222",
-          "rcvnm" => "John2",
-        },
-      ]
+        [
+            {
+                "rcv" => "01055565",
+                "rcvnm" => "John",
+            },
+            {
+                "rcv" => "010111222",
+                "rcvnm" => "John2",
+            },
+        ]
 
     receivers = nil
 
     receiptNum = "017071815425000001"
     response = FaxInstance.resendFax_multi(
-      FaxServiceTest::AccessID,
-      receiptNum,
-      "07043042991",
-      "발신자명",
-      receivers,
-      "",
-      "",
-      "팩스 재전송 제목",
+        FaxServiceTest::AccessID,
+        receiptNum,
+        "07043042991",
+        "발신자명",
+        receivers,
+        "",
+        "",
+        "팩스 재전송 제목",
     )
     begin
       puts response
@@ -122,25 +122,25 @@ class FaxServiceTest < Test::Unit::TestCase
 
   def test_15sendFax_multi
     receivers =
-    [
-      {
-        "rcv" => "070111222",
-        "rcvnm" => "John",
-      },
-      {
-        "rcv" => "070111222",
-        "rcvnm" => "John2",
-      },
-    ]
+        [
+            {
+                "rcv" => "070111222",
+                "rcvnm" => "John",
+            },
+            {
+                "rcv" => "070111222",
+                "rcvnm" => "John2",
+            },
+        ]
     response = FaxInstance.sendFax_multi(
-      FaxServiceTest::AccessID,
-      "07043042991",
-      "발신자명",
-      receivers,
-      ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"],
-      "",
-      "",
-      true,
+        FaxServiceTest::AccessID,
+        "07043042991",
+        "발신자명",
+        receivers,
+        ["/Users/John/Documents/WorkSpace/ruby project/popbill/test/test.pdf"],
+        "",
+        "",
+        true,
     )
     puts response
     assert_not_nil(response)
@@ -148,8 +148,8 @@ class FaxServiceTest < Test::Unit::TestCase
 
   def test_16getFaxDetail
     response = FaxInstance.getFaxDetail(
-      FaxServiceTest::AccessID,
-      "017011914233400001",
+        FaxServiceTest::AccessID,
+        "017011914233400001",
     )
 
     puts response
@@ -158,8 +158,8 @@ class FaxServiceTest < Test::Unit::TestCase
 
   def test_17cancelReserve
     response = FaxInstance.cancelReserve(
-      FaxServiceTest::AccessID,
-      "017011914233400001",
+        FaxServiceTest::AccessID,
+        "017011914233400001",
     )
 
     puts response
@@ -170,13 +170,13 @@ class FaxServiceTest < Test::Unit::TestCase
 
     receiptNum = "017021011564500001"
     response = FaxInstance.resendFax(
-      FaxServiceTest::AccessID,
-      receiptNum,
-      "07043042991",
-      "발신자명",
-      "",
-      "",
-      "",
+        FaxServiceTest::AccessID,
+        receiptNum,
+        "07043042991",
+        "발신자명",
+        "",
+        "",
+        "",
     )
 
     puts response
@@ -186,7 +186,7 @@ class FaxServiceTest < Test::Unit::TestCase
 
   def test_19getSenderNumberList
     response = FaxInstance.getSenderNumberList(
-      FaxServiceTest::AccessID,
+        FaxServiceTest::AccessID,
     )
     puts response
     assert_not_nil(response)
@@ -225,8 +225,8 @@ class FaxServiceTest < Test::Unit::TestCase
         "20180718154556",
         "testkorea",
         "팩스전송제목",
-        "20180618_001"
-        )
+        "20180620-001"
+    )
 
     puts response
     assert_not_nil(response)
@@ -238,7 +238,7 @@ class FaxServiceTest < Test::Unit::TestCase
     response = FaxInstance.getFaxDetailRN(
         FaxServiceTest::AccessID,
         "20180618_001",
-        )
+    )
 
     puts response
     assert_not_nil(response)
@@ -247,11 +247,54 @@ class FaxServiceTest < Test::Unit::TestCase
   def test_23cancelReserveRN
     response = FaxInstance.cancelReserveRN(
         FaxServiceTest::AccessID,
-        "20180618_001",
-        )
+        "20180620132918-1",
+    )
 
     puts response
     assert_not_nil(response)
+  end
+
+
+  def test_24ResendFAXRN
+    response = FaxInstance.resendFAXRN(
+        FaxServiceTest::AccessID,
+        "20180620-002",
+        "07043042991",
+        "발신자명",
+        "010333444",
+        "수신자명",
+        "20180620132802",
+        "testkorea",
+        "팩스전송제목",
+        "20180620-100"
+    )
+    puts response
+  end
+
+  def test_25ResendFAXRN_multi
+    receivers =
+        [
+            {
+                "rcv" => "070211222",
+                "rcvnm" => "JIN",
+            },
+            {
+                "rcv" => "070311222",
+                "rcvnm" => "HYUN",
+            },
+        ]
+    response = FaxInstance.resendFAXRN_multi(
+        FaxServiceTest::AccessID,
+        "20180620-100",
+        "07043042991",
+        "발신자명",
+        receivers,
+        "20180630132922",
+        "testkorea",
+        "팩스전송제목",
+        "20180620132918-1"
+    )
+    puts response
   end
 
 end # end of test Class
