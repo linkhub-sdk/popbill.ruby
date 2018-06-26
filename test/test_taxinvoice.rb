@@ -136,7 +136,7 @@ class TIServiceTest < Test::Unit::TestCase
 
   def test_09registIssue
     taxinvoice = {
-     "writeDate" => "20170117",
+     "writeDate" => "20180626",
      "issueType" => "정발행",
      "taxType" => "과세",
      "issueTiming" => "직접발행",
@@ -146,7 +146,7 @@ class TIServiceTest < Test::Unit::TestCase
      "taxTotal" => "2000",
      "totalAmount" => "22000",
 
-     "invoicerMgtKey" => "20170117-09",
+     "invoicerMgtKey" => "20180626-001",
      "invoicerCorpNum" => TIServiceTest::AccessID,
      "invoicerCorpName" => "상호명",
      "invoicerCEOName" => "대표자명",
@@ -640,6 +640,20 @@ end
     puts response
   end
 
+  def test_listEmailConfig
+    response = TIServiceTest::TIInstance.listEmailConfig(TIServiceTest::AccessID)
+    puts response
+  end
+
+  def test_updateEmailConfig
+    response = TIServiceTest::TIInstance.updateEmailConfig(
+        TIServiceTest::AccessID,
+        "TAX_TRUST_ISSUE",
+        false,
+        "testkorea"
+    )
+    assert_not_nil(response)
+  end
 
 end # end of test Class
 

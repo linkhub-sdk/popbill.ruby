@@ -493,4 +493,19 @@ class STMTServiceTest < Test::Unit::TestCase
     assert_not_nil(response)
   end
 
+  def test_listEmailConfig
+    response = STInstance.listEmailConfig(STMTServiceTest::AccessID)
+    puts response
+  end
+
+  def test_updateEmailConfig
+    response = STInstance.updateEmailConfig(
+        STMTServiceTest::AccessID,
+        "SMT_ISSUE",
+        false,
+        "testkorea"
+    )
+    assert_not_nil(response)
+  end
+
 end # end of test Class

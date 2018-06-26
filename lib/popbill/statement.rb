@@ -441,4 +441,20 @@ class StatementService < BaseService
     httppost("/Statement/#{itemCode}/#{mgtKey}/DetachStmt", corpNum, postData, "", userID)
   end
 
+  def listEmailConfig(corpNum, userID ='')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    httpget("/Statement/EmailSendConfig", corpNum, userID)
+  end
+
+  def updateEmailConfig(corpNum, emailType, sendYN, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    httppost("/Statement/EmailSendConfig?EmailType=#{emailType}&SendYN=#{sendYN}", corpNum, userID)
+  end
+
 end # end of CashbillService

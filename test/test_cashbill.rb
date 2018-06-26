@@ -371,4 +371,20 @@ class CBServiceTest < Test::Unit::TestCase
     puts response
     assert_equal(1, response["code"])
   end
+
+  def test_listEmailConfig
+    response = CBInstance.listEmailConfig(CBServiceTest::AccessID)
+    puts response
+  end
+
+  def test_updateEmailConfig
+    response = CBInstance.updateEmailConfig(
+        CBServiceTest::AccessID,
+        "CSH_ISSUE",
+        false,
+        "testkorea"
+    )
+    assert_not_nil(response)
+  end
+
 end # end of test Class

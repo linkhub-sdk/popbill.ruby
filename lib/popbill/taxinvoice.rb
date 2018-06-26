@@ -658,6 +658,22 @@ class TaxinvoiceService < BaseService
     httppost("/Taxinvoice/#{itemKey}/#{mgtKeyType}", corpNum, postDate, "", userID, "application/x-www-form-urlencoded; charset=utf-8")
   end
 
+  def listEmailConfig(corpNum, userID ='')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    httpget("/Taxinvoice/EmailSendConfig", corpNum, userID)
+  end
+
+  def updateEmailConfig(corpNum, emailType, sendYN, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    httppost("/Taxinvoice/EmailSendConfig?EmailType=#{emailType}&SendYN=#{sendYN}", corpNum, userID)
+  end
+
 end # end of TaxinvoiceService
 
 module MgtKeyType
