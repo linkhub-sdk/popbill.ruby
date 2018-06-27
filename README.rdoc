@@ -40,5 +40,5 @@ v1.6.0
 * 문자/팩스/카카오톡 ReqeustNum 전송요청번호 할당 기능 추가
 * Taxinvoce AssignMgtKey API added
 * 문자 GetStates API added
-v1.6.1
+v1.7.0
 * 전자세금계산서/전자명세서/현금영수증 ListEmailConfig/UpdateEmailConfig API added
