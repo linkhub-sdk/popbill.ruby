@@ -91,7 +91,7 @@ class MessageService < BaseService
     messages = [
         {
             "snd" => sender,
-            "sndName" => senderName,
+            "sndnm" => senderName,
             "rcv" => receiver,
             "rcvnm" => receiverName,
             "msg" => contents,
@@ -117,7 +117,7 @@ class MessageService < BaseService
     messages = [
         {
             "snd" => sender,
-            "sndName" => senderName,
+            "sndnm" => senderName,
             "rcv" => receiver,
             "rcvnm" => receiverName,
             "msg" => contents,
@@ -145,7 +145,7 @@ class MessageService < BaseService
     messages = [
         {
             "snd" => sender,
-            "sndName" => senderName,
+            "sndnm" => senderName,
             "rcv" => receiver,
             "rcvnm" => receiverName,
             "msg" => contents,
