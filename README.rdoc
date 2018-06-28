@@ -42,3 +42,5 @@ v1.6.0
 * 문자 GetStates API added
 v1.7.0
 * 전자세금계산서/전자명세서/현금영수증 ListEmailConfig/UpdateEmailConfig API added
+v1.7.1
+* 문자/팩스/카카오톡 Search API QString param added

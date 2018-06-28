@@ -210,8 +210,8 @@ class MSGServiceTest < Test::Unit::TestCase
   end
 
   def test_13search
-    sDate = "20170118"
-    eDate = "20170118"
+    sDate = "20180301"
+    eDate = "20180628"
     state = [1, 2, 3, 4]
     item = ["SMS", "LMS", "MMS"]
     reserveYN = ''
@@ -219,10 +219,11 @@ class MSGServiceTest < Test::Unit::TestCase
     page = 1
     perPage = 100
     order = "D"
+    qString = ""
 
     response = MSGInstance.search(
       MSGServiceTest::AccessID,
-      sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order,
+      sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order, "testkorea", qString
     )
     puts response["total"]
     assert_not_nil(response)
@@ -245,7 +246,7 @@ class MSGServiceTest < Test::Unit::TestCase
     contents = "message send Test"
 
     response = MSGInstance.sendSMS(
-        MSGServiceTest::AccessID, sender, senderName, receiver, receiverName, contents, '', '', 'testkorea', '20180618140803')
+        MSGServiceTest::AccessID, sender, senderName, receiver, receiverName, contents, '', '', 'testkorea', '20180628160446')
 
     puts response
 

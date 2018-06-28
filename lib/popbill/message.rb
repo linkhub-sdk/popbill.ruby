@@ -277,7 +277,7 @@ class MessageService < BaseService
   end
 
   def search(corpNum, sDate, eDate, state, item, reserveYN, senderYN, page, perPage,
-             order, userID = '')
+             order, userID = '', queryString ='')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -296,6 +296,10 @@ class MessageService < BaseService
     uri += "&Page=" + page.to_s
     uri += "&PerPage=" + perPage.to_s
     uri += "&Order=" + order
+
+    if queryString.to_s != ''
+      uri += "&QString=" + queryString
+    end
 
     httpget(URI.escape(uri), corpNum, userID)
   end

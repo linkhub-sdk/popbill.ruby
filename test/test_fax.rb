@@ -50,18 +50,19 @@ class FaxServiceTest < Test::Unit::TestCase
   end
 
   def test_13search
-    sDate = "20170118"
-    eDate = "20170118"
+    sDate = "20180331"
+    eDate = "20180699"
     state = [1, 2, 3, 4]
     reserveYN = ''
     senderYN = ''
     page = 1
     perPage = 100
     order = "D"
+    qString = "팝빌담당"
 
     response = FaxInstance.search(
         FaxServiceTest::AccessID,
-        sDate, eDate, state, reserveYN, senderYN, page, perPage, order,
+        sDate, eDate, state, reserveYN, senderYN, page, perPage, order, "testkorea", qString
     )
     puts response
     assert_not_nil(response)

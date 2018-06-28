@@ -354,11 +354,12 @@ class KakaoServiceTest < Test::Unit::TestCase
     page = 1
     perPage = 100
     order = "D"
+    qString = ""
 
     response = KakaoInstance.search(
-        AccessID, sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order, "testkorea"
+        AccessID, sDate, eDate, state, item, reserveYN, senderYN, page, perPage, order, "testkorea", qString
     )
-    puts response
+    puts response.to_json
   end
 
   def test_getUnitCost
