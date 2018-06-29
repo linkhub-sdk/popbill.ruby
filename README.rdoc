@@ -46,3 +46,5 @@ v1.7.1
 * 문자/팩스/카카오톡 Search API QString param added
 v1.7.2
 * 문자 발신자명(sndnm) typo fixed
+v1.7.3
+* updateEmailConfig API if statement added

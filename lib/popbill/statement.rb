@@ -454,6 +454,14 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
 
+    if emailType.to_s == ''
+      raise PopbillException.new('-99999999', '메일전송 타입이 입력되지 않았습니다.')
+    end
+
+    if sendYN.to_s == ''
+      raise PopbillException.new('-99999999', '메일전송 여부 항목이 입력되지 않았습니다.')
+    end
+
     httppost("/Statement/EmailSendConfig?EmailType=#{emailType}&SendYN=#{sendYN}", corpNum, userID)
   end
 
