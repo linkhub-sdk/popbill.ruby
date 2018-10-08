@@ -173,6 +173,62 @@ class HTTaxinvoiceService < BaseService
     httpget("/HomeTax/Taxinvoice/#{ntsConfirmNum}/PopUp", corpNum, userID)['url']
   end
 
+
+  def checkCertValidation(corpNum, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    httpget("/HomeTax/Taxinvoice/CertCheck", corpNum, userID)
+
+  end
+
+  def registDeptUser(corpNum, deptUserID, deptUserPWD, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    if deptUserID.length == 0
+      raise PopbillException.new('-99999999', '홈택스 부서사용자 계정 아이디가 입력되지 않았습니다.')
+    end
+
+    if deptUserPWD.length == 0
+      raise PopbillException.new('-99999999', '홈택스 부서사용자 계정 비밀번호가 입력되지 않았습니다.')
+    end
+
+    postData = {}
+    postData["id"] = deptUserID
+    postData["pwd"] = deptUserPWD
+
+    postData = postData.to_json
+
+    httppost("/HomeTax/Taxinvoice/DeptUser", corpNum, postData, "", userID)
+  end
+
+  def checkDeptUser(corpNum, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    httpget("/HomeTax/Taxinvoice/DeptUser", corpNum, userID)
+  end
+
+  def checkLoginDeptUser(corpNum, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    httpget("/HomeTax/Taxinvoice/DeptUser/Check", corpNum, userID)
+  end
+
+  def deleteDeptUser(corpNum, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    httppost("/HomeTax/Taxinvoice/DeptUser", corpNum, "", "DELETE", userID)
+  end
+
 end # end of HTTaxinvoiceService
 
 module KeyType

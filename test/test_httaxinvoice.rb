@@ -170,4 +170,40 @@ class HTTaxinvoiceTest < Test::Unit::TestCase
     puts url
   end
 
+  def test_15checkCertValidation
+    response = HTTIInstance.checkCertValidation(
+        HTTaxinvoiceTest::AccessID,
+        )
+    puts response
+  end
+
+  def test_16registDeptUser
+    response = HTTIInstance.registDeptUser(
+        HTTaxinvoiceTest::AccessID,
+        "ruby_deptid",
+        "ruby_deptpwd",
+        )
+    puts response
+  end
+
+  def test_17checkDeptUser
+    response = HTTIInstance.checkDeptUser(
+        HTTaxinvoiceTest::AccessID,
+        )
+    puts response
+  end
+
+  def test_18checkLoginDeptUser
+    response = HTTIInstance.checkLoginDeptUser(
+        HTTaxinvoiceTest::AccessID,
+        )
+    puts response
+  end
+
+  def test_19deleteDeptUser
+    response = HTTIInstance.deleteDeptUser(
+        HTTaxinvoiceTest::AccessID,
+        )
+    puts response
+  end
 end # end of test Class

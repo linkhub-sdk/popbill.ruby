@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'test/unit'
-require_relative '../lib/htCashbill.rb'
+require_relative '../lib/popbill/htCashbill.rb'
 
 class HTCashbillTest < Test::Unit::TestCase
   LinkID = "TESTER"
@@ -134,5 +134,40 @@ class HTCashbillTest < Test::Unit::TestCase
     assert_not_nil(response)
   end
 
+  def test_12checkCertValidation
+    response = HTCBInstance.checkCertValidation(
+        HTCashbillTest::AccessID,
+        )
+    puts response
+  end
 
+  def test_13registDeptUser
+    response = HTCBInstance.registDeptUser(
+        HTCashbillTest::AccessID,
+        "ruby_deptid_cash",
+        "ruby_deptpwd_cash",
+        )
+    puts response
+  end
+
+  def test_14checkDeptUser
+    response = HTCBInstance.checkDeptUser(
+        HTCashbillTest::AccessID,
+        )
+    puts response
+  end
+
+  def test_15checkLoginDeptUser
+    response = HTCBInstance.checkLoginDeptUser(
+        HTCashbillTest::AccessID,
+        )
+    puts response
+  end
+
+  def test_16deleteDeptUser
+    response = HTCBInstance.deleteDeptUser(
+        HTCashbillTest::AccessID,
+        )
+    puts response
+  end
 end # end of test Class
