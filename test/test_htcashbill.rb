@@ -31,16 +31,16 @@ class HTCashbillTest < Test::Unit::TestCase
   end
 
   def test_03requestJob
-    # type = "BUY"
-    # sDate = "20160101"
-    # eDate = "20170301"
-    #
-    # jobID = HTCBInstance.requestJob(
-    #   HTCashbillTest::AccessID,
-    #   type, sDate, eDate
-    # )
-    # puts jobID
-    # assert_not_nil(jobID)
+    type = "BUY"
+    sDate = "20180101"
+    eDate = "20181008"
+
+    jobID = HTCBInstance.requestJob(
+      HTCashbillTest::AccessID,
+      type, sDate, eDate
+    )
+    puts jobID
+    assert_not_nil(jobID)
   end
 
   def test_04getJobState
@@ -63,7 +63,7 @@ class HTCashbillTest < Test::Unit::TestCase
   end
 
   def test_06search
-    jobID = "017012517000000003"
+    jobID = "018100813000000002"
     tradeType = ["N", "M"]
     tradeUsage = ["P", "C"]
     page = 1

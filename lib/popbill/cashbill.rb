@@ -169,7 +169,7 @@ class CashbillService < BaseService
   end
 
   def search(corpNum, dType, sDate, eDate, state, tradeType, tradeUsage,
-    taxationType, page, perPage, order, queryString = '', userID = '')
+    taxationType, page, perPage, order, queryString = '', userID = '', tradeOpt = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -186,10 +186,10 @@ class CashbillService < BaseService
     end
 
     uri = "/Cashbill/Search?DType=#{dType}&SDate=#{sDate}&EDate=#{eDate}"
-    uri += "&State" + state.join(',')
-    uri += "&TradeUsage" + tradeUsage.join(',')
-    uri += "&TradeType" + tradeType.join(',')
-    uri += "&TaxationType" + taxationType.join(',')
+    uri += "&State=" + state.join(',')
+    uri += "&TradeUsage=" + tradeUsage.join(',')
+    uri += "&TradeType=" + tradeType.join(',')
+    uri += "&TaxationType=" + taxationType.join(',')
     uri += "&Page=" + page.to_s
     uri += "&PerPage=" + perPage.to_s
     uri += "&Order=" + order
@@ -197,6 +197,12 @@ class CashbillService < BaseService
     if queryString.to_s != ''
       uri += "&QString=" + queryString
     end
+
+    if tradeOpt.to_s != ''
+      uri += "&TradeOpt=" + tradeOpt.join(',')
+    end
+
+    puts uri
 
     httpget(URI.escape(uri), corpNum, userID)
   end

@@ -172,8 +172,8 @@ class CBServiceTest < Test::Unit::TestCase
 
   def test_12search
     dType = "T"
-    sDate = "20160601"
-    eDate = "20161201"
+    sDate = "20180901"
+    eDate = "20181008"
     state = ["2**", "3**"]
     tradeType = ["N", "C"]
     tradeUsage = ["P", "C"]
@@ -181,15 +181,19 @@ class CBServiceTest < Test::Unit::TestCase
     page = 1
     perPage = 15
     order = "D"
+    queryString = ""
+    userID = "testkorea"
+    tradeOpt = ["N", "B", "T"]
+
 
     response = CBInstance.search(
       CBServiceTest::AccessID,
       dType, sDate, eDate, state, tradeType, tradeUsage, taxationType, page,
-      perPage, order,
+      perPage, order, queryString, userID, tradeOpt
     )
 
-    puts response["code"]
-    assert_equal(1, response["code"])
+    puts response
+
   end
 
   def test_13getInfo
