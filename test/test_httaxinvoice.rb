@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'test/unit'
-require_relative '../lib/htTaxinvoice.rb'
+require_relative '../lib/popbill/htTaxinvoice.rb'
 
 class HTTaxinvoiceTest < Test::Unit::TestCase
   LinkID = "TESTER"
@@ -161,4 +161,13 @@ class HTTaxinvoiceTest < Test::Unit::TestCase
     puts response
     assert_not_nil(response)
   end
+
+  def test_14getPopUpURL
+    url = HTTIInstance.getPopUpURL(
+        HTTaxinvoiceTest::AccessID,
+        "201809194100020300000cd5"
+        )
+    puts url
+  end
+
 end # end of test Class
