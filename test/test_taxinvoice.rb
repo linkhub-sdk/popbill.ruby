@@ -655,6 +655,11 @@ end
     assert_not_nil(response)
   end
 
+  def test_checkCertValidation
+    response = TIServiceTest::TIInstance.checkCertValidation(TIServiceTest::AccessID)
+    puts response
+  end
+
 end # end of test Class
 
 

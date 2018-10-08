@@ -682,6 +682,14 @@ class TaxinvoiceService < BaseService
     httppost("/Taxinvoice/EmailSendConfig?EmailType=#{emailType}&SendYN=#{sendYN}", corpNum, userID)
   end
 
+  def checkCertValidation(corpNum, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    httpget("/Taxinvoice/CertCheck", corpNum, userID)
+  end
+
 end # end of TaxinvoiceService
 
 module MgtKeyType
