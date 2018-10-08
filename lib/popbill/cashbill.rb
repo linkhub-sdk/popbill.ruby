@@ -202,8 +202,6 @@ class CashbillService < BaseService
       uri += "&TradeOpt=" + tradeOpt.join(',')
     end
 
-    puts uri
-
     httpget(URI.escape(uri), corpNum, userID)
   end
 
