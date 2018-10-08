@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'popbill'
-  s.version     = '1.7.3'
-  s.date        = '2018-06-26'
+  s.version     = '1.8.0'
+  s.date        = '2018-10-08'
   s.summary     = 'Popbill API SDK'
   s.description = 'Popbill API SDK'
   s.authors     = ["Linkhub Dev"]
