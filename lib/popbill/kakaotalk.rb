@@ -24,6 +24,46 @@ class KakaoService < BaseService
         httpget("/KakaoTalk/?TG=#{togo}", corpNum, userID)['url']
   end
 
+  # 플러스친구 계정관리 팝업 URL
+  def getPlusFriendMgtURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+
+    response = httpget("/KakaoTalk/?TG=PLUSFRIEND", corpNum, userID)
+    response['url']
+  end
+
+  # 발신번호 관리 팝업 URL
+  def getSenderNumberMgtURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+
+    response = httpget("/Message/?TG=SENDER", corpNum, userID)
+    response['url']
+  end
+
+  # 알림톡 템플릿관리 팝업 URL
+  def getATSTemplateMgtURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+
+    response = httpget("/KakaoTalk/?TG=TEMPLATE", corpNum, userID)
+    response['url']
+  end
+
+  # 카카오톡 전송내역 팝업 URL
+  def getSentListURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+
+    response = httpget("/KakaoTalk/?TG=BOX", corpNum, userID)
+    response['url']
+  end
+
   def listPlusFriendID(corpNum, userID = '')
     raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.") if corpNum.length != 10
 

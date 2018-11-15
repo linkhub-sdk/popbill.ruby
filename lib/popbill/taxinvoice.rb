@@ -10,6 +10,7 @@ class TaxinvoiceService < BaseService
       @instance.addScope("110")
       return @instance
     end
+
     private :new
   end
 
@@ -144,7 +145,7 @@ class TaxinvoiceService < BaseService
 
     postData = mgtKeyList.to_json
 
-    httppost("/Taxinvoice/#{mgtKeyType}", corpNum, postData, "",  userID)
+    httppost("/Taxinvoice/#{mgtKeyType}", corpNum, postData, "", userID)
   end
 
 
@@ -172,7 +173,7 @@ class TaxinvoiceService < BaseService
   end
 
 
-  def send(corpNum, mgtKeyType, mgtKey, memo = '', emailSubject = '', userID ='')
+  def send(corpNum, mgtKeyType, mgtKey, memo = '', emailSubject = '', userID = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -214,7 +215,7 @@ class TaxinvoiceService < BaseService
     httppost("/Taxinvoice/#{mgtKeyType}/#{mgtKey}", corpNum, postData, "CANCELSEND", userID)
   end
 
-  def accept(corpNum, mgtKeyType, mgtKey, memo = '', userID ='')
+  def accept(corpNum, mgtKeyType, mgtKey, memo = '', userID = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -252,7 +253,7 @@ class TaxinvoiceService < BaseService
     httppost("/Taxinvoice/#{mgtKeyType}/#{mgtKey}", corpNum, postData, "DENY", userID)
   end
 
-  def issue(corpNum, mgtKeyType, mgtKey, forceIssue = false, memo = '', emailSubject ='', userID)
+  def issue(corpNum, mgtKeyType, mgtKey, forceIssue = false, memo = '', emailSubject = '', userID)
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -457,7 +458,7 @@ class TaxinvoiceService < BaseService
   end
 
 
-  def attachFile(corpNum, mgtKeyType, mgtKey, filePath, userID ='')
+  def attachFile(corpNum, mgtKeyType, mgtKey, filePath, userID = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -553,7 +554,7 @@ class TaxinvoiceService < BaseService
 
 
   def search(corpNum, mgtKeyType, dType, sDate, eDate, state, type, taxType, lateOnly,
-    taxRegIDYN, taxRegIDType, taxRegID, page, perPage, order, queryString, userID = '', interOPYN = '', issueType = [])
+             taxRegIDYN, taxRegIDType, taxRegID, page, perPage, order, queryString, userID = '', interOPYN = '', issueType = [])
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -653,12 +654,12 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '해당문서의 아이템키가 입력되지 않았습니다.')
     end
 
-    String postDate = "MgtKey="+mgtKey
+    String postDate = "MgtKey=" + mgtKey
 
     httppost("/Taxinvoice/#{itemKey}/#{mgtKeyType}", corpNum, postDate, "", userID, "application/x-www-form-urlencoded; charset=utf-8")
   end
 
-  def listEmailConfig(corpNum, userID ='')
+  def listEmailConfig(corpNum, userID = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -689,6 +690,27 @@ class TaxinvoiceService < BaseService
 
     httpget("/Taxinvoice/CertCheck", corpNum, userID)
   end
+
+  # 팝빌 인감 및 첨부문서 등록 URL
+  def getSealURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    response = httpget("/?TG=SEAL", corpNum, userID)
+    response['url']
+  end
+
+  # 공인인증서 등록 URL
+  def getTaxCertURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    response = httpget("/?TG=CERT", corpNum, userID)
+    response['url']
+  end
+
 
 end # end of TaxinvoiceService
 

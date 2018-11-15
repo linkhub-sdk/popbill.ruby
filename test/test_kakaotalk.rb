@@ -380,5 +380,37 @@ class KakaoServiceTest < Test::Unit::TestCase
     puts response
   end
 
+  def test_getSenderNumberMgtURL
+    url = KakaoInstance.getSenderNumberMgtURL(
+        AccessID,
+        "testkorea"
+    )
+    puts url
+  end
+
+  def test_getPlusFriendMgtURL
+    url = KakaoInstance.getPlusFriendMgtURL(
+        AccessID,
+        "testkorea"
+    )
+    puts url
+  end
+
+  def test_getATSTemplateMgtURL
+    url = KakaoInstance.getATSTemplateMgtURL(
+        AccessID,
+        "testkorea"
+    )
+    puts url
+  end
+
+  def test_getSentListURL
+    url = KakaoInstance.getSentListURL(
+        AccessID,
+        "testkorea"
+    )
+    puts url
+  end
 end
+
 

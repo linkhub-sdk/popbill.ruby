@@ -276,8 +276,29 @@ class MessageService < BaseService
     httpget("/Message/?TG=#{togo}", corpNum, userID)['url']
   end
 
+  # 문자 전송내역 팝업 URL
+  def getSentListURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    response = httpget("/Message/?TG=BOX", corpNum, userID)
+    response['url']
+  end
+
+  # 발신번호 관리 팝업 URL
+  def getSenderNumberMgtURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    response = httpget("/Message/?TG=SENDER", corpNum, userID)
+    response['url']
+  end
+
+
   def search(corpNum, sDate, eDate, state, item, reserveYN, senderYN, page, perPage,
-             order, userID = '', queryString ='')
+             order, userID = '', queryString = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -315,7 +336,6 @@ class MessageService < BaseService
     postData = reciptNumList.to_json
 
     httppost("/Message/States", corpNum, postData, "", userID)
-
   end
 
 end # end of MessageService

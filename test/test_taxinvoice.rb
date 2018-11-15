@@ -660,6 +660,39 @@ end
     puts response
   end
 
+  def test_getAccessURL
+    url = TIServiceTest::TIInstance.getAccessURL(
+        TIServiceTest::AccessID,
+        "testkorea"
+    )
+    puts url
+  end
+
+  def test_getChargeURL
+    url = TIServiceTest::TIInstance.getChargeURL(
+        TIServiceTest::AccessID,
+        "testkorea"
+    )
+    puts url
+  end
+
+  def test_getSealURL
+    url = TIServiceTest::TIInstance.getSealURL(
+        TIServiceTest::AccessID,
+        "testkorea"
+    )
+    puts url
+  end
+
+  def test_getTaxCertURL
+    url = TIServiceTest::TIInstance.getTaxCertURL(
+        TIServiceTest::AccessID,
+        "testkorea"
+    )
+    puts url
+  end
+
+
 end # end of test Class
 
 

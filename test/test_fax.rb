@@ -298,4 +298,20 @@ class FaxServiceTest < Test::Unit::TestCase
     puts response
   end
 
+  def test_getSenderNumberMgtURL
+    url = FaxInstance.getSenderNumberMgtURL(
+        AccessID,
+        "testkorea"
+    )
+    puts url
+  end
+
+  def test_getSentListURL
+    url = FaxInstance.getSentListURL(
+        AccessID,
+        "testkorea"
+    )
+    puts url
+  end
+
 end # end of test Class

@@ -35,6 +35,26 @@ class FaxService < BaseService
     httpget("/FAX/?TG=#{togo}", corpNum, userID)['url']
   end
 
+  # 팩스 전송내역 팝업 URL
+  def getSentListURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    response = httpget("/FAX/?TG=BOX", corpNum, userID)
+    response['url']
+  end
+
+  # 발신번호 관리 팝업 URL
+  def getSenderNumberMgtURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    response = httpget("/FAX/?TG=SENDER", corpNum, userID)
+    response['url']
+  end
+
   def getUnitCost(corpNum, userID = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
@@ -43,7 +63,7 @@ class FaxService < BaseService
   end
 
   def search(corpNum, sDate, eDate, state, reserveYN, senderOnly, page, perPage,
-             order, userID = '', queryString ='')
+             order, userID = '', queryString = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, '사업자등록번호가 올바르지 않습니다.')
     end

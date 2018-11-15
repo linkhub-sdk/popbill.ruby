@@ -7,7 +7,7 @@ require 'linkhub'
 
 # Popbill API BaseService class
 class BaseService
-  ServiceID_REAL = "POPBILL";
+  ServiceID_REAL = "POPBILL"
   ServiceID_TEST = "POPBILL_TEST"
   ServiceURL_REAL = "https://popbill.linkhub.co.kr"
   ServiceURL_TEST = "https://popbill-test.linkhub.co.kr"
@@ -25,6 +25,7 @@ class BaseService
       @instance.scopes = ["member"]
       return @instance
     end
+
     private :new
   end
 
@@ -69,7 +70,7 @@ class BaseService
       begin
         # getSessionToken from Linkhub
         targetToken = @linkhub.getSessionToken(
-          @isTest ? ServiceID_TEST : ServiceID_REAL, corpNum, @scopes)
+            @isTest ? ServiceID_TEST : ServiceID_REAL, corpNum, @scopes)
       rescue LinkhubException => le
         raise PopbillException.new(le.code, le.message)
       end
@@ -78,7 +79,9 @@ class BaseService
     end
 
     targetToken['session_token']
-  end # end of getSession_Token
+  end
+
+  # end of getSession_Token
 
   def gzip_parse (target)
     sio = StringIO.new(target)
@@ -89,8 +92,8 @@ class BaseService
   # Popbill API http Get Request Func
   def httpget(url, corpNum, userID = '')
     headers = {
-      "x-pb-version" => BaseService::POPBILL_APIVersion,
-      "Accept-Encoding" => "gzip,deflate",
+        "x-pb-version" => BaseService::POPBILL_APIVersion,
+        "Accept-Encoding" => "gzip,deflate",
     }
 
     if corpNum.to_s != ''
@@ -117,16 +120,18 @@ class BaseService
       end
     else
       raise PopbillException.new(JSON.parse(res.body)["code"],
-        JSON.parse(res.body)["message"])
+                                 JSON.parse(res.body)["message"])
     end
-  end #end of httpget
+  end
+
+  #end of httpget
 
   # Request HTTP Post
   def httppost(url, corpNum, postData, action = '', userID = '', contentsType = '')
 
     headers = {
-      "x-pb-version" => BaseService::POPBILL_APIVersion,
-      "Accept-Encoding" => "gzip,deflate",
+        "x-pb-version" => BaseService::POPBILL_APIVersion,
+        "Accept-Encoding" => "gzip,deflate",
     }
 
     if contentsType == ''
@@ -147,7 +152,7 @@ class BaseService
       headers["X-HTTP-Method-Override"] = action
     end
 
-    uri = URI(getServiceURL() + url )
+    uri = URI(getServiceURL() + url)
 
     https = Net::HTTP.new(uri.host, 443)
     https.use_ssl = true
@@ -163,18 +168,20 @@ class BaseService
       end
     else
       raise PopbillException.new(JSON.parse(res.body)["code"],
-        JSON.parse(res.body)["message"])
+                                 JSON.parse(res.body)["message"])
     end
-  end #end of httppost
+  end
+
+  #end of httppost
 
 
   # Request HTTP Post File
   def httppostfile(url, corpNum, form, files, userID)
     headers = {
-      "x-pb-version" => BaseService::POPBILL_APIVersion,
-      "Content-Type" => "multipart/form-data;boundary=" + BaseService::BOUNDARY,
-      "Accept-Encoding" => "gzip,deflate",
-      "Connection" => "Keep-Alive"
+        "x-pb-version" => BaseService::POPBILL_APIVersion,
+        "Content-Type" => "multipart/form-data;boundary=" + BaseService::BOUNDARY,
+        "Accept-Encoding" => "gzip,deflate",
+        "Connection" => "Keep-Alive"
     }
 
     if corpNum.to_s != ''
@@ -191,7 +198,7 @@ class BaseService
       post_body << "--#{BaseService::BOUNDARY}\r\n"
       post_body << "Content-Disposition: form-data; name=\"form\"\r\n"
       post_body << "Content-Type: Application/json;\r\n\r\n"
-      post_body << form.to_json+"\r\n"
+      post_body << form.to_json + "\r\n"
     end
 
     files.each do |filePath|
@@ -202,7 +209,7 @@ class BaseService
         post_body << "Content-Type: Application/octet-stream\r\n\r\n"
         post_body << File.read(filePath)
       rescue
-        raise PopbillException.new(-99999999,"Failed to reading filedata from filepath")
+        raise PopbillException.new(-99999999, "Failed to reading filedata from filepath")
       end
     end
 
@@ -224,17 +231,17 @@ class BaseService
       end
     else
       raise PopbillException.new(JSON.parse(res.body)["code"],
-        JSON.parse(res.body)["message"])
+                                 JSON.parse(res.body)["message"])
     end
 
   end
 
   def httppostfiles(url, corpNum, form, files, userID)
     headers = {
-      "x-pb-version" => BaseService::POPBILL_APIVersion,
-      "Content-Type" => "multipart/form-data;boundary=" + BaseService::BOUNDARY,
-      "Accept-Encoding" => "gzip,deflate",
-      "Connection" => "Keep-Alive"
+        "x-pb-version" => BaseService::POPBILL_APIVersion,
+        "Content-Type" => "multipart/form-data;boundary=" + BaseService::BOUNDARY,
+        "Accept-Encoding" => "gzip,deflate",
+        "Connection" => "Keep-Alive"
     }
 
     if corpNum.to_s != ''
@@ -262,7 +269,7 @@ class BaseService
         post_body << "Content-Type: Application/octet-stream\r\n\r\n"
         post_body << File.read(filePath)
       rescue
-        raise PopbillException.new(-99999999,"Failed to reading filedata from filepath")
+        raise PopbillException.new(-99999999, "Failed to reading filedata from filepath")
       end
     end
 
@@ -284,7 +291,7 @@ class BaseService
       end
     else
       raise PopbillException.new(JSON.parse(res.body)["code"],
-        JSON.parse(res.body)["message"])
+                                 JSON.parse(res.body)["message"])
     end
 
   end
@@ -335,7 +342,7 @@ class BaseService
 
   # check Popbill Member ID
   def checkID(idValue)
-    http_response = httpget("/IDCheck?ID="+idValue,"","")
+    http_response = httpget("/IDCheck?ID=" + idValue, "", "")
   end
 
   # Get Pobill SSO URL
@@ -344,7 +351,27 @@ class BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
 
-    response = httpget("/?TG="+togo, corpNum, userID)
+    response = httpget("/?TG=" + togo, corpNum, userID)
+    response['url']
+  end
+
+  # 팝빌 로그인 URL
+  def getAccessURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    response = httpget("/?TG=LOGIN", corpNum, userID)
+    response['url']
+  end
+
+  # 팝빌 연동회원 포인트 충전 URL
+  def getChargeURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    response = httpget("/?TG=CHRG", corpNum, userID)
     response['url']
   end
 
@@ -353,7 +380,7 @@ class BaseService
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
-    http_response = httpget("/Join?CorpNum="+corpNum+"&LID="+linkID, "", "")
+    http_response = httpget("/Join?CorpNum=" + corpNum + "&LID=" + linkID, "", "")
   end
 
   # Get list Corp Contact
@@ -401,6 +428,7 @@ end # end of BaseService class
 # Popbill API Exception Handler class
 class PopbillException < StandardError
   attr_reader :code, :message
+
   def initialize(code, message)
     @code = code
     @message = message
