@@ -314,4 +314,14 @@ class FaxServiceTest < Test::Unit::TestCase
     puts url
   end
 
+  def test_getPreviewURL
+    url = FaxInstance.getPreviewURL(
+        AccessID,
+        "018103015555500001",
+        "testkorea",
+    )
+
+    puts url
+  end
+
 end # end of test Class
