@@ -50,3 +50,5 @@ v1.7.3
 * updateEmailConfig API if statement added
 v1.8.0
 * 홈택스 전자세금계산서/현금영수증 API added / Field update
+v1.9.0
+* URL 관련 함수 분리, 즉시요청 추가, 팩스미리보기 추가
