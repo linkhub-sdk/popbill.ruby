@@ -276,8 +276,8 @@ class TIServiceTest < Test::Unit::TestCase
   def test_11getInfo
     response = TIServiceTest::TIInstance.getInfo(
       TIServiceTest::AccessID,
-      MgtKeyType::SELL,
-      "20170117-09"
+      MgtKeyType::BUY,
+      "20181115102551"
     )
     puts response
     assert_not_nil(response)
@@ -377,6 +377,72 @@ class TIServiceTest < Test::Unit::TestCase
 
     puts response
     assert_not_nil(response)
+  end
+
+  def test_registRequest
+    taxinvoice = {
+        "writeDate" => "20181115",
+        "issueType" => "역발행",
+        "taxType" => "과세",
+        "issueTiming" => "직접발행",
+        "chargeDirection" => "정과금",
+        "purposeType" => "영수",
+        "supplyCostTotal" => "20000",
+        "taxTotal" => "2000",
+        "totalAmount" => "22000",
+
+        # "invoicerMgtKey" => "20181115102428",
+        "invoicerCorpNum" => "8888888888",
+        "invoicerCorpName" => "상호명",
+        "invoicerCEOName" => "대표자명",
+
+        "invoiceeType" => "사업자",
+        "invoiceeMgtKey" => "20181115102551",
+        "invoiceeCorpNum" => TIServiceTest::AccessID,
+        "invoiceeCorpName" => "공급받는자 상호",
+        "invoiceeCEOName" => "대표자 성명",
+
+        "addContactList" => [
+            {
+                "serialNum" => 1,
+                "contactName" => "담당자여",
+                "email" => "test@test.com",
+            },
+            {
+                "serialNum" => 2,
+                "contactName" => "담당자여",
+                "email" => "test@test.com",
+            }
+        ],
+
+        "detailList" => [
+            {
+                "serialNum" => 1,
+                "itemName" => "테스트1",
+                "purchaseDT" => "20170117",
+                "supplyCost" => "10000",
+                "tax" => "1000",
+            },
+            {
+                "serialNum" => 2,
+                "itemName" => "테스트1",
+                "purchaseDT" => "20170117",
+                "supplyCost" => "10000",
+                "tax" => "1000",
+            },
+        ]
+
+
+    }
+
+    response = TIServiceTest::TIInstance.registRequest(
+        TIServiceTest::AccessID,
+        taxinvoice,
+        "루비 역발행 즉시요청",
+        "testkorea",
+        )
+
+    puts response
   end
 
   def test_18request

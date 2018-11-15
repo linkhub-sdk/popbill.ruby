@@ -300,6 +300,20 @@ class TaxinvoiceService < BaseService
     httppost("/Taxinvoice/#{mgtKeyType}/#{mgtKey}", corpNum, postData, "CANCELISSUE", userID)
   end
 
+  def registRequest(corpNum, taxinvoice, memo = '', userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    if memo.to_s != ''
+      taxinvoice["memo"] = memo
+    end
+
+    postData = taxinvoice.to_json
+
+    httppost("/Taxinvoice", corpNum, postData, "REQUEST", userID)
+  end
+
   def request(corpNum, mgtKeyType, mgtKey, memo = '', userID = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
