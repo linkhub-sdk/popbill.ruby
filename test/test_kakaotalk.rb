@@ -412,5 +412,3 @@ class KakaoServiceTest < Test::Unit::TestCase
     puts url
   end
 end
-
-
