@@ -14,6 +14,7 @@ class TIServiceTest < Test::Unit::TestCase
   TIInstance = TaxinvoiceService.instance(TIServiceTest::LinkID, TIServiceTest::SecretKey)
 
   TIInstance.setIsTest(true)
+  TIInstance.setIpRestrictOnOff(true)
 
   def test_01ServiceInstance
     tiInstance = TaxinvoiceService.instance(
@@ -135,6 +136,7 @@ class TIServiceTest < Test::Unit::TestCase
   end
 
   def test_09registIssue
+    puts TIInstance.ipRestrictOnOff
     taxinvoice = {
      "writeDate" => "20180626",
      "issueType" => "정발행",
@@ -760,5 +762,3 @@ end
 
 
 end # end of test Class
-
-

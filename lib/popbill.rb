@@ -14,7 +14,7 @@ class BaseService
   POPBILL_APIVersion = "1.0"
   BOUNDARY = "==POPBILL_RUBY_SDK=="
 
-  attr_accessor :token_table, :scopes, :isTest, :linkhub
+  attr_accessor :token_table, :scopes, :isTest, :linkhub, :ipRestrictOnOff
 
   # Generate Linkhub Class Singleton Instance
   class << self
@@ -37,6 +37,10 @@ class BaseService
 
   def setIsTest(testValue)
     @isTest = testValue
+  end
+
+  def setIpRestrictOnOff(value)
+    @ipRestrictOnOff = value
   end
 
   def getServiceURL()
@@ -70,7 +74,8 @@ class BaseService
       begin
         # getSessionToken from Linkhub
         targetToken = @linkhub.getSessionToken(
-            @isTest ? ServiceID_TEST : ServiceID_REAL, corpNum, @scopes)
+            @isTest ? ServiceID_TEST : ServiceID_REAL, corpNum, @scopes, @ipRestrictOnOff ? "" : "*")
+        
       rescue LinkhubException => le
         raise PopbillException.new(le.code, le.message)
       end
