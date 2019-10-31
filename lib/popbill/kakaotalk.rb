@@ -91,14 +91,34 @@ class KakaoService < BaseService
             "altmsg" => altContent,
         }
     ]
-    sendATS_same(corpNum, templateCode, snd, "", "", altSendType, sndDT, msg, requestNum, userID)
+    sendATS_same(corpNum, templateCode, snd, "", "", altSendType, sndDT, msg, requestNum, userID, '')
+  end
+
+  def sendATS_one(corpNum, templateCode, snd, content, altContent, altSendType, sndDT, receiver, receiverName, requestNum = '', userID = '', btns = '')
+    msg = [
+        {
+            "rcv" => receiver,
+            "rcvnm" => receiverName,
+            "msg" => content,
+            "altmsg" => altContent,
+        }
+    ]
+    sendATS_same(corpNum, templateCode, snd, "", "", altSendType, sndDT, msg, requestNum, userID, btns)
   end
 
   def sendATS_multi(corpNum, templateCode, snd, altSendType, sndDT, msgs, requestNum = '', userID = '')
-    sendATS_same(corpNum, templateCode, snd, "", "", altSendType, sndDT, msgs, requestNum, userID)
+    sendATS_same(corpNum, templateCode, snd, "", "", altSendType, sndDT, msgs, requestNum, userID, '')
+  end
+
+  def sendATS_multi(corpNum, templateCode, snd, altSendType, sndDT, msgs, requestNum = '', userID = '', btns = '')
+    sendATS_same(corpNum, templateCode, snd, "", "", altSendType, sndDT, msgs, requestNum, userID, btns)
   end
 
   def sendATS_same(corpNum, templateCode, snd, content, altContent, altSendType, sndDT, msgs, requestNum = '', userID = '')
+    sendATS_same(corpNum, templatecode, snd, "", "", altSendType, sndDT, msgs, requestNum, userID, '')
+  end
+
+  def sendATS_same(corpNum, templateCode, snd, content, altContent, altSendType, sndDT, msgs, requestNum = '', userID = '', btns = '')
     raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.") if corpNum.length != 10
     raise PopbillException.new(-99999999, "알림톡 템플릿코드가 입력되지 않았습니다.") if templateCode.to_s == ''
     raise PopbillException.new(-99999999, "발신번호가 입력되지 않았습니다.") if snd.to_s == ''
@@ -112,6 +132,7 @@ class KakaoService < BaseService
     req["sndDT"] = sndDT if sndDT.to_s != ''
     req["requestNum"] = requestNum if requestNum.to_s != ''
     req["msgs"] = msgs if msgs.to_s != ''
+    req["btns"] = btns if btns.to_s != ''
 
     postData = req.to_json
     httppost("/ATS", corpNum, postData, "", userID)

@@ -56,16 +56,16 @@ class KakaoServiceTest < Test::Unit::TestCase
   def test_sendATS_one
     response = KakaoInstance.sendATS_one(
         "1234567890",
-        "018020000010",
+        "019090000047",
         "070-4304-2991",
-        "김현진님, 2018년 6월 15일 에 정상적으로 팝빌에 가입되었습니다. 가입에 감사드리며, 문의사항은 고객센터 및 아래 버튼을 통하여 연락주시면 친절히 상담해드리겠습니다.",
+        "테스트, 2018년 6월 15일 에 정상적으로 팝빌에 가입되었습니다. 가입에 감사드리며, 문의사항은 고객센터 및 아래 버튼을 통하여 연락주시면 친절히 상담해드리겠습니다.",
         "대체문자",
         "",
-        "20180630120030",
-        "010111222",
-        "김현진",
         "",
-        "testkorea",
+        "010111222",
+        "테스트",
+        "",
+        "",
     )
     puts response
   end
@@ -88,13 +88,14 @@ class KakaoServiceTest < Test::Unit::TestCase
     ]
     response = KakaoInstance.sendATS_multi(
         AccessID,
-        "018020000010",
+        "019090000047",
         "07043042991",
         "",
         "20180630120030",
         msg,
         "",
         "testkorea",
+        "",
     )
     puts response
   end
@@ -114,7 +115,7 @@ class KakaoServiceTest < Test::Unit::TestCase
 
     response = KakaoInstance.sendATS_same(
         AccessID,
-        "018020000010",
+        "019090000047",
         "07043042991",
         "회원님, 2018년 6월 15일 에 정상적으로 팝빌에 가입되었습니다. 가입에 감사드리며, 문의사항은 고객센터 및 아래 버튼을 통하여 연락주시면 친절히 상담해드리겠습니다.",
         "대체문자",
@@ -122,7 +123,8 @@ class KakaoServiceTest < Test::Unit::TestCase
         "20180509120000",
         msg,
         "",
-        "testkorea"
+        "testkorea",
+        ""
     )
     puts response
   end
