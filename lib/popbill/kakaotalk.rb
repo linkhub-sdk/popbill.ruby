@@ -82,18 +82,6 @@ class KakaoService < BaseService
     httpget("/KakaoTalk/ListATSTemplate", corpNum, userID)
   end
 
-  def sendATS_one(corpNum, templateCode, snd, content, altContent, altSendType, sndDT, receiver, receiverName, requestNum = '', userID = '')
-    msg = [
-        {
-            "rcv" => receiver,
-            "rcvnm" => receiverName,
-            "msg" => content,
-            "altmsg" => altContent,
-        }
-    ]
-    sendATS_same(corpNum, templateCode, snd, "", "", altSendType, sndDT, msg, requestNum, userID, '')
-  end
-
   def sendATS_one(corpNum, templateCode, snd, content, altContent, altSendType, sndDT, receiver, receiverName, requestNum = '', userID = '', btns = '')
     msg = [
         {
@@ -106,16 +94,8 @@ class KakaoService < BaseService
     sendATS_same(corpNum, templateCode, snd, "", "", altSendType, sndDT, msg, requestNum, userID, btns)
   end
 
-  def sendATS_multi(corpNum, templateCode, snd, altSendType, sndDT, msgs, requestNum = '', userID = '')
-    sendATS_same(corpNum, templateCode, snd, "", "", altSendType, sndDT, msgs, requestNum, userID, '')
-  end
-
   def sendATS_multi(corpNum, templateCode, snd, altSendType, sndDT, msgs, requestNum = '', userID = '', btns = '')
     sendATS_same(corpNum, templateCode, snd, "", "", altSendType, sndDT, msgs, requestNum, userID, btns)
-  end
-
-  def sendATS_same(corpNum, templateCode, snd, content, altContent, altSendType, sndDT, msgs, requestNum = '', userID = '')
-    sendATS_same(corpNum, templatecode, snd, "", "", altSendType, sndDT, msgs, requestNum, userID, '')
   end
 
   def sendATS_same(corpNum, templateCode, snd, content, altContent, altSendType, sndDT, msgs, requestNum = '', userID = '', btns = '')

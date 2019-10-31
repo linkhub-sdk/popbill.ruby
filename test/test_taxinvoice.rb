@@ -138,7 +138,7 @@ class TIServiceTest < Test::Unit::TestCase
   def test_09registIssue
     puts TIInstance.ipRestrictOnOff
     taxinvoice = {
-     "writeDate" => "20180626",
+     "writeDate" => "20191031",
      "issueType" => "정발행",
      "taxType" => "과세",
      "issueTiming" => "직접발행",
@@ -148,7 +148,7 @@ class TIServiceTest < Test::Unit::TestCase
      "taxTotal" => "2000",
      "totalAmount" => "22000",
 
-     "invoicerMgtKey" => "20180626-001",
+     "invoicerMgtKey" => "20191031-032",
      "invoicerCorpNum" => TIServiceTest::AccessID,
      "invoicerCorpName" => "상호명",
      "invoicerCEOName" => "대표자명",
@@ -157,7 +157,7 @@ class TIServiceTest < Test::Unit::TestCase
      "invoiceeCorpNum" => "8888888888",
      "invoiceeCorpName" => "공급받는자 상호",
      "invoiceeCEOName" => "대표자 성명",
-     "invoiceeEmail1" => "frenchofkiss@gmail.com",
+     "invoiceeEmail1" => "test@test.com",
 
      "addContactList" => [
        {
@@ -590,6 +590,16 @@ class TIServiceTest < Test::Unit::TestCase
 
   def test_30getPrintURL
     url = TIServiceTest::TIInstance.getPrintURL(
+      TIServiceTest::AccessID,
+      MgtKeyType::SELL,
+      "20170117-04"
+    )
+    puts url
+    assert_not_nil(url)
+  end
+
+  def test_30getViewURL
+    url = TIServiceTest::TIInstance.getViewURL(
       TIServiceTest::AccessID,
       MgtKeyType::SELL,
       "20170117-04"
