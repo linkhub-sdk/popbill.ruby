@@ -63,59 +63,6 @@ class STMTServiceTest < Test::Unit::TestCase
 
 
   def test_06faxSend
-    # statement = {
-    #   "itemCode" => 121,
-    #   "mgtKey" => "20170117-02",
-    #   "writeDate" => "20170117",
-    #   "taxType" => "과세",
-    #   "purposeType" => "영수",
-    #   "taxTotal" => "2000",
-    #   "supplyCostTotal" => "20000",
-    #
-    #   "senderCorpNum" => "1234567890",
-    #   "senderCorpName" => "발행자 상호",
-    #   "senderCEOName" => "발행자 대표자명",
-    #
-    #   "receiverCorpNum" => "8888888888",
-    #   "receiverCorpName" =>"수신자 상호",
-    #   "receiverContactName" =>"수신자 성명",
-    #
-    #
-    #   "detailList" => [
-    #     {
-    #       "serialNum" => 1,
-    #       "itemName" => "테스트1",
-    #       "purchaseDT" => "20170117",
-    #       "supplyCost" => "10000",
-    #       "tax" => "1000",
-    #     },
-    #     {
-    #       "serialNum" => 2,
-    #       "itemName" => "테스트1",
-    #       "purchaseDT" => "20170117",
-    #       "supplyCost" => "10000",
-    #       "tax" => "1000",
-    #     },
-    #   ],
-    #
-    #   "propertyBag" => {
-    #     "CBalance" => "12345667"
-    #   }
-    # }
-    #
-    # receiptNum = STInstance.faxSend(
-    #   STMTServiceTest::AccessID,
-    #   statement,
-    #   "07043042991",
-    #   "07043042999",
-    # )
-    #
-    # puts receiptNum
-    #
-    # assert_not_nil(receiptNum)
-  end
-
-  def test_07registIssue
     statement = {
       "itemCode" => 121,
       "mgtKey" => "20170117-02",
@@ -156,10 +103,66 @@ class STMTServiceTest < Test::Unit::TestCase
       }
     }
 
+    receiptNum = STInstance.faxSend(
+      STMTServiceTest::AccessID,
+      statement,
+      "07043042991",
+      "07043042999",
+    )
+
+    puts receiptNum
+
+    assert_not_nil(receiptNum)
+  end
+
+  def test_07registIssue
+    statement = {
+      "itemCode" => 121,
+      "mgtKey" => "20191031-023",
+      "writeDate" => "20191031",
+      "taxType" => "과세",
+      "purposeType" => "영수",
+      "taxTotal" => "2000",
+      "supplyCostTotal" => "20000",
+
+      "senderCorpNum" => "1234567890",
+      "senderCorpName" => "발행자 상호",
+      "senderCEOName" => "발행자 대표자명",
+
+      "receiverCorpNum" => "8888888888",
+      "receiverCorpName" =>"수신자 상호",
+      "receiverContactName" =>"수신자 성명",
+      "receiverEmail" => "code@linkhub.co.kr",
+
+
+      "detailList" => [
+        {
+          "serialNum" => 1,
+          "itemName" => "테스트1",
+          "purchaseDT" => "20170117",
+          "supplyCost" => "10000",
+          "tax" => "1000",
+        },
+        {
+          "serialNum" => 2,
+          "itemName" => "테스트1",
+          "purchaseDT" => "20170117",
+          "supplyCost" => "10000",
+          "tax" => "1000",
+        },
+      ],
+
+      "propertyBag" => {
+        "CBalance" => "12345667"
+      }
+    }
+
     response = STInstance.registIssue(
       STMTServiceTest::AccessID,
       statement,
       "발행메9모",
+      "",
+      "",
     )
     puts response
     assert_not_nil(response)

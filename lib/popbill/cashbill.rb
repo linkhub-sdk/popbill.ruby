@@ -54,12 +54,22 @@ class CashbillService < BaseService
   end
 
 
-  def registIssue(corpNum, cashbill, memo = '', userID = '')
+  def registIssue(corpNum, cashbill, memo = '', userID = '', emailSubject = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
 
+    if memo.to_s != ''
+      cashbill["memo"] = memo
+    end
+
+    if emailSubject.to_s != ''
+      cashbill["emailSubject"] = emailSubject
+    end
+
     postData = cashbill.to_json
+
+    puts postData
 
     httppost("/Cashbill", corpNum, postData, "ISSUE", userID)
   end

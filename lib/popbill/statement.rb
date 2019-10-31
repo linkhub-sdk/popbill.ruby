@@ -78,13 +78,19 @@ class StatementService < BaseService
   end
 
 
-  def registIssue(corpNum, statement, memo = '', userID ='')
+  def registIssue(corpNum, statement, memo = '', userID ='', emailSubject = '')
     if corpNum.length != 10
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
 
     statement["memo"] = memo
+
+    if emailSubject.to_s != ''
+      statement["emailSubject"] = emailSubject
+    end
+
     postData = statement.to_json
+
     httppost("/Statement", corpNum, postData, "ISSUE", userID)
   end
 

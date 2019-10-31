@@ -23,6 +23,8 @@ class BaseService
       @instance.token_table = {}
       @instance.linkhub = Linkhub.instance(linkID, secretKey)
       @instance.scopes = ["member"]
+      @instance.ipRestrictOnOff = true
+
       return @instance
     end
 
@@ -75,7 +77,7 @@ class BaseService
         # getSessionToken from Linkhub
         targetToken = @linkhub.getSessionToken(
             @isTest ? ServiceID_TEST : ServiceID_REAL, corpNum, @scopes, @ipRestrictOnOff ? "" : "*")
-        
+
       rescue LinkhubException => le
         raise PopbillException.new(le.code, le.message)
       end

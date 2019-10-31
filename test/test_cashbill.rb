@@ -13,6 +13,7 @@ class CBServiceTest < Test::Unit::TestCase
   CBInstance = CashbillService.instance(CBServiceTest::LinkID, CBServiceTest::SecretKey)
 
   CBInstance.setIsTest(true)
+  CBInstance.setIpRestrictOnOff(true)
 
   def test_01ServiceInstance
     cbInstance = CashbillService.instance(
@@ -63,7 +64,7 @@ class CBServiceTest < Test::Unit::TestCase
 
   def test_06registIssue
     cashbill = {
-      "mgtKey" => "20170117-01",
+      "mgtKey" => "20191031-024",
       "tradeUsage" => "소득공제용",
       "tradeType" => "승인거래",
       "taxationType" => "과세",
@@ -76,11 +77,15 @@ class CBServiceTest < Test::Unit::TestCase
       "franchiseCorpName" => "가맹점 상호",
       "franchiseCEOName" => "가맹점 대표자 성명",
       "identityNum" => "01043042991",
+      "email" => "code@linkhub.co.kr",
     }
 
     response = CBInstance.registIssue(
       CBServiceTest::AccessID,
       cashbill,
+      "memo",
+      "",
+      ""
     )
 
     puts response
