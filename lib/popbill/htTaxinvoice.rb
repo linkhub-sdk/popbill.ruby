@@ -173,6 +173,18 @@ class HTTaxinvoiceService < BaseService
     httpget("/HomeTax/Taxinvoice/#{ntsConfirmNum}/PopUp", corpNum, userID)['url']
   end
 
+  def getPrintURL(corpNum, ntsConfirmNum, userID ="")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    if ntsConfirmNum.length != 24
+      raise PopbillException.new('-99999999', '전자세금계산서 국세청승인번호가 올바르지 않습니다.')
+    end
+
+    httpget("/HomeTax/Taxinvoice/#{ntsConfirmNum}/Print", corpNum, userID)['url']
+  end
+
 
   def checkCertValidation(corpNum, userID = "")
     if corpNum.length != 10

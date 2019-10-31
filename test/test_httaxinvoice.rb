@@ -170,6 +170,14 @@ class HTTaxinvoiceTest < Test::Unit::TestCase
     puts url
   end
 
+  def test_14getPrintURL
+    url = HTTIInstance.getPrintURL(
+        HTTaxinvoiceTest::AccessID,
+        "201809194100020300000cd5"
+        )
+    puts url
+  end
+
   def test_15checkCertValidation
     response = HTTIInstance.checkCertValidation(
         HTTaxinvoiceTest::AccessID,
