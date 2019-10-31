@@ -31,9 +31,9 @@ class HTTaxinvoiceTest < Test::Unit::TestCase
   end
 
   def test_03requestJob
-    dType = "W"
-    sDate = "20160101"
-    eDate = "20170120"
+    dType = "S"
+    sDate = "20190901"
+    eDate = "20191031"
 
     jobID = HTTIInstance.requestJob(
       HTTaxinvoiceTest::AccessID,
@@ -70,7 +70,7 @@ class HTTaxinvoiceTest < Test::Unit::TestCase
   end
 
   def test_06search
-    jobID = "017012515000000004"
+    jobID = "019103115000000001"
     type = ["N", "M"]
     taxType = ["T", "N", "Z"]
     purposeType = ["R", "C", "N"]
@@ -84,8 +84,9 @@ class HTTaxinvoiceTest < Test::Unit::TestCase
     response = HTTIInstance.search(
       HTTaxinvoiceTest::AccessID,
       jobID, type, taxType, purposeType, taxRegIDType, taxRegIDYN, taxRegID,
-      page, perPage, order
+      page, perPage, order, "", ""
     )
+
 
     puts response
     assert_not_nil(response)
@@ -93,7 +94,7 @@ class HTTaxinvoiceTest < Test::Unit::TestCase
 
 
   def test_07sumary
-    jobID = "017012515000000004"
+    jobID = "019103115000000001"
     type = ["N", "M"]
     taxType = ["T", "N", "Z"]
     purposeType = ["R", "C", "N"]
@@ -103,7 +104,7 @@ class HTTaxinvoiceTest < Test::Unit::TestCase
 
     response = HTTIInstance.summary(
       HTTaxinvoiceTest::AccessID,
-      jobID, type, taxType, purposeType, taxRegIDType, taxRegIDYN, taxRegID,
+      jobID, type, taxType, purposeType, taxRegIDType, taxRegIDYN, taxRegID, "", ""
     )
 
     puts response

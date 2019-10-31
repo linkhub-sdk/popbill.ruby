@@ -59,7 +59,7 @@ class HTTaxinvoiceService < BaseService
   end
 
   def search(corpNum, jobID, type, taxType, purposeType, taxRegIDType, taxRegIDYN,
-    taxRegID, page, perPage, order, userID = '')
+    taxRegID, page, perPage, order, userID = '', searchString = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -81,11 +81,15 @@ class HTTaxinvoiceService < BaseService
       uri += "&TaxRegIDYN=" + taxRegIDYN
     end
 
+    if searchString.to_s != ''
+      uri += "&SearchString=" + searchString
+    end
+
     httpget(URI.escape(uri), corpNum, userID)
   end
 
   def summary(corpNum, jobID, type, taxType, purposeType, taxRegIDType, taxRegIDYN,
-    taxRegID, userID = '')
+    taxRegID, userID = '', searchString = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -102,6 +106,10 @@ class HTTaxinvoiceService < BaseService
 
     if taxRegIDYN.to_s != ''
       uri += "&TaxRegIDYN=" + taxRegIDYN
+    end
+
+    if searchString.to_s != ''
+      uri += "&SearchString=" + searchString
     end
 
     httpget(URI.escape(uri), corpNum, userID)
