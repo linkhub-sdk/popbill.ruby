@@ -13,6 +13,125 @@ class EasyFinBankService < BaseService
     private :new
   end
 
+  def registBankAccount(corpNum, bankAccountInfo, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    if bankAccountInfo["BankCode"].to_s == ''
+      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+    end
+
+    if bankAccountInfo["BankCode"].length != 4
+      raise PopbillException.new('-99999999', '은행코드가 올바르지 않습니다.')
+    end
+
+    if bankAccountInfo["AccountNumber"].to_s == ''
+      raise PopbillException.new('-99999999', '은행 계좌번호가 입력되지 않았습니다.')
+    end
+
+    uri = "/EasyFin/Bank/BankAccount/Regist"
+
+    if bankAccountInfo["UsePeriod"].to_s != ''
+      uri += "?UsePeriod=" + bankAccountInfo["UsePeriod"]
+    end
+
+    httppost(uri, corpNum, bankAccountInfo.to_json, "", userID)
+  end
+
+  def updateBankAccount(corpNum, bankAccountInfo, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    if bankAccountInfo["BankCode"].to_s == ''
+      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+    end
+
+    if bankAccountInfo["BankCode"].length != 4
+      raise PopbillException.new('-99999999', '은행코드가 올바르지 않습니다.')
+    end
+
+    if bankAccountInfo["AccountNumber"].to_s == ''
+      raise PopbillException.new('-99999999', '은행 계좌번호가 입력되지 않았습니다.')
+    end
+
+    uri = "/EasyFin/Bank/BankAccount/#{bankAccountInfo["BankCode"]}/#{bankAccountInfo["AccountNumber"]}/Update"
+
+    httppost(uri, corpNum, bankAccountInfo.to_json, "", userID)
+  end
+
+  def closeBankAccount(corpNum, bankCode, accountNumber, closeType, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    if bankCode.to_s == ''
+      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+    end
+
+    if bankCode.length != 4
+      raise PopbillException.new('-99999999', '은행코드가 올바르지 않습니다.')
+    end
+
+    if accountNumber.to_s == ''
+      raise PopbillException.new('-99999999', '은행 계좌번호가 입력되지 않았습니다.')
+    end
+
+    if closeType.to_s == ''
+      raise PopbillException.new('-99999999', '정액제 해지유형이 입력되지 않았습니다.')
+    end
+
+    uri = "/EasyFin/Bank/BankAccount/Close/?BankCode=#{bankCode}&AccountNumber=#{accountNumber}&CloseType=#{closeType}"
+
+    httppost(URI.escape(uri), corpNum, "", "", userID)
+  end
+
+  def revokeCloseBankAccount(corpNum, bankCode, accountNumber, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    if bankCode.to_s == ''
+      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+    end
+
+    if bankCode.length != 4
+      raise PopbillException.new('-99999999', '은행코드가 올바르지 않습니다.')
+    end
+
+    if accountNumber.to_s == ''
+      raise PopbillException.new('-99999999', '은행 계좌번호가 입력되지 않았습니다.')
+    end
+
+    uri = "/EasyFin/Bank/BankAccount/RevokeClose/?BankCode=#{bankCode}&AccountNumber=#{accountNumber}"
+
+    httppost(uri, corpNum, "", "", userID)
+  end
+
+  def getBankAccountInfo(corpNum, bankCode, accountNumber, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    if bankCode.to_s == ''
+      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+    end
+
+    if bankCode.length != 4
+      raise PopbillException.new('-99999999', '은행코드가 올바르지 않습니다.')
+    end
+
+    if accountNumber.to_s == ''
+      raise PopbillException.new('-99999999', '은행 계좌번호가 입력되지 않았습니다.')
+    end
+
+    uri = "/EasyFin/Bank/BankAccount/#{bankCode}/#{accountNumber}"
+
+    httpget(uri, corpNum, userID)
+  end
+
+
   def getChargeInfo(corpNum, userID = "")
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')

@@ -22,6 +22,91 @@ class EasyFinBankTest < Test::Unit::TestCase
     assert_not_nil(msgInstance)
   end
 
+  def test_12registBankAccount
+    accountInfo = {
+      "BankCode" => "0039",
+      "AccountNumber" => "2070064402404",
+      "AccountPWD" => "2018",
+      "AccountType" => "개인",
+      "IdentityNumber" => "800715",
+      "AccountName" => "",
+      "BankID" => "",
+      "FastID" => "",
+      "FastPWD" => "",
+      "UsePeriod" => "1",
+      "Memo" => "",
+    }
+
+
+    response = EasyFinBank.registBankAccount(
+      EasyFinBankTest::AccessID,
+      accountInfo
+    )
+    assert_not_nil(response)
+
+  end
+
+  def test_updateBankAccount
+    accountInfo = {
+      "BankCode" => "0039",
+      "AccountNumber" => "2070064402404",
+      "AccountPWD" => "2018",
+      "AccountName" => "별칭_02",
+      "BankID" => "",
+      "FastID" => "",
+      "FastPWD" => "",
+      "Memo" => "메모_02",
+    }
+
+
+    response = EasyFinBank.updateBankAccount(
+      EasyFinBankTest::AccessID,
+      accountInfo
+    )
+    assert_not_nil(response)
+  end
+
+
+  def test_getBankAccountInfo
+    bankCode = "0039"
+    accountNumber = "2070064402404"
+
+    response = EasyFinBank.getBankAccountInfo(
+      EasyFinBankTest::AccessID,
+      bankCode, accountNumber, "",
+    )
+
+    puts response
+    assert_not_nil(response)
+  end
+
+  def test_closeBankAccount
+    bankCode = "0039"
+    accountNumber = "2070064402404"
+    closeType = "중도"
+
+    response = EasyFinBank.closeBankAccount(
+      EasyFinBankTest::AccessID,
+      bankCode, accountNumber, closeType,
+    )
+
+    puts response
+    assert_not_nil(response)
+  end
+
+  def test_revokeCloseBankAccount
+    bankCode = "0039"
+    accountNumber = "2070064402404"
+
+    response = EasyFinBank.revokeCloseBankAccount(
+      EasyFinBankTest::AccessID,
+      bankCode, accountNumber,
+    )
+
+    puts response
+    assert_not_nil(response)
+  end
+
   def test_02getChargeInfo
     response = EasyFinBank.getChargeInfo(
       EasyFinBankTest::AccessID,
