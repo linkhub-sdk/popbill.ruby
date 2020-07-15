@@ -12,6 +12,7 @@ class AccountCheckServiceTest < Test::Unit::TestCase
 
   ACInstance = AccountCheckService.instance(AccountCheckServiceTest::LinkID, AccountCheckServiceTest::SecretKey)
   ACInstance.setIsTest(true)
+  ACInstance.setUseStaticIP(true)
 
   def test_01ServiceInstance
     msgInstance = AccountCheckService.instance(
