@@ -352,6 +352,17 @@ class CashbillService < BaseService
     httpget("/Cashbill/#{mgtKey}?TG=POPUP", corpNum, userID)['url']
   end
 
+  def getPDFURL(corpNum, mgtKey, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    if mgtKey.to_s == ''
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
+    end
+
+    httpget("/Cashbill/#{mgtKey}?TG=PDF", corpNum, userID)['url']
+  end
+
   def getPrintURL(corpNum, mgtKey, userID = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
