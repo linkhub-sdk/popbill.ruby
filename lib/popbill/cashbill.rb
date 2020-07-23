@@ -39,7 +39,7 @@ class CashbillService < BaseService
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new(-99999999, "현금영수증 문서관리번호가 입력되지 않았습니다.")
+      raise PopbillException.new(-99999999, "현금영수증 문서번호가 입력되지 않았습니다.")
     end
 
     begin
@@ -232,7 +232,7 @@ class CashbillService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     unless mgtKeyList.any?
-      raise PopbillException.new('-99999999', '문서관리번호 배열이 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호 배열이 올바르지 않습니다.')
     end
 
     postData = mgtKeyList.to_json
@@ -257,7 +257,7 @@ class CashbillService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     postData = {}
@@ -277,7 +277,7 @@ class CashbillService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     if senderNum.to_s == ''
@@ -308,7 +308,7 @@ class CashbillService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     if senderNum.to_s == ''
@@ -335,7 +335,7 @@ class CashbillService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
     httpget("/Cashbill/#{mgtKey}/Logs", corpNum, userID)
   end
@@ -346,7 +346,7 @@ class CashbillService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Cashbill/#{mgtKey}?TG=POPUP", corpNum, userID)['url']
@@ -357,7 +357,7 @@ class CashbillService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Cashbill/#{mgtKey}?TG=PRINT", corpNum, userID)['url']
@@ -368,7 +368,7 @@ class CashbillService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Cashbill/#{mgtKey}?TG=MAIL", corpNum, userID)['url']
@@ -380,7 +380,7 @@ class CashbillService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Cashbill/#{mgtKey}?TG=EPRINT", corpNum, userID)['url']
@@ -392,7 +392,7 @@ class CashbillService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     unless mgtKeyList.any?
-      raise PopbillException.new('-99999999', '문서관리번호 배열이 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호 배열이 올바르지 않습니다.')
     end
 
     postData = mgtKeyList.to_json
@@ -423,6 +423,19 @@ class CashbillService < BaseService
     end
 
     httppost("/Cashbill/EmailSendConfig?EmailType=#{emailType}&SendYN=#{sendYN}", corpNum, userID)
+  end
+
+  def assignMgtKey(corpNum, itemKey, mgtKey, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    if itemKey.to_s == ''
+      raise PopbillException.new('-99999999', '아이템키가 입력되지 않았습니다.')
+    end
+
+    String postDate = "MgtKey=" + mgtKey
+
+    httppost("/Cashbill/#{itemKey}", corpNum, postDate, "", userID, "application/x-www-form-urlencoded; charset=utf-8")
   end
 
 end # end of CashbillService

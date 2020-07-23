@@ -54,7 +54,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     begin
@@ -116,7 +116,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
     postData = taxinvoice.to_json
 
@@ -129,7 +129,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}", corpNum, userID)
@@ -154,7 +154,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}?Detail", corpNum, userID)
@@ -178,7 +178,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     postData = {}
@@ -201,7 +201,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     postData = {}
@@ -220,7 +220,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     postData = {}
@@ -239,7 +239,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     postData = {}
@@ -258,7 +258,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     postData = {}
@@ -286,7 +286,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     postData = {}
@@ -319,7 +319,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     postData = {}
@@ -338,7 +338,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     postData = {}
@@ -357,7 +357,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     postData = {}
@@ -377,7 +377,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httppost("/Taxinvoice/#{mgtKeyType}/#{mgtKey}", corpNum, '', "NTS", userID)
@@ -389,7 +389,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     postData = {}
@@ -408,7 +408,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     if senderNum.to_s == ''
@@ -439,7 +439,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     if senderNum.to_s == ''
@@ -465,7 +465,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}/Logs", corpNum, userID)
@@ -477,7 +477,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httppostfiles("/Taxinvoice/#{mgtKeyType}/#{mgtKey}/Files", corpNum, '', [filePath], userID)
@@ -489,7 +489,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}/Files", corpNum)
@@ -501,7 +501,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
     if fileID.to_s == ''
       raise PopbillException.new('-99999999', '파일아이디가 입력되지 않았습니다.')
@@ -515,7 +515,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}?TG=POPUP", corpNum, userID)['url']
@@ -526,10 +526,21 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}?TG=PRINT", corpNum, userID)['url']
+  end
+
+  def getPDFURL(corpNum, mgtKeyType, mgtKey, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    if mgtKey.to_s == ''
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
+    end
+
+    httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}?TG=PDF", corpNum, userID)['url']
   end
 
   def getViewURL(corpNum, mgtKeyType, mgtKey, userID = '')
@@ -537,7 +548,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}?TG=VIEW", corpNum, userID)['url']
@@ -548,7 +559,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}?TG=EPRINT", corpNum, userID)['url']
@@ -559,7 +570,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}?TG=MAIL", corpNum, userID)['url']
@@ -579,7 +590,8 @@ class TaxinvoiceService < BaseService
 
 
   def search(corpNum, mgtKeyType, dType, sDate, eDate, state, type, taxType, lateOnly,
-             taxRegIDYN, taxRegIDType, taxRegID, page, perPage, order, queryString, userID = '', interOPYN = '', issueType = [])
+             taxRegIDYN, taxRegIDType, taxRegID, page, perPage, order, queryString, userID = '', interOPYN = '', issueType = [],
+           regType = [], closeDownState = [], mgtKey = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -588,11 +600,11 @@ class TaxinvoiceService < BaseService
     end
 
     if sDate.to_s == ''
-      raise PopbillException.new('-99999999', '시작일자가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '검색기간 시작일자가 입력되지 않았습니다.')
     end
 
     if eDate.to_s == ''
-      raise PopbillException.new('-99999999', '종료일자가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '검색기간 종료일자가 입력되지 않았습니다.')
     end
 
     uri = "/Taxinvoice/#{mgtKeyType}?DType=#{dType}&SDate=#{sDate}&EDate=#{eDate}"
@@ -610,6 +622,14 @@ class TaxinvoiceService < BaseService
       uri += "&IssueType=" + issueType.join(',')
     end
 
+    if regType.length > 0
+      uri += "&RegType=" + regType.join(',')
+    end
+
+    if closeDownState.length > 0
+      uri += "&CloseDownState=" + closeDownState.join(',')
+    end
+
     if lateOnly.to_s != ''
       uri += "&LateOnly=" + lateOnly
     end
@@ -620,6 +640,10 @@ class TaxinvoiceService < BaseService
 
     if queryString.to_s != ''
       uri += "&QString=" + queryString
+    end
+
+    if mgtKey.to_s != ''
+      uri += "&MgtKey=" + mgtKey
     end
 
     httpget(URI.escape(uri), corpNum, userID)
@@ -676,7 +700,7 @@ class TaxinvoiceService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if itemKey.to_s == ''
-      raise PopbillException.new('-99999999', '해당문서의 아이템키가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '아이템키가 입력되지 않았습니다.')
     end
 
     String postDate = "MgtKey=" + mgtKey

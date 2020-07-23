@@ -44,7 +44,7 @@ class StatementService < BaseService
       raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new(-99999999, "현금영수증 문서관리번호가 입력되지 않았습니다.")
+      raise PopbillException.new(-99999999, "현금영수증 문서번호가 입력되지 않았습니다.")
     end
 
     begin
@@ -184,7 +184,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '문서번호 입력되지 않았습니다.')
     end
 
     httpget("/Statement/#{itemCode}/#{mgtKey}", corpNum, userID)
@@ -196,7 +196,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     unless mgtKeyList.any?
-      raise PopbillException.new('-99999999', '문서관리번호 배열이 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호 배열이 올바르지 않습니다.')
     end
 
     postData = mgtKeyList.to_json
@@ -210,7 +210,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Statement/#{itemCode}/#{mgtKey}?Detail", corpNum, userID)
@@ -221,7 +221,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
     if receiverMail.to_s == ''
       raise PopbillException.new('-99999999', '수신자 메일주소가 올바르지 않습니다.')
@@ -240,7 +240,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     if senderNum.to_s == ''
@@ -271,7 +271,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     if senderNum.to_s == ''
@@ -295,7 +295,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Statement/#{itemCode}/#{mgtKey}/Logs", corpNum, userID)
@@ -306,7 +306,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httppostfiles("/Statement/#{itemCode}/#{mgtKey}/Files", corpNum, '', [filePath], userID)
@@ -317,7 +317,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Statement/#{itemCode}/#{mgtKey}/Files", corpNum)
@@ -329,7 +329,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
     if fileID.to_s == ''
       raise PopbillException.new('-99999999', '파일아이디가 입력되지 않았습니다.')
@@ -343,7 +343,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Statement/#{itemCode}/#{mgtKey}?TG=POPUP", corpNum, userID)['url']
@@ -355,10 +355,21 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Statement/#{itemCode}/#{mgtKey}?TG=PRINT", corpNum, userID)['url']
+  end
+
+  def getPDFURL(corpNum, itemCode, mgtKey, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    if mgtKey.to_s == ''
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
+    end
+
+    httpget("/Statement/#{itemCode}/#{mgtKey}?TG=PDF", corpNum, userID)['url']
   end
 
   def getEPrintURL(corpNum, itemCode, mgtKey, userID = '')
@@ -366,7 +377,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Statement/#{itemCode}/#{mgtKey}?TG=EPRINT", corpNum, userID)['url']
@@ -377,7 +388,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
     end
 
     httpget("/Statement/#{itemCode}/#{mgtKey}?TG=MAIL", corpNum, userID)['url']
@@ -389,7 +400,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     unless mgtKeyList.any?
-      raise PopbillException.new('-99999999', '문서관리번호 배열이 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '문서번호 배열이 올바르지 않습니다.')
     end
 
     postData = mgtKeyList.to_json
@@ -402,7 +413,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 입력되지 않았습니다.')
     end
     if itemCode.to_s == ''
       raise PopbillException.new('-99999999', '전자명세서 종류코드가 입력되지 않았습니다.')
@@ -411,7 +422,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '전자명세서 종류코드가 입력되지 않았습니다.')
     end
     if subMgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '전자명세서 문서관리번호가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '전자명세서 문서번호가 입력되지 않았습니다.')
     end
 
     postData = {}
@@ -427,7 +438,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if mgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '문서관리번호가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '문서번호가 입력되지 않았습니다.')
     end
     if itemCode.to_s == ''
       raise PopbillException.new('-99999999', '전자명세서 종류코드가 입력되지 않았습니다.')
@@ -436,7 +447,7 @@ class StatementService < BaseService
       raise PopbillException.new('-99999999', '전자명세서 종류코드가 입력되지 않았습니다.')
     end
     if subMgtKey.to_s == ''
-      raise PopbillException.new('-99999999', '전자명세서 문서관리번호가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '전자명세서 문서번호가 입력되지 않았습니다.')
     end
 
     postData = {}
