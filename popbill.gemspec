@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'popbill'
-  s.version     = '1.17.0'
+  s.version     = '1.17.1'
   s.date        = '2020-07-23'
   s.summary     = 'Popbill API SDK'
   s.description = 'Popbill API SDK'

@@ -361,6 +361,17 @@ class StatementService < BaseService
     httpget("/Statement/#{itemCode}/#{mgtKey}?TG=PRINT", corpNum, userID)['url']
   end
 
+  def getViewURL(corpNum, itemCode, mgtKey, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    if mgtKey.to_s == ''
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
+    end
+
+    httpget("/Statement/#{itemCode}/#{mgtKey}?TG=VIEW", corpNum, userID)['url']
+  end
+
   def getPDFURL(corpNum, itemCode, mgtKey, userID = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
