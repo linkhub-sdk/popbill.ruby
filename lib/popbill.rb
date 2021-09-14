@@ -11,13 +11,15 @@ class BaseService
   ServiceID_TEST = "POPBILL_TEST"
   ServiceURL_REAL = "https://popbill.linkhub.co.kr"
   ServiceURL_TEST = "https://popbill-test.linkhub.co.kr"
+  ServiceURL_Static_REAL = "https://static-popbill.linkhub.co.kr"
+  ServiceURL_Static_TEST = "https://static-popbill-test.linkhub.co.kr"
   ServiceURL_GA_REAL = "https://ga-popbill.linkhub.co.kr"
   ServiceURL_GA_TEST = "https://ga-popbill-test.linkhub.co.kr"
 
   POPBILL_APIVersion = "1.0"
   BOUNDARY = "==POPBILL_RUBY_SDK=="
 
-  attr_accessor :token_table, :scopes, :isTest, :linkhub, :ipRestrictOnOff, :useStaticIP
+  attr_accessor :token_table, :scopes, :isTest, :linkhub, :ipRestrictOnOff, :useStaticIP, :useGAIP
 
   # Generate Linkhub Class Singleton Instance
   class << self
@@ -28,6 +30,7 @@ class BaseService
       @instance.scopes = ["member"]
       @instance.ipRestrictOnOff = true
       @instance.useStaticIP = false
+      @instance.useGAIP = false
 
       return @instance
     end
@@ -53,9 +56,15 @@ class BaseService
     @useStaticIP = value
   end
 
+  def setUseGAIP(value)
+    @useGAIP = value
+  end
+
   def getServiceURL()
-    if @useStaticIP
-      return @isTest ? BaseService::ServiceURL_GA_TEST : BaseService::ServiceURL_GA_REAL
+    if @useGAIP
+        return @isTest ? BaseService::ServiceURL_GA_TEST : BaseService::ServiceURL_GA_REAL
+    elsif @useStaticIP
+      return @isTest ? BaseService::ServiceURL_Static_TEST : BaseService::ServiceURL_Static_REAL
     else
       return @isTest ? BaseService::ServiceURL_TEST : BaseService::ServiceURL_REAL
     end
@@ -81,7 +90,7 @@ class BaseService
     else
       # Token's expireTime must use parse() because time format is hh:mm:ss.SSSZ
       expireTime = DateTime.parse(targetToken['expiration'])
-      serverUTCTime = DateTime.strptime(@linkhub.getTime(@useStaticIP))
+      serverUTCTime = DateTime.strptime(@linkhub.getTime(@useStaticIP, @useGAIP))
       refresh = expireTime < serverUTCTime
     end
 
@@ -89,7 +98,7 @@ class BaseService
       begin
         # getSessionToken from Linkhub
         targetToken = @linkhub.getSessionToken(
-            @isTest ? ServiceID_TEST : ServiceID_REAL, corpNum, @scopes, @ipRestrictOnOff ? "" : "*", @useStaticIP)
+            @isTest ? ServiceID_TEST : ServiceID_REAL, corpNum, @scopes, @ipRestrictOnOff ? "" : "*", @useStaticIP, @useGAIP)
 
       rescue LinkhubException => le
         raise PopbillException.new(le.code, le.message)
@@ -299,7 +308,7 @@ class BaseService
     # Add the file Data
 
     uri = URI(getServiceURL() + url)
-    
+
     https = Net::HTTP.new(uri.host, 443)
     https.use_ssl = true
     Net::HTTP::Post.new(uri)
@@ -326,7 +335,7 @@ class BaseService
     end
 
     begin
-      @linkhub.getBalance(getSession_Token(corpNum), getServiceID(), @useStaticIP)
+      @linkhub.getBalance(getSession_Token(corpNum), getServiceID(), @useStaticIP, @useGAIP)
     rescue LinkhubException => le
       raise PopbillException.new(le.code, le.message)
     end
@@ -339,7 +348,7 @@ class BaseService
     end
 
     begin
-      @linkhub.getPartnerBalance(getSession_Token(corpNum), getServiceID(), @useStaticIP)
+      @linkhub.getPartnerBalance(getSession_Token(corpNum), getServiceID(), @useStaticIP, @useGAIP)
     rescue LinkhubException => le
       raise PopbillException.new(le.code, le.message)
     end
@@ -352,7 +361,7 @@ class BaseService
     end
 
     begin
-      @linkhub.getPartnerURL(getSession_Token(corpNum), getServiceID(), togo, @useStaticIP)
+      @linkhub.getPartnerURL(getSession_Token(corpNum), getServiceID(), togo, @useStaticIP, @useGAIP)
     rescue LinkhubException => le
       raise PopbillException.new(le.code, le.message)
     end

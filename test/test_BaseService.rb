@@ -50,6 +50,8 @@ class BaseServiceTest < Test::Unit::TestCase
     base_instance = BaseService.instance(BaseServiceTest::LinkID, BaseServiceTest::SecretKey)
     base_instance.addScope("110")
     base_instance.isTest = true
+    base_instance.useGAIP = false
+    base_instance.useStaticIP = false
     balance = base_instance.getBalance(BaseServiceTest::AccessID)
     assert_not_nil(balance)
   end
