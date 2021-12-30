@@ -14,39 +14,60 @@ class AccountCheckServiceTest < Test::Unit::TestCase
   ACInstance.setIsTest(true)
   ACInstance.setUseStaticIP(true)
 
-  def test_01ServiceInstance
-    msgInstance = AccountCheckService.instance(
-      AccountCheckServiceTest::LinkID,
-      AccountCheckServiceTest::SecretKey,
-    )
-    puts msgInstance
-    assert_not_nil(msgInstance)
-  end
-
-  def test_02getChargeInfo
-    response = ACInstance.getChargeInfo(
-      AccountCheckServiceTest::AccessID,
-    )
-    puts response
-    assert_not_nil(response)
-  end
-
+  # def test_01ServiceInstance
+  #   msgInstance = AccountCheckService.instance(
+  #     AccountCheckServiceTest::LinkID,
+  #     AccountCheckServiceTest::SecretKey,
+  #   )
+  #   puts msgInstance
+  #   assert_not_nil(msgInstance)
+  # end
+  #
+  # def test_02getChargeInfo
+  #   response = ACInstance.getChargeInfo(
+  #     AccountCheckServiceTest::AccessID,
+  #     'testkorea',
+  #     '성명'
+  #   )
+  #   puts response
+  #   assert_not_nil(response)
+  # end
+  #
   def test_03getUnitCost
     response = ACInstance.getUnitCost(
       AccountCheckServiceTest::AccessID,
+      'testkorea',
+      ''
     )
     puts response
     assert_not_nil(response)
   end
-
-  def test_04checkAccountInfo
-    response = ACInstance.checkAccountInfo(
-      AccountCheckServiceTest::AccessID,
-      "0004",
-      "94324511758",
-    )
-    puts response
-    assert_not_nil(response)
-  end
+  #
+  # def test_04checkAccountInfo
+  #   response = ACInstance.checkAccountInfo(
+  #     AccountCheckServiceTest::AccessID,
+  #     "0004",
+  #     "94324511758",
+  #   )
+  #   puts response
+  #   assert_not_nil(response)
+  # end
+  # def test_checkDepositorInfo
+  #   begin
+  #     response = ACInstance.checkDepositorInfo(
+  #       AccountCheckServiceTest::AccessID,
+  #       "0004",
+  #       "",
+  #       'P',
+  #       '941219',
+  #       'testkorea'
+  #     )
+  #     puts response
+  #     assert_not_nil(response)
+  #   rescue PopbillException => pe
+  #     puts pe.code
+  #     puts pe.message
+  #   end
+  # end
 
 end # end of test Class
