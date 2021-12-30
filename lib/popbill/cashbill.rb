@@ -69,8 +69,6 @@ class CashbillService < BaseService
 
     postData = cashbill.to_json
 
-    puts postData
-
     httppost("/Cashbill", corpNum, postData, "ISSUE", userID)
   end
 
@@ -179,7 +177,7 @@ class CashbillService < BaseService
   end
 
   def search(corpNum, dType, sDate, eDate, state, tradeType, tradeUsage,
-    taxationType, page, perPage, order, queryString = '', userID = '', tradeOpt = '')
+    taxationType, page, perPage, order, queryString = '', userID = '', tradeOpt = '', franchiseTaxRegID = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -211,6 +209,8 @@ class CashbillService < BaseService
     if tradeOpt.to_s != ''
       uri += "&TradeOpt=" + tradeOpt.join(',')
     end
+
+    uri+="&FranchiseTaxRegID=" + franchiseTaxRegID
 
     httpget(URI.escape(uri), corpNum, userID)
   end
