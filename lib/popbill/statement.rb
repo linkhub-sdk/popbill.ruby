@@ -289,7 +289,6 @@ class StatementService < BaseService
     httppost("/Statement/#{itemCode}/#{mgtKey}", corpNum, postData, "FAX", userID)
   end
 
-
   def getLogs(corpNum, itemCode, mgtKey, userID = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
@@ -299,6 +298,15 @@ class StatementService < BaseService
     end
 
     httpget("/Statement/#{itemCode}/#{mgtKey}/Logs", corpNum, userID)
+  end
+
+  def getSealURL(corpNum, userID)
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    response = httpget("/?TG=SEAL", corpNum, userID)
+    response['url']
   end
 
   def attachFile(corpNum, itemCode, mgtKey, filePath, userID ='')
