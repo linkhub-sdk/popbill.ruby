@@ -19,11 +19,11 @@ class EasyFinBankService < BaseService
     end
 
     if bankAccountInfo["BankCode"].to_s == ''
-      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 입력되지 않았습니다.')
     end
 
     if bankAccountInfo["BankCode"].length != 4
-      raise PopbillException.new('-99999999', '은행코드가 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 올바르지 않습니다.')
     end
 
     if bankAccountInfo["AccountNumber"].to_s == ''
@@ -45,11 +45,11 @@ class EasyFinBankService < BaseService
     end
 
     if bankAccountInfo["BankCode"].to_s == ''
-      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 입력되지 않았습니다.')
     end
 
     if bankAccountInfo["BankCode"].length != 4
-      raise PopbillException.new('-99999999', '은행코드가 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 올바르지 않습니다.')
     end
 
     if bankAccountInfo["AccountNumber"].to_s == ''
@@ -67,11 +67,11 @@ class EasyFinBankService < BaseService
     end
 
     if bankCode.to_s == ''
-      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 입력되지 않았습니다.')
     end
 
     if bankCode.length != 4
-      raise PopbillException.new('-99999999', '은행코드가 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 올바르지 않습니다.')
     end
 
     if accountNumber.to_s == ''
@@ -93,11 +93,11 @@ class EasyFinBankService < BaseService
     end
 
     if bankCode.to_s == ''
-      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 입력되지 않았습니다.')
     end
 
     if bankCode.length != 4
-      raise PopbillException.new('-99999999', '은행코드가 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 올바르지 않습니다.')
     end
 
     if accountNumber.to_s == ''
@@ -115,11 +115,11 @@ class EasyFinBankService < BaseService
     end
 
     if bankCode.to_s == ''
-      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 입력되지 않았습니다.')
     end
 
     if bankCode.length != 4
-      raise PopbillException.new('-99999999', '은행코드가 올바르지 않습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 올바르지 않습니다.')
     end
 
     if accountNumber.to_s == ''
@@ -160,7 +160,7 @@ class EasyFinBankService < BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     if bankCode.to_s == ''
-      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 입력되지 않았습니다.')
     end
     if accountNumber.to_s == ''
       raise PopbillException.new('-99999999', '계좌번호가 입력되지 않았습니다.')
@@ -263,7 +263,7 @@ class EasyFinBankService < BaseService
     end
 
     if bankCode.to_s == ''
-      raise PopbillException.new('-99999999', '은행코드가 입력되지 않았습니다.')
+      raise PopbillException.new('-99999999', '기관코드가 입력되지 않았습니다.')
     end
     if accountNumber.to_s == ''
       raise PopbillException.new('-99999999', '계좌번호가 입력되지 않았습니다.')
