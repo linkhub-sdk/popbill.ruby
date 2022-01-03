@@ -388,6 +388,24 @@ class BaseService
     response['url']
   end
 
+  # 연동회원 포인트 결제내역 팝업 URL
+  def getPaymentURL(corpNum, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    response = httpget("/?TG=PAYMENT", corpNum, userID)
+    response['url']
+  end
+  
+  # 연동회원 포인트 사용내역 팝업 URL
+  def getUseHistoryURL(corpNum, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    response = httpget("/?TG=USEHISTORY", corpNum, userID)
+    response['url']
+  end
+
   # 팝빌 로그인 URL
   def getAccessURL(corpNum, userID)
     if corpNum.length != 10

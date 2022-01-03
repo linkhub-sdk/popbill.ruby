@@ -174,10 +174,20 @@ class BaseServiceTest < Test::Unit::TestCase
   #   assert_not_nil(url)
   # end
 
-  def test_getContactInfo
-    contactInfo = BaseServiceTest::LinkhubInstance.getContactInfo("1234567890", "testkorea", "")
-    puts contactInfo
-    assert_not_nil(contactInfo)
+  # def test_getContactInfo
+  #   contactInfo = BaseServiceTest::LinkhubInstance.getContactInfo("1234567890", "testkorea", "")
+  #   puts contactInfo
+  #   assert_not_nil(contactInfo)
+  # end
+
+  def test_getPaymentURL
+    url = BaseServiceTest::LinkhubInstance.getPaymentURL("1234567890", "testkorea")
+    puts url
+  end
+
+  def test_getUseHistoryURL
+    url = BaseServiceTest::LinkhubInstance.getUseHistoryURL("1234567890", "testkorea")
+    puts url
   end
 
 
