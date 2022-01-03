@@ -244,6 +244,7 @@ class BaseService
     end
 
     post_body << "\r\n\r\n--#{BaseService::BOUNDARY}--\r\n"
+
     # Add the file Data
 
     uri = URI(getServiceURL() + url)
@@ -413,6 +414,16 @@ class BaseService
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
     http_response = httpget("/Join?CorpNum=" + corpNum + "&LID=" + linkID, "", "")
+  end
+
+  def getContactInfo(corpNum, contactID, userID  = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    postData = {}
+    postData["id"] = contactID
+
+    httppost("/Contact", corpNum, postData.to_json, "", userID)
   end
 
   # Get list Corp Contact

@@ -779,15 +779,24 @@ class TIServiceTest < Test::Unit::TestCase
   #   puts response
   # end
 
-  def test_getOldPrintURL
-    url = TIServiceTest::TIInstance.getOldPrintURL(
+  # def test_getOldPrintURL
+  #   url = TIServiceTest::TIInstance.getOldPrintURL(
+  #     TIServiceTest::AccessID,
+  #     MgtKeyType::SELL,
+  #     "20170117-04",
+  #     "testkorea"
+  #   )
+  #   puts url
+  #   assert_not_nil(url)
+  # end
+
+  def test_getContactInfo
+    contactInfo = TIServiceTest::TIInstance.getContactInfo(
       TIServiceTest::AccessID,
-      MgtKeyType::SELL,
-      "20170117-04",
       "testkorea"
     )
-    puts url
-    assert_not_nil(url)
+    puts contactInfo
+    assert_not_nil(contactInfo)
   end
 
 
