@@ -771,12 +771,23 @@ class TIServiceTest < Test::Unit::TestCase
 #     puts url
 #   end
 
-  def test_getSendToNTSConfig
-    response = TIServiceTest::TIInstance.getSendToNTSConfig(
-        TIServiceTest::AccessID,
-        "testkorea"
+  # def test_getSendToNTSConfig
+  #   response = TIServiceTest::TIInstance.getSendToNTSConfig(
+  #       TIServiceTest::AccessID,
+  #       "testkorea"
+  #   )
+  #   puts response
+  # end
+
+  def test_getOldPrintURL
+    url = TIServiceTest::TIInstance.getOldPrintURL(
+      TIServiceTest::AccessID,
+      MgtKeyType::SELL,
+      "20170117-04",
+      "testkorea"
     )
-    puts response
+    puts url
+    assert_not_nil(url)
   end
 
 

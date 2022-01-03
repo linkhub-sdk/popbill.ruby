@@ -532,6 +532,17 @@ class TaxinvoiceService < BaseService
     httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}?TG=PRINT", corpNum, userID)['url']
   end
 
+  def getOldPrintURL(corpNum, mgtKeyType, mgtKey, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+    if mgtKey.to_s == ''
+      raise PopbillException.new('-99999999', '문서번호가 올바르지 않습니다.')
+    end
+
+    httpget("/Taxinvoice/#{mgtKeyType}/#{mgtKey}?TG=PRINTOLD", corpNum, userID)['url']
+  end
+
   def getPDFURL(corpNum, mgtKeyType, mgtKey, userID = '')
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
