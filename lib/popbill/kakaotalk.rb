@@ -76,6 +76,11 @@ class KakaoService < BaseService
     httpget("/Message/SenderNumber", corpNum, userID)
   end
 
+  def getATSTemplate(corpNum, templateCode, userID = '')
+    raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.") if corpNum.length != 10
+    httpget("/KakaoTalk/GetATSTemplate/#{templateCode}", corpNum, userID)
+  end
+
   def listATSTemplate(corpNum, userID = '')
     raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.") if corpNum.length != 10
 
