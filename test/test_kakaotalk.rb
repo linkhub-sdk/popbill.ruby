@@ -49,7 +49,7 @@ class KakaoServiceTest < Test::Unit::TestCase
   def test_getATStemplate
     response = KakaoInstance.getATSTemplate(
       AccessID,
-      "021110000491",
+      "",
       "testkorea"
     )
     puts response

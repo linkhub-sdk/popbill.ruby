@@ -78,6 +78,8 @@ class KakaoService < BaseService
 
   def getATSTemplate(corpNum, templateCode, userID = '')
     raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.") if corpNum.length != 10
+    raise PopbillException.new(-99999999, "템플릿 코드가 입력되지 않았습니다.")if templateCode.to_s == ''
+    
     httpget("/KakaoTalk/GetATSTemplate/#{templateCode}", corpNum, userID)
   end
 
