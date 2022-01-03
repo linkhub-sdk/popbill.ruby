@@ -204,6 +204,47 @@ class BaseService
 
   #end of httppost
 
+  def httppostbulk(url, corpNum, postData, submitID, action = '', userID = '')
+    headers = {
+        "x-pb-version" => BaseService::POPBILL_APIVersion,
+        "Accept-Encoding" => "gzip,deflate",
+    }
+
+    headers["Content-Type"] = "application/json; charset=utf8"
+    headers["x-pb-message-digest"] = Base64.strict_encode64(Digest::SHA1.digest(postData))
+    headers["x-pb-submit-id"] = submitID
+
+    if corpNum.to_s != ''
+      headers["Authorization"] = "Bearer " + getSession_Token(corpNum)
+    end
+
+    if userID.to_s != ''
+      headers["x-pb-userid"] = userID
+    end
+
+    if action.to_s != ''
+      headers["X-HTTP-Method-Override"] = action
+    end
+
+    uri = URI(getServiceURL() + url)
+
+    https = Net::HTTP.new(uri.host, 443)
+    https.use_ssl = true
+    Net::HTTP::Post.new(uri)
+
+    res = https.post(uri.request_uri, postData, headers)
+
+    if res.code == "200"
+      if res.header['Content-Encoding'].eql?('gzip')
+        JSON.parse(gzip_parse(res.body))
+      else
+        JSON.parse(res.body)
+      end
+    else
+      raise PopbillException.new(JSON.parse(res.body)["code"],
+                                 JSON.parse(res.body)["message"])
+    end
+  end
 
   # Request HTTP Post File
   def httppostfile(url, corpNum, form, files, userID)
@@ -396,7 +437,7 @@ class BaseService
     response = httpget("/?TG=PAYMENT", corpNum, userID)
     response['url']
   end
-  
+
   # 연동회원 포인트 사용내역 팝업 URL
   def getUseHistoryURL(corpNum, userID = "")
     if corpNum.length != 10

@@ -136,78 +136,76 @@ class TIServiceTest < Test::Unit::TestCase
 #     assert_not_nil(response)
 #   end
 #
-#   def test_09registIssue
-#     puts TIInstance.ipRestrictOnOff
-#     taxinvoice = {
-#      "writeDate" => "20191031",
-#      "issueType" => "정발행",
-#      "taxType" => "과세",
-#      "issueTiming" => "직접발행",
-#      "chargeDirection" => "정과금",
-#      "purposeType" => "영수",
-#      "supplyCostTotal" => "20000",
-#      "taxTotal" => "2000",
-#      "totalAmount" => "22000",
-#
-#      "invoicerMgtKey" => "20191031-032",
-#      "invoicerCorpNum" => TIServiceTest::AccessID,
-#      "invoicerCorpName" => "상호명",
-#      "invoicerCEOName" => "대표자명",
-#
-#      "invoiceeType" => "사업자",
-#      "invoiceeCorpNum" => "8888888888",
-#      "invoiceeCorpName" => "공급받는자 상호",
-#      "invoiceeCEOName" => "대표자 성명",
-#      "invoiceeEmail1" => "test@test.com",
-#
-#      "addContactList" => [
-#        {
-#          "serialNum" => 1,
-#          "contactName" => "담당자여",
-#          "email" => "test@test.com",
-#        },
-#        {
-#          "serialNum" => 2,
-#          "contactName" => "담당자여",
-#          "email" => "test@test.com",
-#        }
-#      ],
-#
-#      "detailList" => [
-#        {
-#          "serialNum" => 1,
-#          "itemName" => "테스트1",
-#          "purchaseDT" => "20170117",
-#          "supplyCost" => "10000",
-#          "tax" => "1000",
-#        },
-#        {
-#          "serialNum" => 2,
-#          "itemName" => "테스트1",
-#          "purchaseDT" => "20170117",
-#          "supplyCost" => "10000",
-#          "tax" => "1000",
-#        },
-#      ]
-#
-#
-#     }
-#
-#     response = TIServiceTest::TIInstance.registIssue(
-#       TIServiceTest::AccessID,
-#       taxinvoice,
-#       false,
-#       false,
-#       '',
-#       "발행메모",
-#       "메일 제목",
-#       "testkorea"
-#     )
-#
-#     puts response
-#
-#     assert_not_nil(response)
-#   end
+  # def test_09registIssue
+  #   puts TIInstance.ipRestrictOnOff
+  #   taxinvoice = {
+  #    "writeDate" => "20191031",
+  #    "issueType" => "정발행",
+  #    "taxType" => "과세",
+  #    "issueTiming" => "직접발행",
+  #    "chargeDirection" => "정과금",
+  #    "purposeType" => "영수",
+  #    "supplyCostTotal" => "20000",
+  #    "taxTotal" => "2000",
+  #    "totalAmount" => "22000",
+  #
+  #    "invoicerMgtKey" => "20191031-032",
+  #    "invoicerCorpNum" => TIServiceTest::AccessID,
+  #    "invoicerCorpName" => "상호명",
+  #    "invoicerCEOName" => "대표자명",
+  #
+  #    "invoiceeType" => "사업자",
+  #    "invoiceeCorpNum" => "8888888888",
+  #    "invoiceeCorpName" => "공급받는자 상호",
+  #    "invoiceeCEOName" => "대표자 성명",
+  #    "invoiceeEmail1" => "test@test.com",
+  #
+  #    "addContactList" => [
+  #      {
+  #        "serialNum" => 1,
+  #        "contactName" => "담당자여",
+  #        "email" => "test@test.com",
+  #      },
+  #      {
+  #        "serialNum" => 2,
+  #        "contactName" => "담당자여",
+  #        "email" => "test@test.com",
+  #      }
+  #    ],
+  #
+  #    "detailList" => [
+  #      {
+  #        "serialNum" => 1,
+  #        "itemName" => "테스트1",
+  #        "purchaseDT" => "20170117",
+  #        "supplyCost" => "10000",
+  #        "tax" => "1000",
+  #      },
+  #      {
+  #        "serialNum" => 2,
+  #        "itemName" => "테스트1",
+  #        "purchaseDT" => "20170117",
+  #        "supplyCost" => "10000",
+  #        "tax" => "1000",
+  #      },
+  #    ]
+  #   }
+  #
+  #   response = TIServiceTest::TIInstance.registIssue(
+  #     TIServiceTest::AccessID,
+  #     taxinvoice,
+  #     false,
+  #     false,
+  #     '',
+  #     "발행메모",
+  #     "메일 제목",
+  #     "testkorea"
+  #   )
+  #
+  #   puts response
+  #
+  #   assert_not_nil(response)
+  # end
 #
 #   def test_10updateTest
 #     taxinvoice = {
@@ -790,13 +788,94 @@ class TIServiceTest < Test::Unit::TestCase
   #   assert_not_nil(url)
   # end
 
-  def test_getContactInfo
-    contactInfo = TIServiceTest::TIInstance.getContactInfo(
+  # def test_getContactInfo
+  #   contactInfo = TIServiceTest::TIInstance.getContactInfo(
+  #     TIServiceTest::AccessID,
+  #     "testkorea"
+  #   )
+  #   puts contactInfo
+  #   assert_not_nil(contactInfo)
+  # end
+
+  # def test_bulkSubmit
+  #   submitID = 'RUBY-002-'
+  #   taxinvoiceList = []
+  #   forceIssue = true
+  #   for i in 0..2
+  #     taxinvoice = {
+  #      "writeDate" => "20200101",
+  #      "issueType" => "정발행",
+  #      "taxType" => "과세",
+  #      "issueTiming" => "직접발행",
+  #      "chargeDirection" => "정과금",
+  #      "purposeType" => "영수",
+  #      "supplyCostTotal" => "20000",
+  #      "taxTotal" => "2000",
+  #      "totalAmount" => "22000",
+  #
+  #      "invoicerMgtKey" => submitID + i.to_s,
+  #      "invoicerCorpNum" => TIServiceTest::AccessID,
+  #      "invoicerCorpName" => "상호명",
+  #      "invoicerCEOName" => "대표자명",
+  #
+  #      "invoiceeType" => "사업자",
+  #      "invoiceeCorpNum" => "8888888888",
+  #      "invoiceeCorpName" => "공급받는자 상호",
+  #      "invoiceeCEOName" => "대표자 성명",
+  #      "invoiceeEmail1" => "test@test.com",
+  #
+  #      "addContactList" => [
+  #        {
+  #          "serialNum" => 1,
+  #          "contactName" => "담당자여",
+  #          "email" => "test@test.com",
+  #        },
+  #        {
+  #          "serialNum" => 2,
+  #          "contactName" => "담당자여",
+  #          "email" => "test@test.com",
+  #        }
+  #      ],
+  #
+  #      "detailList" => [
+  #        {
+  #          "serialNum" => 1,
+  #          "itemName" => "테스트1",
+  #          "purchaseDT" => "20170117",
+  #          "supplyCost" => "10000",
+  #          "tax" => "1000",
+  #        },
+  #        {
+  #          "serialNum" => 2,
+  #          "itemName" => "테스트1",
+  #          "purchaseDT" => "20170117",
+  #          "supplyCost" => "10000",
+  #          "tax" => "1000",
+  #        },
+  #      ]
+  #     }
+  #     taxinvoiceList << taxinvoice
+  #   end
+  #
+  #   response = TIServiceTest::TIInstance.bulkSubmit(
+  #     TIServiceTest::AccessID,
+  #     submitID,
+  #     taxinvoiceList,
+  #     forceIssue,
+  #     "testkorea"
+  #   )
+  #
+  #   puts response
+  # end
+
+  def test_getBulkResult
+    submitID = 'RUBY-001-'
+    response = TIServiceTest::TIInstance.getBulkResult(
       TIServiceTest::AccessID,
+      submitID,
       "testkorea"
     )
-    puts contactInfo
-    assert_not_nil(contactInfo)
+    puts response
   end
 
 

@@ -110,6 +110,37 @@ class TaxinvoiceService < BaseService
 
   end
 
+  def bulkSubmit(corpNum, submitID, taxinvoiceList, forceIssue = false, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    if submitID.to_s == ''
+      raise PopbillException.new('-99999999', '제출아이디가 입렫되지 않았습니다.')
+    end
+
+    if taxinvoiceList.to_s == ''
+      raise PopbillException.new('-99999999', '세금계산서 정보가 입력되지 않았습니다.')
+    end
+
+    postData = {}
+    postData['forceIssue'] = forceIssue
+    postData['invoices'] = taxinvoiceList
+
+    httppostbulk("/Taxinvoice", corpNum, postData.to_json, submitID, "BULKISSUE", userID)
+  end
+
+  def getBulkResult(corpNum, submitID, userID = '')
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    if submitID.to_s == ''
+      raise PopbillException.new('-99999999', '제출아이디가 입렫되지 않았습니다.')
+    end
+
+    httpget("/Taxinvoice/BULK/#{submitID}/State", corpNum, userID)
+  end
 
   def update(corpNum, mgtKeyType, mgtKey, taxinvoice, userID = '')
     if corpNum.length != 10
