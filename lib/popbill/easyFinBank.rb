@@ -109,6 +109,32 @@ class EasyFinBankService < BaseService
     httppost(uri, corpNum, "", "", userID)
   end
 
+  def deleteBankAccount(corpNum, bankCode, accountNumber, userID = "")
+    if corpNum.length != 10
+      raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
+    end
+
+    if bankCode.to_s == ''
+      raise PopbillException.new('-99999999', '기관코드가 입력되지 않았습니다.')
+    end
+
+    if bankCode.length != 4
+      raise PopbillException.new('-99999999', '기관코드가 올바르지 않습니다.')
+    end
+
+    if accountNumber.to_s == ''
+      raise PopbillException.new('-99999999', '은행 계좌번호가 입력되지 않았습니다.')
+    end
+
+    uri = "/EasyFin/Bank/BankAccount/Delete"
+
+    postData = {}
+    postData["BankCode"] = bankCode
+    postData["AccountNumber"] = accountNumber
+
+    httppost(uri, corpNum, postData.to_json, "", userID)
+  end
+
   def getBankAccountInfo(corpNum, bankCode, accountNumber, userID = "")
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
