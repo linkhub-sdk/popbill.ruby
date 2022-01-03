@@ -286,6 +286,7 @@ class CBServiceTest < Test::Unit::TestCase
   #   puts response
   #   assert_not_nil(response)
   # end
+
   #
   # def test_21getPrintURL
   #   response = CBInstance.getPrintURL(
@@ -398,5 +399,16 @@ class CBServiceTest < Test::Unit::TestCase
   #   )
   #   assert_not_nil(response)
   # end
+
+
+    def test_getViewULR
+      response = CBInstance.getViewURL(
+        CBServiceTest::AccessID,
+        "20161220-01",
+        ""
+      )
+      puts response
+      assert_not_nil(response)
+    end
 
 end # end of test Class
