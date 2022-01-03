@@ -31,15 +31,15 @@ class TIServiceTest < Test::Unit::TestCase
   #   assert_not_nil(response)
   # end
 
-  def test_03getURL
-    url = TIServiceTest::TIInstance.getURL(
-      TIServiceTest::AccessID,
-      "PBOX",
-      "testkorea00000"
-    )
-    puts url
-    assert_not_nil(url)
-  end
+  # def test_03getURL
+  #   url = TIServiceTest::TIInstance.getURL(
+  #     TIServiceTest::AccessID,
+  #     "PBOX",
+  #     "testkorea00000"
+  #   )
+  #   puts url
+  #   assert_not_nil(url)
+  # end
 
 #   def test_04getUnitCost
 #     cost = TIServiceTest::TIInstance.getUnitCost(TIServiceTest::AccessID)
@@ -770,6 +770,14 @@ class TIServiceTest < Test::Unit::TestCase
 #     )
 #     puts url
 #   end
+
+  def test_getSendToNTSConfig
+    response = TIServiceTest::TIInstance.getSendToNTSConfig(
+        TIServiceTest::AccessID,
+        "testkorea"
+    )
+    puts response
+  end
 
 
 end # end of test Class
