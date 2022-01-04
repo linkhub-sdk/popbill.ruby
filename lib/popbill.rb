@@ -247,7 +247,7 @@ class BaseService
   end
 
   # Request HTTP Post File
-  def httppostfile(url, corpNum, form, files, userID)
+  def httppostfile(url, corpNum, form, files, userID, isBinary = false)
     headers = {
         "x-pb-version" => BaseService::POPBILL_APIVersion,
         "Content-Type" => "multipart/form-data;boundary=" + BaseService::BOUNDARY,
@@ -271,21 +271,29 @@ class BaseService
       post_body << "Content-Type: Application/json;\r\n\r\n"
       post_body << form.to_json + "\r\n"
     end
-
-    files.each do |filePath|
-      begin
-        fileName = File.basename(filePath)
-        post_body << "--#{BaseService::BOUNDARY}\r\n"
+    if isBinary
+      files.each do |fileData|
+        fileName = fileData["fileName"]
+        post_body << "\r\n--#{BaseService::BOUNDARY}\r\n"
         post_body << "Content-Disposition: form-data; name=\"file\"; filename=\"#{fileName}\"\r\n"
         post_body << "Content-Type: Application/octet-stream\r\n\r\n"
-        post_body << File.read(filePath)
-      rescue
-        raise PopbillException.new(-99999999, "Failed to reading filedata from filepath")
+        post_body << fileData["fileData"]
+      end
+    else
+      files.each do |filePath|
+        begin
+          fileName = File.basename(filePath)
+          post_body << "\r\n--#{BaseService::BOUNDARY}\r\n"
+          post_body << "Content-Disposition: form-data; name=\"file\"; filename=\"#{fileName}\"\r\n"
+          post_body << "Content-Type: Application/octet-stream\r\n\r\n"
+          post_body << File.read(filePath)
+        rescue
+          raise PopbillException.new(-99999999, "Failed to reading filedata from filepath")
+        end
       end
     end
 
-    post_body << "\r\n\r\n--#{BaseService::BOUNDARY}--\r\n"
-
+    post_body << "\r\n--#{BaseService::BOUNDARY}--\r\n"
     # Add the file Data
 
     uri = URI(getServiceURL() + url)

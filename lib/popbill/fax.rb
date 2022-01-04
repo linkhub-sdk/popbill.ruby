@@ -128,6 +128,39 @@ class FaxService < BaseService
     httppostfile("/FAX", corpNum, postData, filePaths, userID)['receiptNum']
   end
 
+  def sendFaxBinary(corpNum, senderNum, senderName, receiverNum, receiverName, fileDatas,
+              reserveDT = '', userID = '', adsYN = false, title = '', requestNum = '')
+    if corpNum.length != 10
+      raise PopbillException.new(-99999999, "사업자등록번호가 올바르지 않습니다.")
+    end
+
+    receiver = [
+        {
+            "rcv" => receiverNum,
+            "rcvnm" => receiverName,
+        }
+    ]
+
+    sendFaxBinary_multi(corpNum, senderNum, senderName, receiver, fileDatas, reserveDT, userID, adsYN, title, requestNum)
+  end
+
+  def sendFaxBinary_multi(corpNum, senderNum, senderName, receivers, fileDatas,
+                    reserveDT = '', userID = '', adsYN = false, title = '', requestNum = '')
+    postData = {}
+    postData["snd"] = senderNum
+    postData["sndnm"] = senderName
+    postData["fCnt"] = fileDatas.length
+    postData["sndDT"] = reserveDT
+    postData["rcvs"] = receivers
+    postData["title"] = title
+    postData["requestNum"] = requestNum
+    if adsYN
+      postData["adsYN"] = adsYN
+    end
+
+    httppostfile("/FAX", corpNum, postData, fileDatas, userID , true)['receiptNum']
+  end
+
   def resendFax(corpNum, receiptNum, senderNum, senderName, receiveNum, receiveName,
                 reserveDT = '', userID = '', title = '', requestNum = '')
     if receiptNum.to_s == ''
