@@ -15,6 +15,7 @@ class BaseServiceTest < Test::Unit::TestCase
   LinkhubInstance = BaseService.instance(BaseServiceTest::LinkID, BaseServiceTest::SecretKey)
   LinkhubInstance.addScope("110")
   LinkhubInstance.isTest = true
+  LinkhubInstance.setUseLocalTimeYN(false)
 
   # def test_01getTimeCompare
   #   auth = Linkhub.instance(BaseServiceTest::LinkID, BaseServiceTest::SecretKey)
@@ -46,15 +47,16 @@ class BaseServiceTest < Test::Unit::TestCase
   #   assert_equal(token, token2)
   # end
   #
-  # def test_04getBalance
-  #   base_instance = BaseService.instance(BaseServiceTest::LinkID, BaseServiceTest::SecretKey)
-  #   base_instance.addScope("110")
-  #   base_instance.isTest = true
-  #   base_instance.useGAIP = false
-  #   base_instance.useStaticIP = false
-  #   balance = base_instance.getBalance(BaseServiceTest::AccessID)
-  #   assert_not_nil(balance)
-  # end
+  def test_04getBalance
+    base_instance = BaseService.instance(BaseServiceTest::LinkID, BaseServiceTest::SecretKey)
+    base_instance.addScope("110")
+    base_instance.isTest = true
+    base_instance.useGAIP = false
+    base_instance.setUseLocalTimeYN = false
+    # base_instance.useLocalTimeYN = false
+    balance = base_instance.getBalance(BaseServiceTest::AccessID)
+    assert_not_nil(balance)
+  end
   #
   # def test_05getPartnerBalance
   #   base_instance = BaseService.instance(BaseServiceTest::LinkID, BaseServiceTest::SecretKey)
@@ -180,15 +182,15 @@ class BaseServiceTest < Test::Unit::TestCase
   #   assert_not_nil(contactInfo)
   # end
 
-  def test_getPaymentURL
-    url = BaseServiceTest::LinkhubInstance.getPaymentURL("1234567890", "testkorea")
-    puts url
-  end
-
-  def test_getUseHistoryURL
-    url = BaseServiceTest::LinkhubInstance.getUseHistoryURL("1234567890", "testkorea")
-    puts url
-  end
+  # def test_getPaymentURL
+  #   url = BaseServiceTest::LinkhubInstance.getPaymentURL("1234567890", "testkorea")
+  #   puts url
+  # end
+  #
+  # def test_getUseHistoryURL
+  #   url = BaseServiceTest::LinkhubInstance.getUseHistoryURL("1234567890", "testkorea")
+  #   puts url
+  # end
 
 
 end

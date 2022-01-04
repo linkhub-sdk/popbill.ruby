@@ -17,6 +17,7 @@ class TIServiceTest < Test::Unit::TestCase
   TIInstance.setIpRestrictOnOff(true)
   TIInstance.setUseGAIP(false)
   TIInstance.setUseStaticIP(false)
+  TIInstance.setUseStaticIP(false)
   # def test_01ServiceInstance
   #   tiInstance = TaxinvoiceService.instance(
   #     TIServiceTest::LinkID,

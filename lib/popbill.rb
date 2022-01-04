@@ -19,7 +19,7 @@ class BaseService
   POPBILL_APIVersion = "1.0"
   BOUNDARY = "==POPBILL_RUBY_SDK=="
 
-  attr_accessor :token_table, :scopes, :isTest, :linkhub, :ipRestrictOnOff, :useStaticIP, :useGAIP
+  attr_accessor :token_table, :scopes, :isTest, :linkhub, :ipRestrictOnOff, :useStaticIP, :useGAIP, :useLocalTimeYN
 
   # Generate Linkhub Class Singleton Instance
   class << self
@@ -31,6 +31,7 @@ class BaseService
       @instance.ipRestrictOnOff = true
       @instance.useStaticIP = false
       @instance.useGAIP = false
+      @instance.useLocalTimeYN = true
 
       return @instance
     end
@@ -58,6 +59,10 @@ class BaseService
 
   def setUseGAIP(value)
     @useGAIP = value
+  end
+
+  def setUseLocalTimeYN(value)
+    @useLocalTimeYN = value
   end
 
   def getServiceURL()
@@ -90,7 +95,7 @@ class BaseService
     else
       # Token's expireTime must use parse() because time format is hh:mm:ss.SSSZ
       expireTime = DateTime.parse(targetToken['expiration'])
-      serverUTCTime = DateTime.strptime(@linkhub.getTime(@useStaticIP, @useGAIP))
+      serverUTCTime = DateTime.strptime(@linkhub.getTime(@useStaticIP, @useGAIP, @useLocalTimeYN))
       refresh = expireTime < serverUTCTime
     end
 
@@ -98,7 +103,7 @@ class BaseService
       begin
         # getSessionToken from Linkhub
         targetToken = @linkhub.getSessionToken(
-            @isTest ? ServiceID_TEST : ServiceID_REAL, corpNum, @scopes, @ipRestrictOnOff ? "" : "*", @useStaticIP, @useGAIP)
+            @isTest ? ServiceID_TEST : ServiceID_REAL, corpNum, @scopes, @ipRestrictOnOff ? "" : "*", @useStaticIP, @useGAIP, @useLocalTimeYN)
 
       rescue LinkhubException => le
         raise PopbillException.new(le.code, le.message)
