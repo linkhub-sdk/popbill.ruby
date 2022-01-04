@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'popbill'
-  s.version     = '1.50.0'
-  s.date        = '2021-10-06'
+  s.version     = '1.51.0'
+  s.date        = '2022-01-04'
   s.summary     = 'Popbill API SDK'
   s.description = 'Popbill API SDK'
   s.authors     = ["Linkhub Dev"]
@@ -15,5 +15,5 @@ Gem::Specification.new do |s|
   s.license     = 'APACHE LICENSE VERSION 2.0'
   s.homepage    = 'https://github.com/linkhub-sdk/popbill.ruby'
   s.required_ruby_version = '>= 2.0.0'
-  s.add_runtime_dependency 'linkhub', '1.4.0'
+  s.add_runtime_dependency 'linkhub', '1.5.0'
 end
