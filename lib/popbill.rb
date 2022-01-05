@@ -282,7 +282,7 @@ class BaseService
         post_body << "\r\n--#{BaseService::BOUNDARY}\r\n"
         post_body << "Content-Disposition: form-data; name=\"file\"; filename=\"#{fileName}\"\r\n"
         post_body << "Content-Type: Application/octet-stream\r\n\r\n"
-        post_body << fileData["fileData"]
+        post_body << fileData["fileData"].force_encoding("UTF-8")
       end
     else
       files.each do |filePath|

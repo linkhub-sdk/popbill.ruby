@@ -32,14 +32,14 @@ class FaxServiceTest < Test::Unit::TestCase
   #   assert_not_nil(response)
   # end
   #
-  def test_03getURL
-    url = FaxInstance.getURL(
-        FaxServiceTest::AccessID,
-        "BOX"
-    )
-    puts url
-    assert_not_nil(url)
-  end
+  # def test_03getURL
+  #   url = FaxInstance.getURL(
+  #       FaxServiceTest::AccessID,
+  #       "BOX"
+  #   )
+  #   puts url
+  #   assert_not_nil(url)
+  # end
   #
   # def test_04getUnitCost
   #   response = FaxInstance.getUnitCost(
@@ -325,59 +325,55 @@ class FaxServiceTest < Test::Unit::TestCase
   #   puts url
   # end
 
-  # def test_sendFaxBinary
-  #   reserveDT = "2022010414000000"
-  #   userID = "testkorea"
-  #   adsYN = false
-  #   title = "팩스제목들어가나요"
-  #   requestNum = ""
-  #
-  #   fileDatas = []
-  #   io = File.open('./test.pdf', "r")
-  #   io2 = File.open('./test.jpg', "r")
-  #   # fileData = ["test.pdf", io.read]
-  #   # fileDatas << fileData
-  #   #
-  #   # fileData2 = ["test.jpg", io2.read]
-  #   # fileDatas << fileData2
-  #
-  #   receiver = [
-  #       {
-  #           "rcv" => '070111222',
-  #           "rcvnm" => '테스트맨'
-  #       },
-  #       {
-  #           "rcv" => '070111333',
-  #           "rcvnm" => '테스트맨2222'
-  #       }
-  #   ]
-  #   fileDatas = [
-  #     {
-  #       "fileName" => 'test.pdf',
-  #       "fileData" => io.read
-  #     },
-  #     {
-  #       "fileName" => 'test.jpg',
-  #       "fileData" => io2.read
-  #     }
-  #   ]
-  #
-  #   io.close
-  #   io2.close
-  #   resposne = FaxInstance.sendFaxBinary_multi(
-  #     FaxServiceTest::AccessID,
-  #     "07043042992",
-  #     "발신자명",
-  #     receiver,
-  #     fileDatas,
-  #     reserveDT,
-  #     userID,
-  #     adsYN,
-  #     title,
-  #     requestNum
-  #   )
-  #   puts resposne
-  # end
+  def test_sendFaxBinary
+    reserveDT = "2022010414000000"
+    userID = "testkorea"
+    adsYN = false
+    title = "팩스제목들어가나요"
+    requestNum = ""
+
+    fileDatas = []
+    io = File.open('./test.pdf', "rb")
+
+    io2 = File.open('./test.txt', "r")
+
+    receiver = [
+        {
+            "rcv" => '070111222',
+            "rcvnm" => '테스트맨'
+        },
+        {
+            "rcv" => '070111333',
+            "rcvnm" => '테스트맨2222'
+        }
+    ]
+    fileDatas = [
+      {
+        "fileName" => 'test.pdf',
+        "fileData" => io.read
+      },
+      {
+        "fileName" => 'test.txt',
+        # "fileData" => io2.read
+        "fileData" => io2.read
+      },
+    ]
+    io.close
+    io2.close
+    resposne = FaxInstance.sendFaxBinary_multi(
+      FaxServiceTest::AccessID,
+      "07043042992",
+      "발신자명",
+      receiver,
+      fileDatas,
+      reserveDT,
+      userID,
+      adsYN,
+      title,
+      requestNum
+    )
+    puts resposne
+  end
 
 
 end # end of test Class
