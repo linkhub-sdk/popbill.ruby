@@ -10,7 +10,7 @@ class BaseServiceTest < Test::Unit::TestCase
 
   ServiceID = "POPBILL_TEST"
   AccessID = "1234567890"
-  Scope = ["member","110"]
+  Scope = ["member", "110"]
 
   LinkhubInstance = BaseService.instance(BaseServiceTest::LinkID, BaseServiceTest::SecretKey)
   LinkhubInstance.addScope("110")
@@ -57,6 +57,7 @@ class BaseServiceTest < Test::Unit::TestCase
     balance = base_instance.getBalance(BaseServiceTest::AccessID)
     assert_not_nil(balance)
   end
+
   #
   # def test_05getPartnerBalance
   #   base_instance = BaseService.instance(BaseServiceTest::LinkID, BaseServiceTest::SecretKey)
@@ -192,5 +193,35 @@ class BaseServiceTest < Test::Unit::TestCase
   #   puts url
   # end
 
+  def test_GetRefundInfo
+    refund_code = "1002938102938898"
+    url = BaseServiceTest::LinkhubInstance.GetRefundInfo("1234567890", refund_code, "testkorea")
+    puts url
+  end
+
+  def test_GetRefundableBalance
+    url = BaseServiceTest::LinkhubInstance.GetRefundalbeBalance("1234567890", "testkorea")
+    puts url
+  end
+
+  def test_Refund
+    refund_form = {
+      contactName => "담당자명",
+      tel => "010-1234-1234",
+      requestPoint => "1000",
+      accountBank => "국민",
+      accountNum => "1123",
+      accountName => "예금주",
+      reason => "사용 안함 사유",
+    }
+    url = BaseServiceTest::LinkhubInstance.Refund("1234567890", refund_form, "testkorea")
+    puts url
+  end
+
+  def test_QuitMember
+    quit_reasone = "탈퇴사유"
+    url = BaseServiceTest::LinkhubInstance.QuitMember("1234567890", quit_reasone, "testkorea")
+    puts url
+  end
 
 end

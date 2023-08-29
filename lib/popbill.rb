@@ -39,7 +39,6 @@ class BaseService
     private :new
   end
 
-
   # add Service Scope array
   def addScope(scopeValue)
     @scopes.push(scopeValue)
@@ -67,7 +66,7 @@ class BaseService
 
   def getServiceURL()
     if @useGAIP
-        return @isTest ? BaseService::ServiceURL_GA_TEST : BaseService::ServiceURL_GA_REAL
+      return @isTest ? BaseService::ServiceURL_GA_TEST : BaseService::ServiceURL_GA_REAL
     elsif @useStaticIP
       return @isTest ? BaseService::ServiceURL_Static_TEST : BaseService::ServiceURL_Static_REAL
     else
@@ -103,7 +102,7 @@ class BaseService
       begin
         # getSessionToken from Linkhub
         targetToken = @linkhub.getSessionToken(
-            @isTest ? ServiceID_TEST : ServiceID_REAL, corpNum, @scopes, @ipRestrictOnOff ? "" : "*", @useStaticIP, @useGAIP, @useLocalTimeYN)
+          @isTest ? ServiceID_TEST : ServiceID_REAL, corpNum, @scopes, @ipRestrictOnOff ? "" : "*", @useStaticIP, @useGAIP, @useLocalTimeYN)
 
       rescue LinkhubException => le
         raise PopbillException.new(le.code, le.message)
@@ -126,8 +125,8 @@ class BaseService
   # Popbill API http Get Request Func
   def httpget(url, corpNum, userID = '')
     headers = {
-        "x-pb-version" => BaseService::POPBILL_APIVersion,
-        "Accept-Encoding" => "gzip,deflate",
+      "x-pb-version" => BaseService::POPBILL_APIVersion,
+      "Accept-Encoding" => "gzip,deflate",
     }
 
     if corpNum.to_s != ''
@@ -159,14 +158,14 @@ class BaseService
     end
   end
 
-  #end of httpget
+  # end of httpget
 
   # Request HTTP Post
   def httppost(url, corpNum, postData, action = '', userID = '', contentsType = '')
 
     headers = {
-        "x-pb-version" => BaseService::POPBILL_APIVersion,
-        "Accept-Encoding" => "gzip,deflate",
+      "x-pb-version" => BaseService::POPBILL_APIVersion,
+      "Accept-Encoding" => "gzip,deflate",
     }
 
     if contentsType == ''
@@ -207,12 +206,12 @@ class BaseService
     end
   end
 
-  #end of httppost
+  # end of httppost
 
   def httppostbulk(url, corpNum, postData, submitID, action = '', userID = '')
     headers = {
-        "x-pb-version" => BaseService::POPBILL_APIVersion,
-        "Accept-Encoding" => "gzip,deflate",
+      "x-pb-version" => BaseService::POPBILL_APIVersion,
+      "Accept-Encoding" => "gzip,deflate",
     }
 
     headers["Content-Type"] = "application/json; charset=utf8"
@@ -254,10 +253,10 @@ class BaseService
   # Request HTTP Post File
   def httppostfile(url, corpNum, form, files, userID, isBinary = false)
     headers = {
-        "x-pb-version" => BaseService::POPBILL_APIVersion,
-        "Content-Type" => "multipart/form-data;boundary=" + BaseService::BOUNDARY,
-        "Accept-Encoding" => "gzip,deflate",
-        "Connection" => "Keep-Alive"
+      "x-pb-version" => BaseService::POPBILL_APIVersion,
+      "Content-Type" => "multipart/form-data;boundary=" + BaseService::BOUNDARY,
+      "Accept-Encoding" => "gzip,deflate",
+      "Connection" => "Keep-Alive"
     }
 
     if corpNum.to_s != ''
@@ -324,10 +323,10 @@ class BaseService
 
   def httppostfiles(url, corpNum, form, files, userID)
     headers = {
-        "x-pb-version" => BaseService::POPBILL_APIVersion,
-        "Content-Type" => "multipart/form-data;boundary=" + BaseService::BOUNDARY,
-        "Accept-Encoding" => "gzip,deflate",
-        "Connection" => "Keep-Alive"
+      "x-pb-version" => BaseService::POPBILL_APIVersion,
+      "Content-Type" => "multipart/form-data;boundary=" + BaseService::BOUNDARY,
+      "Accept-Encoding" => "gzip,deflate",
+      "Connection" => "Keep-Alive"
     }
 
     if corpNum.to_s != ''
@@ -488,7 +487,7 @@ class BaseService
     http_response = httpget("/Join?CorpNum=" + corpNum + "&LID=" + linkID, "", "")
   end
 
-  def getContactInfo(corpNum, contactID, userID  = "")
+  def getContactInfo(corpNum, contactID, userID = "")
     if corpNum.length != 10
       raise PopbillException.new('-99999999', '사업자등록번호가 올바르지 않습니다.')
     end
@@ -538,7 +537,36 @@ class BaseService
     end
     httppost("/CorpInfo", corpNum, corpInfo.to_json, "", userID)
   end
-end # end of BaseService class
+
+  def Refund(corpNum, refundForm, userID = "")
+    httppost("/Refund", corpNum, refundForm.to_json, "", userID)
+  end
+
+  def GetRefundalbeBalance(corpNum, userID = "")
+    httpget("/RefundPoint", corpNum, userID)
+  end
+
+  def GetRefundInfo(corpNum, refundCode, userID = "")
+    if refundCode.length != 18
+      raise PopbillException.new('-99999999', '환불코드가 올바르지 않습니다.')
+    end
+
+    httpget("/Refund/" + refundCode, corpNum, userID)
+  end
+
+  def QuitMember(corpNum, quitReason, userID = "")
+    if quitReason.nil?
+      raise PopbillException.new('-99999999', '탈퇴 사유가 올바르지 않습니다.')
+    end
+
+    post_data = { "quitReason" => quitReason }
+
+    httppost("/QuitRequest", corpNum, post_data.to_json, "", userID)
+  end
+
+end
+
+# end of BaseService class
 
 # Popbill API Exception Handler class
 class PopbillException < StandardError
